@@ -7,6 +7,7 @@ exports.up = knex => knex.schema.createTable('profiles', table => {
   table.string('bio')
   table.string('photo_url')
   table.string('location_city')
+  table.string('email')
 })
 
 exports.down = knex => knex.schema.dropTable('profiles')
