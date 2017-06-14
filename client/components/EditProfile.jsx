@@ -22,13 +22,16 @@ class EditProfile extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleClick = this.handleClick.bind(this)
     }
+    
     handleChange (e) {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+
     handleClick () {
     }
+
     render () {
     return (
         <div className='edit-proflile'>
@@ -54,13 +57,11 @@ class EditProfile extends React.Component {
 
 function mapDispatchToProps (dispatch) {
     return {
-
     }
 }
 
 function mapStateToProps (state) {
     return {
-
     }
 }
 
