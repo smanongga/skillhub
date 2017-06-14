@@ -7,7 +7,10 @@ exports.seed = function (knex, Promise) {
       return knex('skills').insert([
         {id: 1, name: 'Guitar'},
         {id: 2, name: 'Javascript'},
-        {id: 3, name: 'Photography'}
+        {id: 3, name: 'Photography'},
+        {id: 4, name: 'Singing'},
+        {id: 5, name: 'Wordpress'},
+        {id: 6, name: 'Painting'}
       ])
     })
 }
