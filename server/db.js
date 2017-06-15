@@ -11,10 +11,10 @@ function getProfileById (id, connection) {
 ])
 .then(([result1, result2, result3, result4]) => {
   const data = {
-    result1,
+    profile: result1,
     skillsToOffer: result2,
     skillsToLearn: result3,
-    feedback: [result4]
+    feedback: result4
   }
   return data
 })
@@ -27,6 +27,7 @@ function getProfileById (id, connection) {
 function getProfile (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
+  .select('id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
 }
 
 function getSkillsToLearn (id, connection) {
@@ -50,5 +51,5 @@ function getFeedbacks (id, connection) {
   .where('profiles.id', '=', id)
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-  .select('commenter.first_name', 'feedbacks.message', 'commenter.photo_url')
+  .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
 }
