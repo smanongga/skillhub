@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from './Navbar'
-import Quote from './Quote'
 
 import EditProfile from './EditProfile'
 import Profile from './Profile'
