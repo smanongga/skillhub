@@ -1,5 +1,6 @@
 module.exports = {
-  getProfileById
+  getProfileById,
+  getCategories
 }
 
 function getProfileById (id, connection) {
@@ -8,7 +9,7 @@ function getProfileById (id, connection) {
     getSkillsToOffer(id, connection),
     getSkillsToLearn(id, connection),
     getFeedbacks(id, connection)
-])
+  ])
 .then(([result1, result2, result3, result4]) => {
   const data = {
     profile: result1,
@@ -18,10 +19,9 @@ function getProfileById (id, connection) {
   }
   return data
 })
-.catch (err => {
- console.log(err)
+.catch((err) => {
+  console.log(err)
 })
-
 }
 
 function getProfile (id, connection) {
@@ -52,4 +52,9 @@ function getFeedbacks (id, connection) {
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
+}
+
+function getCategories (connection) {
+  return connection('categories')
+  .select()
 }
