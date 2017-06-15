@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import Quote from './Quote'
-
+import EditProfile from './EditProfile'
 import {connect} from 'react-redux'
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -19,7 +18,6 @@ class App extends React.Component {
         <button onClick={() => this.props.createLogin()}>Log In</button>
         <div className='quote'>
           <EditProfile />
-          <Quote />
         </div>
       </div>
     )

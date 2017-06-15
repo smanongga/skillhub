@@ -9,7 +9,8 @@
     "postinstall": "knex migrate:latest && webpack",
     "start": "node server",
     "test": "ava",
-    "test:watch": "ava --watch"
+    "test:watch": "ava --watch",
+    "debug":"node --inspect --debug-brk server"
   },
   "author": "EDA",
   "license": "ISC",
