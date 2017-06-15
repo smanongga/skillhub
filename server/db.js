@@ -50,5 +50,5 @@ function getFeedbacks (id, connection) {
   .where('profiles.id', '=', id)
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-  .select('commenter.first_name', 'feedbacks.message')
+  .select('commenter.first_name', 'feedbacks.message', 'commenter.photo_url')
 }
