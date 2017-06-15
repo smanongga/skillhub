@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import EditProfile from './EditProfile'
 import {connect} from 'react-redux'
 import {login, requestLogin} from '../actions/loginauth0'
+import Profile from './Profile'
+import Categories from './Categories'
 
 class App extends React.Component {
   constructor (props) {
@@ -20,6 +22,7 @@ class App extends React.Component {
           <EditProfile />
         </div>
       </div>
+
     )
   }
 }
