@@ -20,7 +20,7 @@ export function isAuthenticated () {
 }
 
 export function saveUserToken (token) {
-  set('token', token)
+  set('accessToken', token)
   return decode(token)
 }
 

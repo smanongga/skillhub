@@ -1,5 +1,20 @@
 module.exports = {
+  addUserToProfile,
+  profileExists,
   getProfileById
+}
+
+function addUserToProfile (conn, id) {
+  return conn('profiles')
+	.where('auth_id', id)
+		.insert({ auth_id: id.auth_id
+})
+}
+
+function profileExists (conn, id) {
+  return conn('profiles')
+    .select()
+		.where('auth_id', id)
 }
 
 function getProfileById (id, connection) {
@@ -8,7 +23,7 @@ function getProfileById (id, connection) {
     getSkillsToOffer(id, connection),
     getSkillsToLearn(id, connection),
     getFeedbacks(id, connection)
-])
+  ])
 .then(([result1, result2, result3, result4]) => {
   const data = {
     profile: result1,
@@ -18,10 +33,9 @@ function getProfileById (id, connection) {
   }
   return data
 })
-.catch (err => {
- console.log(err)
+.catch(err => {
+  console.log(err)
 })
-
 }
 
 function getProfile (id, connection) {

@@ -31,7 +31,7 @@ class EditProfile extends React.Component {
   }
 
   handleClick () {
-    this.props.updateProfile()  
+    this.props.updateProfile()
   }
 
   render () {
@@ -54,7 +54,6 @@ class EditProfile extends React.Component {
     )
   }
 }
-
 
 function mapDispatchToProps (dispatch) {
   return {
