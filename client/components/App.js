@@ -1,8 +1,10 @@
 import React from 'react'
+import {connect} from 'react-redux'
+
+import {login, requestLogin} from '../actions/loginauth0'
+
 import Navbar from './Navbar'
 import EditProfile from './EditProfile'
-import {connect} from 'react-redux'
-import {login, requestLogin} from '../actions/loginauth0'
 import Profile from './Profile'
 import Categories from './Categories'
 
