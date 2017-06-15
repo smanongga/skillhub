@@ -1,9 +1,12 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const verifyJwt = require('express-jwt')
-
+const db = require('../db')
 const users = require('../lib/users')
 const auth = require('../lib/auth.js')
+
+const config = require('../../knexfile')[process.env.NODE_ENV || 'development']
+const conn = require('knex')(config)
 
 const router = express.Router()
 router.use(bodyParser.json())
@@ -52,6 +55,45 @@ router.get('/quote',
     res.json(response)
   }
 )
+router.post('/profiletest', (req, res) => {
+  db.profileExists(conn, req.body.auth_id)
+  .then((exists) => {
+    console.log(exists)
+    if (exists.length !== 0) {
+      return res.status(403).json({
+        message: 'Registration failed',
+        info: 'User already exists.'
+      })
+    }
+    db.addUserToProfile(conn, req.body)
+  .then((result) => {
+    res.send(result)
+  })
+  })
+})
+
+// db.getUserByName(user.username, connection)
+//     .then((users) => {
+//       if (users.length !== 0) {
+//         return res.status(403).json({
+//           message: 'Registration failed',
+//           info: 'User already exists.'
+//         })
+//       }
+
+//       db.addUser(user, connection)
+//         .then((id) => {
+//           user.id = id[0]
+//           callback(user, res)
+//         })
+//     })
+//     .catch(() => {
+//       return res.status(500).json({
+//         message: 'Authentication failed due to a server error.',
+//         info: 'Unable to save user into database'
+//       })
+//     })
+// }
 
 // Protect all routes beneath this point
 router.use(

@@ -5,7 +5,7 @@ module.exports = {
   create,
   exists,
   getById,
-  getByName,
+  getByName
 }
 
 function create (username, password, testDb) {
