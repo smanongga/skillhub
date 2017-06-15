@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import Quote from './Quote'
 
 import EditProfile from './EditProfile'
+import Profile from './Profile'
+import Categories from './Categories'
 
 const App = () => {
   return (
@@ -11,8 +13,6 @@ const App = () => {
 
       <Navbar />
       <div className='app'>
-
-        <EditProfile />
       </div>
     </div>
   )
