@@ -24,7 +24,7 @@ class App extends React.Component {
           <button onClick={() => this.props.createLogin()}>Log In</button>
           <Switch>
             <Route path='/profiles/:id' component={Profile} />
-            <Route path='/profiles/:id/edit' compotent={EditProfile} />
+            <Route path='/profiles/:id/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
           </Switch>
         </div>
