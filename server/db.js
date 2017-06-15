@@ -1,4 +1,5 @@
 module.exports = {
+  getCategories,
   addUserToProfile,
   profileExists,
   getProfileById
@@ -6,15 +7,15 @@ module.exports = {
 
 function addUserToProfile (conn, id) {
   return conn('profiles')
-	.where('auth_id', id)
-		.insert({ auth_id: id.auth_id
-})
+ .where('auth_id', id)
+ .insert({ auth_id: id.auth_id
+ })
 }
 
 function profileExists (conn, id) {
   return conn('profiles')
-    .select()
-		.where('auth_id', id)
+ .select()
+ .where('auth_id', id)
 }
 
 function getProfileById (id, connection) {
@@ -33,7 +34,7 @@ function getProfileById (id, connection) {
   }
   return data
 })
-.catch(err => {
+.catch((err) => {
   console.log(err)
 })
 }
@@ -66,4 +67,9 @@ function getFeedbacks (id, connection) {
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
+}
+
+function getCategories (connection) {
+  return connection('categories')
+  .select()
 }

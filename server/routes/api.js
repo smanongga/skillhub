@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const verifyJwt = require('express-jwt')
+
 const db = require('../db')
 const users = require('../lib/users')
 const auth = require('../lib/auth.js')
@@ -102,8 +103,8 @@ router.use(
   }),
   auth.handleError
 )
-
-// These routes are protected
+//
+// // These routes are protected
 router.get('/secret', (req, res) => {
   res.json({
     message: 'This is a SECRET quote.',
@@ -146,14 +147,12 @@ router.get('/categories', (req, res) => {
 //    { id: 3, name: 'Art and Design'}
 // ]
 
-
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
 // { id: 1,
 //  name: tony
 //    skillsToLearn['guitar','javascript']
 // }
-
 
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
