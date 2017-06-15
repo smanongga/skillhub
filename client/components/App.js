@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -16,14 +17,18 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>SkillHub</h1>
-        <Navbar />
-        <button onClick={() => this.props.createLogin()}>Log In</button>
-        <div className='quote'>
-          <EditProfile />
+      <Router>
+        <div className='app'>
+          <h1>SkillHub</h1>
+          <Navbar />
+          <button onClick={() => this.props.createLogin()}>Log In</button>
+          <Switch>
+            <Route path='/profiles/:id' component={Profile} />
+            <Route path='/profiles/:id/edit' compotent={EditProfile} />
+            <Route path='/categories' component={Categories} />
+          </Switch>
         </div>
-      </div>
+      </Router>
 
     )
   }
