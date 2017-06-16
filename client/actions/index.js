@@ -1,4 +1,4 @@
- import {getAllCategories} from '../utils/api'
+ // import {getAllCategories} from '../utils/api'
  import request from '../utils/api'
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
@@ -73,5 +73,14 @@
     .then(res => {
       dispatch(saveProfileById(res.body.result.profile[0]))
     })
+   }
+ }
+
+ export function getAllCategories (callback) {
+   return dispatch => {
+     request('get', '/categories')
+     .then(res => {
+       dispatch(receiveCategories(res.body.result))
+     })
    }
  }
