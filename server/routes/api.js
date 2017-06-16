@@ -119,6 +119,14 @@ router.get('/profile/:id', (req, res) => {
     res.json({result: data})
   })
 })
+
+router.get('/messages/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
 // Expecting this type of data back:
 // { id: 1,
 //  name: tony

@@ -9,7 +9,6 @@
     "test": "ava -v -s test/**/*.test.js --fail-fast",
     "eslint": "eslint src test",
     "start": "node server",
-    "test": "ava",
     "test:watch": "ava --watch",
     "knex": "knex",
     "postinstall": "knex migrate:latest && webpack --config webpack.prod.config.js"

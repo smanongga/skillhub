@@ -69,6 +69,14 @@ function getFeedbacks (id, connection) {
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
 }
 
+function getMessages (id, connection) {
+  return connection('profiles')
+  .where('profiles.id', '=', id)
+  .join('messages', 'messages.profile_id', '=', 'profiles.id')
+  .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
+  .select('sender.first_name as firstName', 'messages.message')
+}
+
 function getCategories (connection) {
   return connection('categories')
   .select()
