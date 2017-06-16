@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import {fetchCategories} from '../actions'
+import {getAllCategories} from '../actions'
 
 class CategoriesList extends React.Component {
   componentDidMount () {
@@ -32,7 +32,7 @@ class CategoriesList extends React.Component {
 function mapDispatchToProps (dispatch) {
   return {
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(getAllCategories())
     }
   }
 }
