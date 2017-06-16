@@ -75,7 +75,7 @@ function getMessages (id, connection) {
   .where('profiles.id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as firstName', 'messages.message', 'messages.time', 'messages.subject')
+  .select('sender.first_name as firstName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id')
 }
 
 function getCategories (connection) {

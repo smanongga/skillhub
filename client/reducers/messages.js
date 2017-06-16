@@ -7,28 +7,28 @@ import {
 const initialState = {
   isFetching: false,
   errorMessage: '',
-  message: ''
+  messages: []
 }
 
-export default function message (state = initialState, action) {
+export default function messages (state = initialState, action) {
   switch (action.type) {
     case MESSAGE_REQUEST:
       return {
         isFetching: true,
         errorMessage: '',
-        message: ''
+        messages: []
       }
     case MESSAGE_SUCCESS:
       return {
         isFetching: false,
-        message: action.response,
+        messages: action.response,
         errorMessage: ''
       }
     case MESSAGE_FAILURE:
       return {
         isFetching: false,
         errorMessage: action.message,
-        message: ''
+        messages: []
       }
 
     default:

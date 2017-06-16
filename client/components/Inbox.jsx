@@ -3,91 +3,90 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import {fetchMessages} from '../actions/messages'
+
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-/* App */
 class Inbox extends React.Component {
-	constructor(args) {
-		super(args)
-		
-		// Assign unique IDs to the emails
-		const emails = this.props.emails
-		let id = 0
-		for (const email of emails) {
-			email.id = id++
-		}
+	constructor(props) {
+		super(props)
 		
 		this.state = {
-			selectedEmailId: 0,
+			selectedMessageId: 0,
 			currentSection: 'inbox',
-			emails
 		}
 	}
 
 	componentWillMount() {
-		console.log('Mounted correctly')
-		const userID = Number(this.props.match.params.id)
+		const userId = Number(this.props.match.params.id)
 		this.props.fetchMessages(userId)
+			.then(() => {
+				if (this.props.messages.length > 0) {
+					this.setState({
+						selectMessageId: this.props.messages[0].id
+					})
+				}
+			})
 	}
 	
-	openEmail(id) {
-		const emails = this.state.emails
-		const index = emails.findIndex(x => x.id === id)
-		emails[index].read = 'true'
+	openMessage(id) {
+		const messages = this.props.messages
+		const index = messages.findIndex(x => x.id === id)
+		// messages[index].read = 'true'
 		this.setState({
-			selectedEmailId: id,
-			emails
+			selectedMessageId: id,
+			// messages
 		})
 	}
 	
-	deleteMessage(id) {
-		// Mark the message as 'deleted'
-		const emails = this.state.emails
-		const index = emails.findIndex(x => x.id === id)
-		emails[index].tag = 'deleted'
+	// deleteMessage(id) {
+	// 	// Mark the message as 'deleted'
+	// 	const messages = this.state.messages
+	// 	const index = messages.findIndex(x => x.id === id)
+	// 	messages[index].tag = 'deleted'
 		
-		// Select the next message in the list
-		let selectedEmailId = ''
-		for (const email of emails) {
-			if (email.tag === this.state.currentSection) {
-				selectedEmailId = email.id
-				break
-			}
-		}
+	// 	// Select the next message in the list
+	// 	let selectedMessageId = ''
+	// 	for (const message of messages) {
+	// 		if (message.tag === this.state.currentSection) {
+	// 			selectedMessageId = message.id
+	// 			break
+	// 		}
+	// 	}
 		
-		this.setState({
-			emails,
-			selectedEmailId
-		})
-	}
+	// 	this.setState({
+	// 		messages,
+	// 		selectedMessageId
+	// 	})
+	// }
 	
 	setSidebarSection(section) {
-		let selectedEmailId = this.state.selectedEmailId
+		let selectedMessageId = this.state.selectedMessageId
+		console.log(section, selectedMessageId)
 		if (section !== this.state.currentSection) {
-			selectedEmailId = ''
+			selectedMessageId = ''
 		}
 		
 		this.setState({
 			currentSection: section,
-			selectedEmailId
+			selectedMessageId
 		})
 	}
 	
 	render() {
-		const currentEmail = this.state.emails.find(x => x.id === this.state.selectedEmailId)
+		const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
 		return (
 			<div>
 				<Sidebar
-					emails={this.props.emails}
+					messages={this.props.messages}
 					setSidebarSection={(section) => { this.setSidebarSection(section) }} />
 				<div className="inbox-container">
-					<EmailList
-						emails={this.state.emails.filter(x => x.tag === this.state.currentSection)}
-						onEmailSelected={(id) => { this.openEmail(id) }}
-						selectedEmailId={this.state.selectedEmailId}
+					<MessageList
+						messages={this.props.messages}
+						onMessageSelected={(id) => { this.openMessage(id) }}
+						selectedMessageId={this.state.selectedMessageId}
 						currentSection={this.state.currentSection} />
-					<EmailDetails
-						email={currentEmail}
+					<MessageDetails
+						message={currentMessage}
 						onDelete={(id) => { this.deleteMessage(id) }} />
 				</div>
 			</div>
@@ -96,8 +95,8 @@ class Inbox extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ emails, setSidebarSection }) => {
-	var unreadCount = emails.reduce(
+const Sidebar = ({ messages, setSidebarSection }) => {
+	var unreadCount = messages.reduce(
 		function(previous, msg) {
 			if (msg.read !== "true" ) {
 				return previous + 1
@@ -107,7 +106,7 @@ const Sidebar = ({ emails, setSidebarSection }) => {
 			}
 		}.bind(this), 0)
 
-	var deletedCount = emails.reduce(
+	var deletedCount = messages.reduce(
 		function(previous, msg) {
 			if (msg.tag === "deleted") {
 				return previous + 1
@@ -145,72 +144,73 @@ const Sidebar = ({ emails, setSidebarSection }) => {
 }
 
 /* Email classes */
-const EmailListItem = ({ email, onEmailClicked, selected }) => {
-	let classes = "email-item"
+const MessageListItem = ({ message, onMessageClicked, selected }) => {
+	let classes = "message-item"
 	if (selected) {
 		classes += " selected"
 	}
 		
 	return (
-		<div onClick={() => { onEmailClicked(email.id) }} className={classes}>
-			<div className="email-item__unread-dot" data-read={email.read}></div>
-			<div className="email-item__subject truncate">{email.subject}</div>
-			<div className="email-item__details">
-				<span className="email-item__from truncate">{email.from}</span>
-				<span className="email-item__time truncate">{getPrettyDate(email.time)}</span>
+		<div onClick={() => { onMessageClicked(message.id) }} className={classes}>
+			<div className="message-item__unread-dot" data-read={message.read}></div>
+			<div className="message-item__subject truncate">{message.subject}</div>
+			<div className="message-item__details">
+				<span className="message-item__from truncate">{message.from}</span>
+				<span className="message-item__time truncate">{getPrettyDate(message.time)}</span>
 			</div>
 		</div>
 	)
 }
 
-const EmailDetails = ({ email, onDelete }) => {
-	if (!email) {
+const MessageDetails = ({ message, onDelete }) => {
+	console.log(message)
+	if (!message) {
 		return (
-			<div className="email-content empty"></div>
+			<div className="message-content empty"></div>
 		)
 	}
 	
-	const date = `${getPrettyDate(email.time)} · ${getPrettyTime(email.time)}`
+	const date = `${getPrettyDate(message.time)} · ${getPrettyTime(message.time)}`
 	
 	const getDeleteButton = () => {
-		if (email.tag !== 'deleted') {
-			return <span onClick={() => { onDelete(email.id) }} className="delete-btn fa fa-trash-o"></span>
+		if (message.tag !== 'deleted') {
+			return <span onClick={() => { onDelete(message.id) }} className="delete-btn fa fa-trash-o"></span>
 		}
 		return undefined
 	}
 
 	return (
-		<div className="email-content">
-			<div className="email-content__header">
-				<h3 className="email-content__subject">{email.subject}</h3>
+		<div className="message-content">
+			<div className="message-content__header">
+				<h3 className="message-content__subject">{message.subject}</h3>
 				{getDeleteButton()}
-				<div className="email-content__time">{date}</div>
-				<div className="email-content__from">{email.from}</div>
+				<div className="message-content__time">{date}</div>
+				<div className="message-content__from">{message.from}</div>
 			</div>
-			<div className="email-content__message">{email.message}</div>
+			<div className="message-content__message">{message.message}</div>
 		</div>
 	)
 }
 
 /* EmailList contains a list of Email components */
-const EmailList = ({ emails, onEmailSelected, selectedEmailId }) => {
-	if (emails.length === 0) {
+const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
+	if (messages.length === 0) {
 		return (
-			<div className="email-list empty">
+			<div className="message-list empty">
 				Nothing to see here, great job!
 			</div>
 		)
 	}
 	
 	return (
-		<div className="email-list">
+		<div className="message-list">
 			{
-				emails.map(email => {
+				messages.map(message => {
 					return (
-						<EmailListItem
-							onEmailClicked={(id) => { onEmailSelected(id) }}
-							email={email}
-							selected={selectedEmailId === email.id} />
+						<MessageListItem
+							onMessageClicked={(id) => { onMessageSelected(id) }}
+							message={message}
+							selected={selectedMessageId === message.id} />
 					)
 				})
 			}
@@ -240,4 +240,16 @@ const getPrettyTime = (date) => {
 	return `${time[0]}:${time[1]}`
 }
 
-export default Inbox
+function mapStateToProps (state) {
+	return {
+		messages: state.messages.messages
+	}
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+		fetchMessages: (userId) => dispatch(fetchMessages(userId))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inbox)

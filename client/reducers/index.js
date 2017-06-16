@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux'
 
 import auth from './auth'
+import messages from './messages'
 
 const reducers = combineReducers({
-  auth
+  auth, 
+  messages
 })
 
 export default reducers

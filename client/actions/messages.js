@@ -7,19 +7,19 @@ export const MESSAGE_FAILURE = 'MESSAGE_FAILURE'
 export function fetchMessages (userId) {
   return function (dispatch) {
     dispatch(requestMessages())
-    request('get', `/messages/${userId}`)
+    return request('get', `/messages/${userId}`)
     .then(res => {
-      dispatch(receiveMessages(res.body.message))
+      dispatch(receiveMessages(res.body.result))
     })
-    .catch(err => dispatch(messageError(err.response.body.message)))
+    .catch(err => dispatch(messageError(err.response.body)))
   }
 }
 
-export function receiveMessages (message) {
+export function receiveMessages (messages) {
   return {
     type: MESSAGE_SUCCESS,
     isFetching: false,
-    response: message
+    response: messages
   }
 }
 
@@ -30,10 +30,10 @@ function requestMessages () {
   }
 }
 
-function messageError (message) {
+function messageError (messages) {
   return {
     type: MESSAGE_FAILURE,
     isFetching: false,
-    message
+    messages
   }
 }

@@ -106,7 +106,7 @@ body {
   transition: all .1s linear;
 }
 
-.email-list {
+.message-list {
   background: #f5f5f5;
   float: left;
   height: 500px;
@@ -114,36 +114,36 @@ body {
   overflow-y: auto;
   width: 35%;
 }
-.email-list.empty {
+.message-list.empty {
   color: #aaa;
   padding-top: 200px;
   text-align: center;
 }
-.email-list .email-item {
+.message-list .message-item {
   background: #fff;
   border-bottom: 1px solid #eee;
   cursor: pointer;
   padding: 10px 15px;
   position: relative;
 }
-.email-list .email-item.selected {
+.message-list .message-item.selected {
   color: #009fc4;
 }
-.email-list .email-item__subject {
+.message-list .message-item__subject {
   margin-bottom: 8px;
 }
-.email-list .email-item__details {
+.message-list .message-item__details {
   font-size: 12px;
   opacity: .5;
   text-transform: uppercase;
 }
-.email-list .email-item__unread-dot {
+.message-list .message-item__unread-dot {
   height: 100%;
   right: 10px;
   position: absolute;
   top: 10px;
 }
-.email-list .email-item__unread-dot[data-read="false"]:before {
+.message-list .message-item__unread-dot[data-read="false"]:before {
   background: #009fc4;
   border-radius: 50%;
   content: '';
@@ -151,19 +151,19 @@ body {
   height: 6px;
   width: 6px;
 }
-.email-list .email-item__time {
+.message-list .message-item__time {
   float: right;
   text-align: right;
   width: 40%;
 }
-.email-list .email-item__from.truncate {
+.message-list .message-item__from.truncate {
   width: 60%;
 }
-.email-list .email-item:hover:not(.selected) {
+.message-list .message-item:hover:not(.selected) {
   background: #fafafa;
 }
 
-.email-content {
+.message-content {
   background: #fff;
   border-left: 1px solid #ddd;
   float: left;
@@ -171,31 +171,31 @@ body {
   position: relative;
   width: 65%;
 }
-.email-content__header {
+.message-content__header {
   background: #f5f5f5;
   border-bottom: 1px solid #eee;
   padding: 10px 15px;
 }
-.email-content__subject {
+.message-content__subject {
   font-size: 18px;
   margin: 10px 0;
 }
-.email-content__details {
+.message-content__details {
   font-size: 12px;
   opacity: .5;
   text-transform: uppercase;
 }
-.email-content__time {
+.message-content__time {
   color: #878787;
   float: right;
 }
-.email-content__from {
+.message-content__from {
   color: #878787;
 }
-.email-content__message {
+.message-content__message {
   padding: 20px 15px 15px;
 }
-.email-content .delete-btn {
+.message-content .delete-btn {
   cursor: pointer;
   margin: -5px;
   padding: 5px;
@@ -204,7 +204,7 @@ body {
   top: 24px;
   transition: color .1s linear;
 }
-.email-content .delete-btn:hover {
+.message-content .delete-btn:hover {
   color: #E23E57;
 }
 
