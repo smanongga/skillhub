@@ -4,7 +4,6 @@ import AuthService from './auth0'
 import { get } from './localstorage'
 
 const baseUrl = '/api/v1'
-import {get} from './localstorage'
 
 export default function consume (method = 'get', endpoint, data = {}) {
   const dataMethod = method.toLowerCase() === 'get' && 'query' || 'send'
