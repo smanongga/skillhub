@@ -1,25 +1,45 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-const Categories = (props) => {
-  const categoriesList = ['Music', 'Design', 'Technology', 'Crafts', 'Business', 'Photography', 'Film', 'Writing', 'Culinary']
-  return (
-    <div className='category-container col-md-12'>
-      <div className='category-title'>
-        <h2>Browse for teachers or students in these categories:</h2>
-        <div>
-          {categoriesList.map((category, key) => {
-            return (
-              <Link to={`/profiles/${category}`}key={key}><div className='category-thumbnail col-md-3'>
-                {category}
-              </div></Link>
-            )
-          })}
+import {fetchCategories} from '../actions'
+
+class Categories extends React.Component {
+  componentDidMount () {
+    this.props.fetchCategories()
+  }
+
+  render () {
+    return (
+      <div className='category-container col-md-12'>
+        <div className='category-title'>
+          <h2>Browse for teachers or students in these categories:</h2>
+          <div>
+            {this.categoriesList.map((category, key) => {
+              return (
+                <Link to={`/profiles/${category}`}key={key}><div className='category-thumbnail col-md-3'>
+                  {category}
+                </div></Link>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+}
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchCategories: () => {
+      dispatch(fetchCategories())
+    }
+  }
 }
 
-export default Categories 
+function mapStateToProps (state) {
+  return {
+    categoriesList: state.categories
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Categories)

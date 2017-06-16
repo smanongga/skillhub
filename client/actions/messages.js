@@ -3,6 +3,7 @@ import request from '../utils/api'
 export const MESSAGE_REQUEST = 'MESSAGE_REQUEST'
 export const MESSAGE_SUCCESS = 'MESSAGE_SUCCESS'
 export const MESSAGE_FAILURE = 'MESSAGE_FAILURE'
+export const SEND_REQUEST    = 'SEND_REQUEST'
 
 export function fetchMessages (userId) {
   return function (dispatch) {
@@ -35,5 +36,28 @@ function messageError (messages) {
     type: MESSAGE_FAILURE,
     isFetching: false,
     messages
+  }
+}
+
+function requestSendMessage (messageData) {
+  return {
+    type: SEND_REQUEST,
+    isFetching: true,
+    messageData
+  }
+}
+
+export function sendMessage (messageData) {
+  return dispatch => {
+    // We dispatch sendMessage to kickoff the call to the API
+    dispatch(requestSendMessage(messageData))
+
+    return request('post', '/contact', messageData)
+      .then(res => {
+      dispatch(receiveMessages(res.body.result))
+     })
+    .catch(err => {
+        dispatch(messageError(err.response.body.message))
+      })
   }
 }

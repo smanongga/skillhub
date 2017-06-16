@@ -3,7 +3,20 @@ module.exports = {
   addUserToProfile,
   profileExists,
   getProfileById,
-  getMessages
+  getMessages,
+  addMessage
+}
+
+function addMessage (conn, messageData) {
+  return conn('messages')
+ .insert({
+   sender_id: messageData.sender_id, 
+   profile_id: messageData.profile_id, 
+   subject: messageData.subject, 
+   message: messageData.message, 
+   time: messageData.time, 
+   read: messageData.read
+ })
 }
 
 function addUserToProfile (conn, id) {

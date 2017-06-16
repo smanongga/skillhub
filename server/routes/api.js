@@ -82,6 +82,14 @@ router.post('/profiletest', (req, res) => {
   })
 })
 
+router.post('/contact', (req, res) => {
+  db.addMessage(conn, req.body)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
+
 // db.getUserByName(user.username, connection)
 //     .then((users) => {
 //       if (users.length !== 0) {
