@@ -2,9 +2,9 @@
  import request from '../utils/api'
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+ export const GET_PROFILE = 'GET_PROFILE'
  export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
  export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
- export const GET_PROFILE = 'GET_PROFILE'
 
  export function updateProfile (text) {
    return {
