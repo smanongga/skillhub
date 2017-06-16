@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-local-jwt-auth",
+  "name": "SkillShare",
   "version": "0.1.1",
   "description": "A peer to peer skill trading app",
   "main": "server/index.js",
