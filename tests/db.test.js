@@ -15,18 +15,17 @@ test.beforeEach(t => {
 
 test.afterEach(t => t.context.db.destroy())
 
-
 test('getProfileById obtains correct profile', t => {
   return dbFunc
     .getProfileById(2, t.context.db)
     .then((result) => t.is(result.profile[0].firstName, 'capy'))
 })
 
-// test('Get skill to learn "Guitar" from Arrdvark', t => {
-//   return dbFunc
-//     .getSkillsToLearn(2, t.context.db)
-//     .then((result) => t.is(result.profile[0].firstName, 'capy'))
-// })
+test('Get skill to learn "Guitar" from Arrdvark', t => {
+  return dbFunc
+    .getSkillsToLearn(2, t.context.db)
+    // .then((result) => t.is(result.profile[0].firstName, 'capy'))
+})
 
 // test('exists is true for aardvark', t => {
 //   return users
