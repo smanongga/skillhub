@@ -32,6 +32,7 @@ class App extends React.Component {
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
             <Route exact path='/profile' component={Profile} />
+            <Route exact path='/profile/:id' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
             <Route path='/contact' component={Contact} />
