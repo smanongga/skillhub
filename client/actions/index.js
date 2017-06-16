@@ -1,6 +1,9 @@
+ import {getAllCategories} from '../utils/api'
  import request from '../utils/api'
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+ export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
+ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 
  export function updateProfile (text) {
    return {
@@ -18,6 +21,18 @@
      }
    }
  }
+ export const requestCategories = () => {
+   return {
+     type: REQUEST_CATEGORIES
+   }
+ }
+
+ export const receiveCategories = (categories) => {
+   return {
+     type: RECEIVE_CATEGORIES,
+     categories: categories
+   }
+ }
 
  export function addProfileToDb (profile) {
    return dispatch => {
@@ -29,5 +44,17 @@
         return response.req
       }
     })
+   }
+ }
+
+ export const fetchCategories = () => {
+   return (dispatch, getState) => {
+     const state = getState()
+     if (state.categories.length === 0) {
+       getAllCategories((err, res) => {
+         if (err) return console.log(err)
+         dispatch(receiveCategories(res.result))
+       })
+     }
    }
  }
