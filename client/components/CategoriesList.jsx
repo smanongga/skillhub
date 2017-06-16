@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {fetchCategories} from '../actions'
 
-class Categories extends React.Component {
+class CategoriesList extends React.Component {
   componentDidMount () {
     this.props.fetchCategories()
   }
@@ -15,10 +15,11 @@ class Categories extends React.Component {
         <div className='category-title'>
           <h2>Browse for teachers or students in these categories:</h2>
           <div>
-            {this.categoriesList.map((category, key) => {
+            {this.props.categoriesList.map((category, i) => {
+              console.log(category)
               return (
-                <Link to={`/profiles/${category}`}key={key}><div className='category-thumbnail col-md-3'>
-                  {category}
+                <Link to={`/profiles/${category.name}`}key={i}><div className='category-thumbnail col-md-3'>
+                  {category.name}
                 </div></Link>
               )
             })}
@@ -42,4 +43,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList)
