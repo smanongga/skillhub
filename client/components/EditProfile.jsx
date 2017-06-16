@@ -2,16 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 // import {Redirect} from 'react-router'
 
-import {updateProfile} from '../actions'
+import {updateProfile, addProfileToDb} from '../actions'
 
 class EditProfile extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      userName: 'Julie',
+      userName: '',
       firstName: '',
       lastName: '',
-      email: 'julie.crutchley@outlook.com',
+      email: '',
       password: '',
       profilePic: '',
       location: '',
@@ -31,7 +31,8 @@ class EditProfile extends React.Component {
   }
 
   handleClick () {
-    this.props.updateProfile()
+    this.props.dispatch(updateProfile(this.state))
+    this.props.dispatch(addProfileToDb(this.state))
   }
 
   render () {
@@ -39,10 +40,10 @@ class EditProfile extends React.Component {
       <div className='edit-profile'>
         <div className='edit-profile-form'>
           <h2>Edit Profile</h2>
-          <p>User Name <input name='userName' onChange={this.handleChange} value={this.state.userName} /></p>
+          <p>User Name <input name='userName' onChange={this.handleChange} /></p>
           <p>First Name <input name='firstName' onChange={this.handleChange} value={this.state.firstName} /></p>
           <p>Last Name <input name='lastName' onChange={this.handleChange} value={this.state.lastName} /></p>
-          <p>Email <input name='email' onChange={this.handleChange} value={this.state.email} /></p>
+          <p>Email <input name='email' onChange={this.handleChange} /></p>
           <p>Bio <input name='bio' onChange={this.handleChange} value={this.state.Bio} /></p>
           <p>Profile Pic <input name='photoUrl' onChange={this.handleChange} value={this.state.photoUrl} /></p>
           <p>Location <input name='location' onChange={this.handleChange} value={this.state.location} /></p>
@@ -55,18 +56,11 @@ class EditProfile extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    updateProfile: () => {
-      dispatch(updateProfile())
-    }
-  }
-}
-
 function mapStateToProps (state) {
   return {
-    profile: state.profile
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
+export default connect(mapStateToProps, null)(EditProfile)
