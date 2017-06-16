@@ -2,7 +2,8 @@ module.exports = {
   getCategories,
   addUserToProfile,
   profileExists,
-  getProfileById
+  getProfileById,
+  getMessages
 }
 
 function addUserToProfile (conn, id) {
@@ -74,7 +75,7 @@ function getMessages (id, connection) {
   .where('profiles.id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as firstName', 'messages.message')
+  .select('sender.first_name as firstName', 'messages.message', 'messages.time', 'messages.subject')
 }
 
 function getCategories (connection) {

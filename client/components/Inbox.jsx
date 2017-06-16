@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
+import {fetchMessages} from '../actions/messages'
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 /* App */
@@ -20,6 +22,12 @@ class Inbox extends React.Component {
 			currentSection: 'inbox',
 			emails
 		}
+	}
+
+	componentWillMount() {
+		console.log('Mounted correctly')
+		const userID = Number(this.props.match.params.id)
+		this.props.fetchMessages(userId)
 	}
 	
 	openEmail(id) {

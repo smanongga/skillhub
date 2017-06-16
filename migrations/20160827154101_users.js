@@ -1,6 +1,6 @@
 exports.up = knex => knex.schema.createTable('users', table => {
   table.increments('id').primary()
-  table.text('password')
+  table.binary('password')
   table.string('username')
 })
 

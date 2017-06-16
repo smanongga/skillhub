@@ -56,6 +56,15 @@ router.get('/quote',
     res.json(response)
   }
 )
+
+router.get('/messages/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.post('/profiletest', (req, res) => {
   db.profileExists(conn, req.body.auth_id)
   .then((exists) => {
@@ -120,13 +129,7 @@ router.get('/profile/:id', (req, res) => {
   })
 })
 
-router.get('/messages/:id', (req, res) => {
-  const connection = req.app.get('db')
-  db.getMessages(Number(req.params.id), connection)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
+
 // Expecting this type of data back:
 // { id: 1,
 //  name: tony

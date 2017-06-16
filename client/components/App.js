@@ -20,7 +20,7 @@ class App extends React.Component {
       <div>
         <h1>SkillHub</h1>
         <Navbar />
-        <Inbox emails={[
+        <Inbox path='/messages/:id' emails={[
 	{
 		"from": "Maxime Preaux",
 		"address": "maxime@codepen.io",
