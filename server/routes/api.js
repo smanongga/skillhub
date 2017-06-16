@@ -138,6 +138,22 @@ router.get('/profiles/learn', (req, res) => {
     res.json({result: profiles})
   })
 })
+
+router.get('/profiles/offer', (req, res) => {
+  const connection = req.app.get('db')
+  db.getPeopleOffer(connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'name'))
+      .map(profile => {
+        profile.skillsToOffer = data.filter(skill => skill.id === profile.id).map(skill => skill.name)
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
 // { id: 1,
