@@ -1,25 +1,33 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
+import {getProfileById} from '../actions/index'
+
 class Profile extends Component {
+  componentDidMount () {
+    this.props.getProfileById(this.props.match.params.id)
+  }
+
   render () {
     return (
       <div>
-        <h1>Working!</h1>
+        <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
+        <h3>Bio: {this.props.bio}</h3>
+        <h3>Location: {this.props.locationCity}</h3>
       </div>
     )
   }
 }
 
 function mapStateToProps (state) {
-  return {
-
-  }
+  return state.profile[0]
 }
 
-function mapDispatchToProps (state) {
+function mapDispatchToProps (dispatch) {
   return {
-
+    getProfileById: (id, cb) => {
+      dispatch(getProfileById(id, cb))
+    }
   }
 }
 

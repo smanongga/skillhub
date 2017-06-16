@@ -30,11 +30,11 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
+            <Route exact path='/profile/:id' component={Profile} />
             <Route path='/categories' component={CategoriesList} />
           </Switch>
         </div>
       </Router>
-
     )
   }
 }
@@ -53,8 +53,7 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

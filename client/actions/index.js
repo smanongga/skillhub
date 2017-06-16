@@ -4,6 +4,7 @@
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
  export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
  export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+ export const GET_PROFILE = 'GET_PROFILE'
 
  export function updateProfile (text) {
    return {
@@ -34,6 +35,13 @@
    }
  }
 
+ export function saveProfileById (data) {
+   return {
+     type: GET_PROFILE,
+     data
+   }
+ }
+
  export function addProfileToDb (profile) {
    return dispatch => {
      return request('post', '/profile/edit', profile)
@@ -56,5 +64,14 @@
          dispatch(receiveCategories(res.result))
        })
      }
+   }
+ }
+
+ export function getProfileById (id, callback) {
+   return dispatch => {
+     request('get', `/profile/${id}`)
+    .then(res => {
+      dispatch(saveProfileById(res.body.result.profile[0]))
+    })
    }
  }
