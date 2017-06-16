@@ -1,23 +1,33 @@
+ import request from '../utils/api'
 
-export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+ export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
-export function updateProfile () {
-  return function (dispatch) {
+ export function updateProfile (text) {
+   return {
+     type: UPDATE_PROFILE,
+     updatedProfile: {
+       userName: '',
+       firstName: text.firstName,
+       lastName: text.lastName,
+       email: '',
+       photoUrl: text.profilePic,
+       location: text.location,
+       bio: text.bio,
+       skillsOffered: text.skillsOffered,
+       skillsWanted: text.skillsWanted
+     }
+   }
+ }
 
-  }
-}
-
-
-export const fetchImages = () => {
-  return (dispatch, getState) => {
-    dispatch(waitingIndicator())
-    const state = getState()
-    if (state.images.length === 0) {
-      getAllImages((err, res) => {
-        if (err) return dispatch(error(err.message))
-        dispatch(receiveImages(res.result))
-        dispatch(notWaiting())
-      })
-    }
-  }
-}
+ export function addProfileToDb (profile) {
+   return dispatch => {
+     return request('post', '/profile/edit', profile)
+    .then((response) => {
+      if (!response.ok) {
+        return response.body.message
+      } else {
+        return response.req
+      }
+    })
+   }
+ }

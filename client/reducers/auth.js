@@ -1,12 +1,11 @@
 
-import { REGISTER_REQUEST, REGISTER_FAILURE } from '../actions/register'
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/loginauth0'
-import { isAuthenticated, getUserTokenInfo } from '../utils/auth'
+import AuthService from '../utils/auth0'
 
 const initialState = {
   isFetching: false,
-  isAuthenticated: isAuthenticated(),
-  user: getUserTokenInfo(),
+  isAuthenticated: AuthService.loggedIn(),
+  user: AuthService.getToken(),
   errorMessage: ''
 }
 
@@ -39,20 +38,6 @@ export default function auth (state = initialState, action) {
         isFetching: false,
         isAuthenticated: false,
         user: null
-      }
-    case REGISTER_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-        isAuthenticated: false,
-        errorMessage: ''
-      }
-    case REGISTER_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        isAuthenticated: false,
-        errorMessage: action.message
       }
     default:
       return state

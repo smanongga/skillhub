@@ -8,11 +8,16 @@ import Navbar from './Navbar'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
 import Categories from './Categories'
+import Login from './Login'
 
 class App extends React.Component {
   constructor (props) {
     super(props)
-    this.props.loginCreds()
+    this.handleLogin = this.handleLogin.bind(this)
+  }
+
+  handleLogin () {
+    this.props.createLogin()
   }
 
   render () {
@@ -20,11 +25,11 @@ class App extends React.Component {
       <Router>
         <div className='app'>
           <h1>SkillHub</h1>
+          {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
-          <button onClick={() => this.props.createLogin()}>Log In</button>
           <Switch>
-            <Route path='/profiles/:id' component={Profile} />
-            <Route path='/profiles/:id/edit' component={EditProfile} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
           </Switch>
         </div>
@@ -36,11 +41,12 @@ class App extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    loginCreds: () => {
-      return dispatch(login())
+    loginCreds: (cb) => {
+      return dispatch(login(cb))
     },
-    createLogin: () => {
-      return dispatch(requestLogin())
+    createLogin: (cb) => {
+      console.log(cb)
+      return dispatch(requestLogin(cb))
     }
   }
 }

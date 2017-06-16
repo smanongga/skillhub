@@ -1,10 +1,10 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const verifyJwt = require('express-jwt')
-
 const db = require('../db')
 const users = require('../lib/users')
 const auth = require('../lib/auth.js')
+const jwt = require('jsonwebtoken')
 
 const config = require('../../knexfile')[process.env.NODE_ENV || 'development']
 const conn = require('knex')(config)
@@ -56,45 +56,28 @@ router.get('/quote',
     res.json(response)
   }
 )
-router.post('/profiletest', (req, res) => {
-  db.profileExists(conn, req.body.auth_id)
-  .then((exists) => {
-    console.log(exists)
-    if (exists.length !== 0) {
-      return res.status(403).json({
-        message: 'Registration failed',
-        info: 'User already exists.'
-      })
+router.post('/auth', (req, res) => {
+  jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.log(err)
     }
-    db.addUserToProfile(conn, req.body)
-  .then((result) => {
-    res.send(result)
-  })
+    db.profileExists(conn, decoded.sub)
+      .then((exists) => {
+        console.log(exists)
+        if (exists.length !== 0) {
+          return res.status(200).send({
+            firstLogin: false
+          })
+        }
+        db.addUserToProfile(conn, decoded.sub)
+          .then((result) => {
+            res.status('200').send({
+              firstLogin: true
+            })
+          })
+      })
   })
 })
-
-// db.getUserByName(user.username, connection)
-//     .then((users) => {
-//       if (users.length !== 0) {
-//         return res.status(403).json({
-//           message: 'Registration failed',
-//           info: 'User already exists.'
-//         })
-//       }
-
-//       db.addUser(user, connection)
-//         .then((id) => {
-//           user.id = id[0]
-//           callback(user, res)
-//         })
-//     })
-//     .catch(() => {
-//       return res.status(500).json({
-//         message: 'Authentication failed due to a server error.',
-//         info: 'Unable to save user into database'
-//       })
-//     })
-// }
 
 // Protect all routes beneath this point
 router.use(
@@ -103,12 +86,19 @@ router.use(
   }),
   auth.handleError
 )
-//
-// // These routes are protected
+
+// These routes are protected
 router.get('/secret', (req, res) => {
   res.json({
     message: 'This is a SECRET quote.',
     user: `Your user ID is: ${req.user.id}`
+  })
+})
+
+router.post('/profile/edit', (req, res) => {
+  db.updateProfile(conn, req.body, req.user.sub)
+  .then((result) => {
+    res.status('200')
   })
 })
 

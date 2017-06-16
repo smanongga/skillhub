@@ -1,21 +1,37 @@
+const _ = require('lodash')
+
 module.exports = {
   getCategories,
   addUserToProfile,
   profileExists,
-  getProfileById
+  getProfileById,
+  updateProfile
 }
 
 function addUserToProfile (conn, id) {
   return conn('profiles')
- .where('auth_id', id)
- .insert({ auth_id: id.auth_id
- })
+  .where('auth_id', id)
+  .insert({ auth_id: id
+  })
 }
 
 function profileExists (conn, id) {
   return conn('profiles')
- .select()
- .where('auth_id', id)
+  .select()
+  .where('auth_id', id)
+}
+
+function updateProfile (conn, profile, id) {
+  return conn('profiles')
+  .where('auth_id', id)
+  .update({
+    first_name: profile.firstName,
+    last_name: profile.lastName,
+    email: profile.email,
+    bio: profile.bio,
+    photo_url: profile.photoUrl,
+    location_city: profile.location
+  })
 }
 
 function getProfileById (id, connection) {
