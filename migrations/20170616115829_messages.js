@@ -7,6 +7,7 @@ exports.up = knex => knex.schema.createTable('messages', table => {
   table.text('message', 'mediumtext')
   table.string('subject')
   table.dateTime('time')
+  table.boolean('read')
 })
 
 exports.down = knex => knex.schema.dropTable('messages')
