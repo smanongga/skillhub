@@ -1,6 +1,5 @@
  import request from '../utils/api'
  import AuthService from '../utils/auth0'
- const localStorage = global.window.localStorage
 
  export const LOGIN_REQUEST = 'LOGIN_REQUEST'
  export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -35,27 +34,18 @@
    }
  }
 
-// lock.on("authenticated", function(authResult) {
-//   // Use the token in authResult to getUserInfo() and save it to localStorage
-//   lock.getUserInfo(authResult.accessToken, function(error, profile) {
-//     if (error) {
-//       // Handle error
-//       return;
-//     }
-
  export function login () {
    return dispatch => {
      authService.lock.on('authenticated', (authResult) => {
        authService.lock.getUserInfo(authResult.accessToken, function (error, user) {
-         console.log(user.identities[0].user_id)
-         const userId = user.identities[0].user_id
-         dispatch(initProfile({auth_id: userId}))
          if (error) {
       // Handle error
            return error
          }
+         console.log(authResult)
          AuthService.setUser(user)
          AuthService.setToken(authResult.idToken)
+         dispatch(initProfile({authToken: AuthService.getToken()}))
          return dispatch(receiveLogin(user))
        })
      })
@@ -64,7 +54,7 @@
 
  export function initProfile (id) {
    return dispatch => {
-     return request('post', '/profiletest', id)
+     return request('post', '/auth', id)
     .then((response) => {
       if (!response.ok) {
         dispatch(loginError(response.body.message))
@@ -74,18 +64,5 @@
         return response.req._data
       }
     })
-   }
- }
-
- function logoutSuccess (profile) {
-   return {
-     type: LOGOUT_SUCCESS
-   }
- }
- export function logout () {
-   return dispatch => {
-     localStorage.removeItem('id_token')
-     localStorage.removeItem('user')
-     return dispatch(logoutSuccess())
    }
  }

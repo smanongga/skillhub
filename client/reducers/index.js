@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
 
 import auth from './auth'
-import quote from './quote'
+import profile from './profile'
 
 const reducers = combineReducers({
   auth,
-  quote
+  profile
 })
 
 export default reducers

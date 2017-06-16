@@ -1,5 +1,4 @@
 import request from '../utils/api'
-import { saveUserToken } from '../utils/auth'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'

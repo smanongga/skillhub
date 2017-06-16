@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
+import { BrowserRouter as Router,Route,Link} from 'react-router-dom'
 import {login, requestLogin} from '../actions/loginauth0'
 
 import Navbar from './Navbar'
@@ -16,15 +16,14 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>SkillHub</h1>
-        <Navbar />
-        <button onClick={() => this.props.createLogin()}>Log In</button>
-        <div className='quote'>
-          <EditProfile />
+      <Router>
+        <div>
+          <h1>SkillHub</h1>
+          <Navbar />
+          <button onClick={() => this.props.createLogin()}>Log In</button>
+          <Route path='/profile/edit'>{this.props.isAuthenticated && <EditProfile />}</Route>
         </div>
-      </div>
-
+      </Router>
     )
   }
 }

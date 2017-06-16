@@ -1,31 +1,17 @@
-import { removeUser } from '../utils/auth'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
-function requestLogout () {
+function logoutSuccess (profile) {
   return {
-    type: LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
+    type: LOGOUT_SUCCESS
   }
 }
-
-function receiveLogout () {
-  return {
-    type: LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false
-  }
-}
-
-// Logs the user out
-export function logoutUser () {
+export function logout () {
   return dispatch => {
-    dispatch(requestLogout())
-    removeUser()
-    dispatch(receiveLogout())
+    localStorage.removeItem('id_token')
+    localStorage.removeItem('user')
+    return dispatch(logoutSuccess())
   }
 }
-
