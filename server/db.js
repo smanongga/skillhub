@@ -5,7 +5,8 @@ module.exports = {
   profileExists,
   getProfileById,
   updateProfile,
-  getPeopleLearn
+  getPeopleLearn,
+  getPeopleOffer
 }
 
 function addUserToProfile (conn, id) {
@@ -94,5 +95,12 @@ function getPeopleLearn (connection) {
   return connection('profiles')
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
+  .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name')
+}
+
+function getPeopleOffer (connection) {
+  return connection('profiles')
+  .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name')
 }
