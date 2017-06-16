@@ -7,6 +7,10 @@ const profile = (state = [], action) => {
         ...state,
         action.updatedProfile
       ]
+      case 'GET_PROFILE':
+      return [
+        action.data
+      ]
       default:
      return state
   }
