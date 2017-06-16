@@ -2,15 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 class Profile extends Component {
-
   render () {
-     return(
-       <div>
-         <h1>Working!</h1>
-       </div>
-     )
+    return (
+      <div>
+        <h1>Working!</h1>
+      </div>
+    )
   }
-
 }
 
 function mapStateToProps (state) {
@@ -26,7 +24,6 @@ function mapDispatchToProps (state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
-
 
 // function Profile (props) {
 //   const image = props.photoUrl

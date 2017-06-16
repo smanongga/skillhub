@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { logoutUser } from '../actions/logout'
+import { logout } from '../actions/logout'
 
 const Logout = (props) => {
   return (
@@ -14,7 +14,7 @@ const Logout = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => {
-      dispatch(logoutUser())
+      dispatch(logout())
     }
   }
 }

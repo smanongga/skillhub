@@ -1,14 +1,7 @@
 import Auth0Lock from 'auth0-lock'
 import jwtDecode from 'jwt-decode'
+const localStorage = global.window.localStorage
 
-// const auth = new auth0.WebAuth({
-//   domain: 'meal-mate.au.auth0.com',
-//   clientID: 'elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
-//   redirectUri: 'http://localhost:3000',
-//   audience: 'https://meal-mate.au.auth0.com/userinfo',
-//   responseType: 'token id_token',
-//   scope: 'openid'
-// })
 export default class AuthService {
   constructor (clientId, domain) {
     this.lock = new Auth0Lock(clientId, domain)

@@ -2,42 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 
-import Links from './Links'
 import Logout from './Logout'
-import LoginForm from './LoginForm'
-import RegisterForm from './RegisterForm'
 
 const Navbar = ({ isAuthenticated }) => {
   return (
     <nav>
       <div>
-        <div>
-          {!isAuthenticated && (
-            <div>
-              <Route exact path='/' render={() => (
-                <Links active='Home' />
-              )} />
-              <Route path='/login' render={() => (
-                <div>
-                  <Links active='Login' />
-                  <LoginForm />
-                </div>
-              )} />
-              <Route path='/register' render={() => (
-                <div>
-                  <Links active='Register' />
-                  <RegisterForm />
-                </div>
-              )} />
-            </div>
-          )}
-
-          {isAuthenticated &&
-            <Logout />
+        {isAuthenticated &&
+          <Logout />
           }
-
-          <hr />
-        </div>
+        {isAuthenticated &&
+          <div>
+            <h5><a href='#'>My Inbox</a></h5>
+            <h5><a href='#'>Teach</a></h5>
+            <h5><a href='#'>Learn</a></h5>
+            </div>}
+        <hr />
       </div>
     </nav>
   )
