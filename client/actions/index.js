@@ -1,7 +1,7 @@
  import request from '../utils/api'
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
-
+ export const GET_PROFILE = 'GET_PROFILE'
  export function updateProfile (text) {
    return {
      type: UPDATE_PROFILE,
@@ -19,6 +19,13 @@
    }
  }
 
+ export function saveProfileById (data) {
+   return {
+     type: GET_PROFILE,
+     data
+   }
+ }
+
  export function addProfileToDb (profile) {
    return dispatch => {
      return request('post', '/profile/edit', profile)
@@ -28,6 +35,14 @@
       } else {
         return response.req
       }
+    })
+   }
+ }
+ export function getProfileById (id, callback) {
+   return dispatch => {
+     request('get', `/profile/${id}`)
+    .then(res => {
+      dispatch(saveProfileById(res.body.result.profile[0]))
     })
    }
  }
