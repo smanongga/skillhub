@@ -34,14 +34,3 @@ export function getProfileById (id, callback) {
     }
   })
 }
-
-export function getAllCategories (callback) {
-  request.get('/api/v1/categories')
-  .end((err, res) => {
-    if (err) {
-      callback(err)
-    } else {
-      callback(null, res.body)
-    }
-  })
-}
