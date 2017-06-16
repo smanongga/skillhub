@@ -9,6 +9,7 @@ import EditProfile from './EditProfile'
 import Profile from './Profile'
 import Categories from './Categories'
 import Login from './Login'
+import Home from './Home'
 
 class App extends React.Component {
   constructor (props) {
@@ -28,6 +29,7 @@ class App extends React.Component {
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
