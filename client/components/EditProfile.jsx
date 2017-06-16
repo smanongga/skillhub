@@ -40,10 +40,10 @@ class EditProfile extends React.Component {
       <div className='edit-profile'>
         <div className='edit-profile-form'>
           <h2>Edit Profile</h2>
-          <p>User Name <input name='userName' onChange={this.handleChange} value={this.props.user.username} /></p>
+          <p>User Name <input name='userName' onChange={this.handleChange} /></p>
           <p>First Name <input name='firstName' onChange={this.handleChange} value={this.state.firstName} /></p>
           <p>Last Name <input name='lastName' onChange={this.handleChange} value={this.state.lastName} /></p>
-          <p>Email <input name='email' onChange={this.handleChange} value={this.props.user.email} /></p>
+          <p>Email <input name='email' onChange={this.handleChange} /></p>
           <p>Bio <input name='bio' onChange={this.handleChange} value={this.state.Bio} /></p>
           <p>Profile Pic <input name='photoUrl' onChange={this.handleChange} value={this.state.photoUrl} /></p>
           <p>Location <input name='location' onChange={this.handleChange} value={this.state.location} /></p>

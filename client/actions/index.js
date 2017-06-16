@@ -2,22 +2,22 @@
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
-export function updateProfile (text) {
-  return {
-    type: UPDATE_PROFILE,
-    updatedProfile: {
-      userName: '',
-      firstName: text.firstName,
-      lastName: text.lastName,
-      email: '',
-      photoUrl: text.profilePic,
-      location: text.location,
-      bio: text.bio,
-      skillsOffered: text.skillsOffered,
-      skillsWanted: text.skillsWanted
-    }
-  }
-}
+ export function updateProfile (text) {
+   return {
+     type: UPDATE_PROFILE,
+     updatedProfile: {
+       userName: '',
+       firstName: text.firstName,
+       lastName: text.lastName,
+       email: '',
+       photoUrl: text.profilePic,
+       location: text.location,
+       bio: text.bio,
+       skillsOffered: text.skillsOffered,
+       skillsWanted: text.skillsWanted
+     }
+   }
+ }
 
  export function addProfileToDb (profile) {
    return dispatch => {

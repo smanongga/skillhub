@@ -58,7 +58,6 @@ router.get('/quote',
 )
 router.post('/auth', (req, res) => {
   jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
-    console.log(decoded)
     if (err) {
       console.log(err)
     }
@@ -66,16 +65,19 @@ router.post('/auth', (req, res) => {
       .then((exists) => {
         console.log(exists)
         if (exists.length !== 0) {
-          return res.status(200)
+          return res.status(200).send({
+            firstLogin: false
+          })
         }
         db.addUserToProfile(conn, decoded.sub)
           .then((result) => {
-            res.status('200')
+            res.status('200').send({
+              firstLogin: true
+            })
           })
       })
   })
 })
-
 
 // Protect all routes beneath this point
 router.use(
@@ -94,7 +96,6 @@ router.get('/secret', (req, res) => {
 })
 
 router.post('/profile/edit', (req, res) => {
-  console.log(req.user.sub)
   db.updateProfile(conn, req.body, req.user.sub)
   .then((result) => {
     res.status('200')

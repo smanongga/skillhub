@@ -9,8 +9,8 @@
  const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
   'meal-mate.au.auth0.com')
 
- export function requestLogin () {
-   authService.login()
+ export function requestLogin (cb) {
+   authService.login(cb)
    return {
      type: LOGIN_REQUEST,
      isAuthenticated: false
@@ -34,7 +34,7 @@
    }
  }
 
- export function login () {
+ export function login (cb) {
    return dispatch => {
      authService.lock.on('authenticated', (authResult) => {
        authService.lock.getUserInfo(authResult.accessToken, function (error, user) {
@@ -42,26 +42,25 @@
       // Handle error
            return error
          }
-         console.log(authResult)
          AuthService.setUser(user)
          AuthService.setToken(authResult.idToken)
-         dispatch(initProfile({authToken: AuthService.getToken()}))
-         return dispatch(receiveLogin(user))
+         return dispatch(initProfile({authToken: AuthService.getToken()}, user, cb))
        })
      })
    }
  }
 
- export function initProfile (id) {
+ export function initProfile (token, user, cb) {
    return dispatch => {
-     return request('post', '/auth', id)
+     return request('post', '/auth', token)
     .then((response) => {
       if (!response.ok) {
         dispatch(loginError(response.body.message))
         return Promise.reject(response.body.message)
       } else {
-        console.log(response.req._data)
-        return response.req._data
+        dispatch(receiveLogin(user))
+        const firstLogin = response.body.firstLogin
+        cb(null, firstLogin)
       }
     })
    }

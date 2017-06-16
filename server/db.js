@@ -1,6 +1,7 @@
 const _ = require('lodash')
 
 module.exports = {
+  getCategories,
   addUserToProfile,
   profileExists,
   getProfileById,
@@ -49,7 +50,7 @@ function getProfileById (id, connection) {
   }
   return data
 })
-.catch(err => {
+.catch((err) => {
   console.log(err)
 })
 }
@@ -82,4 +83,9 @@ function getFeedbacks (id, connection) {
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
+}
+
+function getCategories (connection) {
+  return connection('categories')
+  .select()
 }
