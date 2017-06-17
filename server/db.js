@@ -126,7 +126,6 @@ function getMessages (id, connection) {
   .where('profiles.id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-<<<<<<< HEAD
   .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.user_id as senderId')
 }
 
@@ -136,9 +135,6 @@ function getSentMessages (id, connection) {
   .join('messages', 'messages.sender_id', '=', 'profiles.id')
   .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
   .select('receiver.first_name as firstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
-=======
-  .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
->>>>>>> 3e2c544fdf9961f7207c9132119f9bd515739bee
 }
 
 function getCategories (connection) {
