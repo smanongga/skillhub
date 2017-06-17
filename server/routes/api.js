@@ -95,6 +95,11 @@ router.post('/contact', (req, res) => {
   })
 })
 
+router.post('/readmessage', (req, res) => {
+  db.readMessage(conn, req.body)
+  .then()
+})
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -133,7 +138,7 @@ router.get('/profile/:id', (req, res) => {
 //  photo_url: 'www.Tonyphoto.com'
 //  bio: “Hi, I'm Tony. Looking forward to learning with you”
 //    skillsToOffer['car repair', 'baking']
-//    skillsToLearn['guitar','javascript']
+//    skillsToLearn['guitr','javascript']
 //    feedback[{
 //               commenter_username: 'Jim'
 //               commenter_photo_url: 'www.photo/132.png'

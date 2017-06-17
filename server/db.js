@@ -1,4 +1,3 @@
-const _ = require('lodash')
 
 module.exports = {
   getCategories,
@@ -7,7 +6,8 @@ module.exports = {
   getProfileById,
   getMessages,
   addMessage,
-  updateProfile
+  updateProfile,
+  readMessage
 }
 
 function addMessage (conn, messageData) {
@@ -20,7 +20,14 @@ function addMessage (conn, messageData) {
    time: messageData.time, 
    read: messageData.read
  })
+}
 
+function readMessage (conn, readId) {
+  return conn('messages')
+  .where('id', readId.id)
+  .update({
+   read: 'true'
+ })
 }
 
 function addUserToProfile (conn, id) {
@@ -105,7 +112,7 @@ function getMessages (id, connection) {
   .where('profiles.id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as from', 'messages.message', 'messages.time', 'messages.subject', 'messages.id')
+  .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
 }
 
 function getCategories (connection) {

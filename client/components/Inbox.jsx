@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchMessages} from '../actions/messages'
+import {fetchMessages, readMessage} from '../actions/messages'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -31,10 +31,12 @@ class Inbox extends React.Component {
 	openMessage(id) {
 		const messages = this.props.messages
 		const index = messages.findIndex(x => x.id === id)
-		// messages[index].read = 'true'
+		messages[index].read = 'true'
+		const readId = {id}
+    	this.props.readMessage(readId)
 		this.setState({
 			selectedMessageId: id,
-			// messages
+			messages
 		})
 	}
 	
@@ -61,7 +63,6 @@ class Inbox extends React.Component {
 	
 	setSidebarSection(section) {
 		let selectedMessageId = this.state.selectedMessageId
-		console.log(section, selectedMessageId)
 		if (section !== this.state.currentSection) {
 			selectedMessageId = ''
 		}
@@ -118,11 +119,11 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 
 	return (
 		<div id="sidebar">
-			<div className="sidebar__compose">
+			{/*<div className="sidebar__compose">
 				<a href="#" className="btn compose">
 					Compose <span className="fa fa-pencil"></span>
 				</a>
-			</div>
+			</div>*/}
 			<ul className="sidebar__inboxes">
 				<li onClick={() => { setSidebarSection('inbox') }}><a>
 					<span className="fa fa-inbox"></span> Inbox
@@ -130,10 +131,6 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 				<li onClick={() => { setSidebarSection('sent') }}><a>
 					<span className="fa fa-paper-plane"></span> Sent
 					<span className="item-count">0</span></a></li>
-				<li onClick={() => { setSidebarSection('drafts') }}><a>
-					<span className="fa fa-pencil-square-o"></span> Drafts
-					<span className="item-count">0</span>
-					</a></li>
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
 					<span className="item-count">{deletedCount}</span>
@@ -155,7 +152,7 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
 			<div className="message-item__unread-dot" data-read={message.read}></div>
 			<div className="message-item__subject truncate">{message.subject}</div>
 			<div className="message-item__details">
-				<span className="message-item__from truncate">{message.from}</span>
+				<span className="message-item__from truncate">{message.firstName} {message.lastName}</span>
 				<span className="message-item__time truncate">{getPrettyDate(message.time)}</span>
 			</div>
 		</div>
@@ -163,7 +160,6 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
 }
 
 const MessageDetails = ({ message, onDelete }) => {
-	console.log(message)
 	if (!message) {
 		return (
 			<div className="message-content empty"></div>
@@ -185,7 +181,7 @@ const MessageDetails = ({ message, onDelete }) => {
 				<h3 className="message-content__subject">{message.subject}</h3>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
-				<div className="message-content__from">{message.from}</div>
+				<div className="message-content__from">{message.firstName} {message.lastName}</div>
 			</div>
 			<div className="message-content__message">{message.message}</div>
 		</div>
@@ -207,7 +203,8 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 			{
 				messages.map(message => {
 					return (
-						<MessageListItem
+						<MessageListItem 
+							key={message.id} 
 							onMessageClicked={(id) => { onMessageSelected(id) }}
 							message={message}
 							selected={selectedMessageId === message.id} />
@@ -248,7 +245,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
 	return {
-		fetchMessages: (userId) => dispatch(fetchMessages(userId))
+		fetchMessages: (userId) => dispatch(fetchMessages(userId)),
+		readMessage: (id) => dispatch(readMessage(id))
 	}
 }
 

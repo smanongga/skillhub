@@ -2,7 +2,8 @@ import {
   MESSAGE_REQUEST,
   MESSAGE_SUCCESS,
   MESSAGE_FAILURE,
-  SEND_REQUEST
+  SEND_REQUEST,
+  READ_REQUEST
 } from '../actions/messages'
 
 const initialState = {
@@ -32,6 +33,13 @@ export default function messages (state = initialState, action) {
         messages: []
       }
     case SEND_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        errorMessage: ''
+      }
+
+      case READ_REQUEST:
       return {
         ...state,
         isFetching: true,

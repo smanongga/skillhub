@@ -39,7 +39,6 @@ class App extends React.Component {
           </Switch>
         </div>
       </Router>
-
     )
   }
 }
@@ -58,8 +57,7 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 
