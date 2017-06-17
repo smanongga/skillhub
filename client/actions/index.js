@@ -121,13 +121,12 @@
    return dispatch => {
      request('get', `/learn`)
      .then(res => {
-       console.log(res)
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
    }
  }
 
- export function getCategoryUsersOffers (callback) {
+ export function getCategoryUsersOffer (callback) {
    return dispatch => {
      request('get', `/offer`)
      .then(res => {

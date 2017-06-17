@@ -1,21 +1,39 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCategoryUsersLearn} from '../actions/index'
+import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 import {Link} from 'react-router-dom'
 
 class CategoryPage extends Component {
   componentDidMount () {
     this.props.getUsersLearn()
+    this.props.getUsersOffer()
   }
 
   render () {
     console.log(this.props.UsersLearn)
     return (
-      <div>
-        <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
-        <h3>Bio: {this.props.bio}</h3>
-        <h3>Location: {this.props.locationCity}</h3>
-        <Link to='/profile/edit'><button>Edit Profile</button></Link>
+      <div className='container'>
+      <div><h2>To Learn</h2>
+        <div>{this.props.UsersLearn.map((user, i) => {
+           return (
+             <Link to={`/profile/${user.id}`}key={i}><div className='category-thumbnail col-md-1'>
+             <p>{user.firstName}</p>
+             <br />
+             <p>{user.categories[0].skills}</p>
+           </div></Link>
+           )
+        })}</div>
+      </div>
+      <div className='clear-box'><h2>To Offer</h2></div>
+      <div>{this.props.UsersOffer.map((user, i) => {
+         return (
+           <Link to={`/profile/${user.id}`}key={i}><div className='category-thumbnail col-md-1'>
+           <p>{user.firstName}</p>
+           <br />
+           <p>{user.categories[0].skills}</p>
+         </div></Link>
+         )
+      })}</div>
       </div>
     )
   }
@@ -23,7 +41,8 @@ class CategoryPage extends Component {
 
 function mapStateToProps (state) {
   return {
-   UsersLearn: state.categoryUsersLearn
+   UsersLearn: state.categoryUsersLearn,
+   UsersOffer: state.categoryUsersOffer
   }
 }
 
@@ -31,6 +50,9 @@ function mapDispatchToProps (dispatch) {
   return {
     getUsersLearn: (cb) => {
       dispatch(getCategoryUsersLearn(cb))
+    },
+    getUsersOffer: (cb) => {
+      dispatch(getCategoryUsersOffer(cb))
     }
   }
 }

@@ -7,3 +7,7 @@
   font-size: 30px;
   color: black;
 }
+
+.clear-box {
+  clear: both;
+}
