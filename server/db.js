@@ -57,7 +57,7 @@ function updateProfile (conn, profile, id) {
     first_name: profile.firstName,
     last_name: profile.lastName,
     bio: profile.bio,
-    photo_url: profile.photoUrl,
+    photo_url: profile.profilePic,
     location_city: profile.location
   })
 }
