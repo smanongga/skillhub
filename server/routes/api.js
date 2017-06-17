@@ -118,7 +118,6 @@ router.get('/secret', (req, res) => {
 })
 
 router.put('/profile/edit', (req, res) => {
-  console.log('req', req.body)
   db.updateProfile(conn, req.body, req.user.sub)
   .then((result) => {
     res.status('200')
