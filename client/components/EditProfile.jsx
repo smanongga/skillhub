@@ -65,7 +65,6 @@ class EditProfile extends React.Component {
           <p>Last Name <input name='lastName' onChange={this.handleChange} placeholder={this.props.profile.lastName} /></p>
           <p>Email <input name='email' onChange={this.handleChange} value={this.props.profile.email} /></p>
           <p>Bio <input name='bio' onChange={this.handleChange} placeholder={this.props.profile.bio} /></p>
-          <p>Profile Pic <input name='photoUrl' onChange={this.handleChange} placeholder={this.props.profile.photoUrl} /></p>
           <p>Location <input name='location' onChange={this.handleChange} placeholder={this.props.profile.location} /></p>
           <p>Skills Offered <input name='skillsOffered' onChange={this.handleChange} placeholder={this.props.profile.skillsOffered} /></p>
           <p>Skills Wanted <input name='skillsWanted' onChange={this.handleChange} placeholder={this.props.profile.skillsWanted} /></p>
