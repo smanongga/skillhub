@@ -138,7 +138,7 @@ router.get('/profile/:id', (req, res) => {
 //  photo_url: 'www.Tonyphoto.com'
 //  bio: “Hi, I'm Tony. Looking forward to learning with you”
 //    skillsToOffer['car repair', 'baking']
-//    skillsToLearn['guitr','javascript']
+//    skillsToLearn['guitar','javascript']
 //    feedback[{
 //               commenter_username: 'Jim'
 //               commenter_photo_url: 'www.photo/132.png'
