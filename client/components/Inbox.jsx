@@ -119,11 +119,11 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 
 	return (
 		<div id="sidebar">
-			{/*<div className="sidebar__compose">
-				<a href="#" className="btn compose">
-					Compose <span className="fa fa-pencil"></span>
-				</a>
-			</div>*/}
+			<div className="sidebar__compose">
+				<p className="btn compose">
+					My Messages <span className="fa fa-pencil"></span>
+				</p>
+			</div>
 			<ul className="sidebar__inboxes">
 				<li onClick={() => { setSidebarSection('inbox') }}><a>
 					<span className="fa fa-inbox"></span> Inbox
@@ -179,6 +179,7 @@ const MessageDetails = ({ message, onDelete }) => {
 		<div className="message-content">
 			<div className="message-content__header">
 				<h3 className="message-content__subject">{message.subject}</h3>
+				<div className="message-content__time">Reply</div>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
 				<div className="message-content__from">{message.firstName} {message.lastName}</div>

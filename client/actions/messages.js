@@ -77,11 +77,11 @@ export function readMessage (readId) {
   }
 }
 
-function requestReadMessage (id) {
+function requestReadMessage (readId) {
   return {
     type: READ_REQUEST,
     isFetching: true,
-    id
+    readId
   }
 }
 
