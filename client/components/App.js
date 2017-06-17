@@ -9,7 +9,7 @@ import Inbox from './Inbox'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
 import CategoriesList from './CategoriesList'
-import Category from './Category'
+import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Login from './Login'
@@ -38,7 +38,7 @@ class App extends React.Component {
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profile/:id' component={Profile} />
-            <Route exact path='/profiles/:id' component={Category} />
+            <Route exact path='/profiles' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
           </Switch>

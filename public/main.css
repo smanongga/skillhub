@@ -7,3 +7,37 @@
   font-size: 30px;
   color: black;
 }
+
+.clear-box {
+  clear: both;
+}
+
+.flex-container{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.profile-thumbnail {
+  width: 23%;
+  margin: 10px;
+  background-color: grey;
+  color: white;
+  padding: 10px;
+}
+
+.profile-thumbnail .photo{
+  width: 25%;
+  float:left;
+}
+
+.profile-thumbnail .photo img{
+  width: 100%;
+}
+
+.profile-thumbnail .user-details{
+  width: 75%;
+  color: white;
+  margin-left: 23%;
+}

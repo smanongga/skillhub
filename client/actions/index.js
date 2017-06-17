@@ -119,7 +119,7 @@
 
  export function getCategoryUsersLearn (callback) {
    return dispatch => {
-     request('get', `/profiles/learn`)
+     request('get', `/learn`)
      .then(res => {
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
@@ -128,7 +128,7 @@
 
  export function getCategoryUsersOffer (callback) {
    return dispatch => {
-     request('get', `/profiles/offer`)
+     request('get', `/offer`)
      .then(res => {
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
