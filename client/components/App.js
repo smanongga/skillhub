@@ -8,6 +8,7 @@ import Navbar from './Navbar'
 import Inbox from './Inbox'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
+import UserProfile from './UserProfile'
 import Categories from './Categories'
 import Contact from './Contact'
 import Login from './Login'
@@ -33,9 +34,10 @@ class App extends React.Component {
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
             <Route exact path='/' component={Home} />
-            <Route exact path='/profile' component={Profile} />
-            <Route exact path='/profile/:id' component={Profile} />
+            <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
+            <Route path='/categories' component={Categories} />
+            <Route exact path='/profiles/:id' component={Profile} />
             <Route path='/categories' component={Categories} />
             <Route path='/contact' component={Contact} />
           </Switch>
@@ -64,4 +66,3 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-

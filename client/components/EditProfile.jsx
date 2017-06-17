@@ -3,8 +3,11 @@ import {connect} from 'react-redux'
 // import {Redirect} from 'react-router'
 
 import {updateProfile, addProfileToDb} from '../actions'
-
+import {getUsersProfile} from '../actions/index'
 class EditProfile extends React.Component {
+  componentDidMount (cb) {
+    this.props.getUsersProfile(cb)
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -56,11 +59,20 @@ class EditProfile extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapDispatchToProps (dispatch) {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    getUsersProfile: (cb) => {
+      dispatch(getUsersProfile(cb))
+    }
   }
 }
 
-export default connect(mapStateToProps, null)(EditProfile)
+function mapStateToProps (state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+    profile: state.profile[0]
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)

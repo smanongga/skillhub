@@ -69,11 +69,11 @@ export function readMessage (readId) {
 
     return request('post', '/readmessage', readId)
       .then(res => {
-      dispatch(readComplete(res.body.result))
-     })
-    .catch(err => {
-        dispatch(readError(err.response.body.message))
+        dispatch(readComplete(res.body.result))
       })
+    .catch(err => {
+      dispatch(readError(err.response.body.message))
+    })
   }
 }
 
