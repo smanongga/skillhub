@@ -4,7 +4,8 @@ module.exports = {
   addUserToProfile,
   profileExists,
   getProfileById,
-  updateProfile
+  updateProfile,
+  getUsersProfile
 }
 
 function addUserToProfile (conn, id) {
@@ -52,6 +53,13 @@ function getProfileById (id, connection) {
 .catch((err) => {
   console.log(err)
 })
+}
+
+function getUsersProfile (id, connection) {
+  console.log(id)
+  return connection('profiles')
+  .select('id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
+  .where('auth_id', id)
 }
 
 function getProfile (id, connection) {

@@ -1,4 +1,5 @@
  import request from '../utils/api'
+ export const USERS_PROFILE = 'USERS_PROFILE'
 
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
  export const GET_PROFILE = 'GET_PROFILE'
@@ -25,6 +26,12 @@
      data
    }
  }
+ export function getProfileOfUser (data) {
+   return {
+     type: USERS_PROFILE,
+     data
+   }
+ }
 
  export function addProfileToDb (profile) {
    return dispatch => {
@@ -40,9 +47,17 @@
  }
  export function getProfileById (id, callback) {
    return dispatch => {
-     request('get', `/profile/${id}`)
+     request('get', `/profiles/${id}`)
     .then(res => {
       dispatch(saveProfileById(res.body.result.profile[0]))
     })
+   }
+ }
+ export function getUsersProfile (callback) {
+   return dispatch => {
+     request('get', `/profile`)
+     .then(res => {
+       dispatch(getProfileOfUser(res.body.result[0]))
+     })
    }
  }

@@ -7,6 +7,7 @@ import {login, requestLogin} from '../actions/loginauth0'
 import Navbar from './Navbar'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
+import UserProfile from './UserProfile'
 import Categories from './Categories'
 import Login from './Login'
 import Home from './Home'
@@ -30,10 +31,10 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
-            <Route exact path='/profile/:id' component={Profile} />
+            <Route exact path='/profiles/:id' component={Profile} />
           </Switch>
         </div>
       </Router>
