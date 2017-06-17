@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route, withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 import Logout from './Logout'
 
@@ -13,6 +13,7 @@ const Navbar = ({ isAuthenticated }) => {
           }
         {isAuthenticated &&
           <div>
+            <h5><Link to='/profile'>Profile</Link></h5>
             <h5><a href='#'>My Inbox</a></h5>
             <h5><a href='#'>Teach</a></h5>
             <h5><a href='#'>Learn</a></h5>

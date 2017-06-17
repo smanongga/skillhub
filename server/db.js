@@ -7,7 +7,31 @@ module.exports = {
   updateProfile,
   getPeopleLearn,
   getPeopleOffer,
-  getCategoriesAndSkills
+  getCategoriesAndSkills,
+  getUsersProfile,
+  getMessages,
+  addMessage,
+  readMessage
+}
+
+function addMessage (conn, messageData) {
+  return conn('messages')
+ .insert({
+   sender_id: messageData.sender_id,
+   profile_id: messageData.profile_id,
+   subject: messageData.subject,
+   message: messageData.message,
+   time: messageData.time,
+   read: messageData.read
+ })
+}
+
+function readMessage (conn, readId) {
+  return conn('messages')
+  .where('id', readId.id)
+  .update({
+    read: 'true'
+  })
 }
 
 function addUserToProfile (conn, id) {
@@ -57,6 +81,13 @@ function getProfileById (id, connection) {
 })
 }
 
+function getUsersProfile (id, connection) {
+  console.log(id)
+  return connection('profiles')
+  .select('id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
+  .where('auth_id', id)
+}
+
 function getProfile (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
@@ -85,6 +116,14 @@ function getFeedbacks (id, connection) {
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
+}
+
+function getMessages (id, connection) {
+  return connection('profiles')
+  .where('profiles.id', '=', id)
+  .join('messages', 'messages.profile_id', '=', 'profiles.id')
+  .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
+  .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
 }
 
 function getCategories (connection) {

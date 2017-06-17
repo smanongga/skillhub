@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {getProfileById} from '../actions/index'
+import {getProfileById, getUsersProfile} from '../actions/index'
 
 class Profile extends Component {
   componentDidMount () {
     this.props.getProfileById(this.props.match.params.id)
+    this.props.getUsersProfile()
   }
 
   render () {
@@ -27,6 +28,9 @@ function mapDispatchToProps (dispatch) {
   return {
     getProfileById: (id, cb) => {
       dispatch(getProfileById(id, cb))
+    },
+    getUsersProfile: (cb) => {
+      dispatch(getUsersProfile(cb))
     }
   }
 }

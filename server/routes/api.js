@@ -38,50 +38,84 @@ function register (req, res, next) {
     })
 }
 
-// // express-jwt middleware lets us use a function as the secret,
-// // so we can grab from wherever...
-// function getSecret (req, payload, done) {
-//   done(null, process.env.JWT_SECRET)
-// }
-//
-// router.post('/auth', (req, res) => {
-//   jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
-//     if (err) {
-//       console.log(err)
-//     }
-//     db.profileExists(conn, decoded.sub)
-//       .then((exists) => {
-//         console.log(exists)
-//         if (exists.length !== 0) {
-//           return res.status(200).send({
-//             firstLogin: false
-//           })
-//         }
-//         db.addUserToProfile(conn, decoded.sub)
-//           .then((result) => {
-//             res.status('200').send({
-//               firstLogin: true
-//             })
-//           })
-//       })
-//   })
-// })
-//
-// // Protect all routes beneath this point
-// router.use(
-//   verifyJwt({
-//     secret: getSecret
-//   }),
-//   auth.handleError
-// )
-//
-// // These routes are protected
-// router.get('/secret', (req, res) => {
-//   res.json({
-//     message: 'This is a SECRET quote.',
-//     user: `Your user ID is: ${req.user.id}`
-//   })
-// })
+// express-jwt middleware lets us use a function as the secret,
+// so we can grab from wherever...
+function getSecret (req, payload, done) {
+  done(null, process.env.JWT_SECRET)
+}
+
+// This route will set the req.user object if it exists, but is still public
+router.get('/quote',
+  verifyJwt({
+    credentialsRequired: false,
+    secret: getSecret
+  }),
+  (req, res) => {
+    const response = { message: 'This is a PUBLIC quote.' }
+    if (req.user) {
+      response.user = `Your user ID is: ${req.user.id}`
+    }
+    res.json(response)
+  }
+)
+
+router.get('/messages/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.post('/auth', (req, res) => {
+  jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.log(err)
+    }
+    db.profileExists(conn, decoded.sub)
+      .then((exists) => {
+        if (exists.length !== 0) {
+          return res.status(200).send({
+            firstLogin: false
+          })
+        }
+        db.addUserToProfile(conn, decoded.sub)
+          .then((result) => {
+            res.status('200').send({
+              firstLogin: true
+            })
+          })
+      })
+  })
+})
+
+router.post('/contact', (req, res) => {
+  db.addMessage(conn, req.body)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
+router.post('/readmessage', (req, res) => {
+  db.readMessage(conn, req.body)
+  .then()
+})
+
+// Protect all routes beneath this point
+router.use(
+  verifyJwt({
+    secret: getSecret
+  }),
+  auth.handleError
+)
+
+// These routes are protected
+router.get('/secret', (req, res) => {
+  res.json({
+    message: 'This is a SECRET quote.',
+    user: `Your user ID is: ${req.user.id}`
+  })
+})
 
 router.post('/profile/edit', (req, res) => {
   db.updateProfile(conn, req.body, req.user.sub)
@@ -90,13 +124,22 @@ router.post('/profile/edit', (req, res) => {
   })
 })
 
-router.get('/profile/:id', (req, res) => {
+router.get('/profile', (req, res) => {
+  const connection = req.app.get('db')
+  db.getUsersProfile(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/profiles/:id', (req, res) => {
   const connection = req.app.get('db')
   db.getProfileById(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
   })
 })
+
 // Expecting this type of data back:
 // { id: 1,
 //  name: tony

@@ -1,6 +1,7 @@
  // import {getAllCategories} from '../utils/api'
  import request from '../utils/api'
 
+ export const USERS_PROFILE = 'USERS_PROFILE'
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
  export const GET_PROFILE = 'GET_PROFILE'
  export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
@@ -41,6 +42,12 @@
      data
    }
  }
+ export function getProfileOfUser (data) {
+   return {
+     type: USERS_PROFILE,
+     data
+   }
+ }
 
  export function addProfileToDb (profile) {
    return dispatch => {
@@ -69,7 +76,7 @@
 
  export function getProfileById (id, callback) {
    return dispatch => {
-     request('get', `/profile/${id}`)
+     request('get', `/profiles/${id}`)
     .then(res => {
       dispatch(saveProfileById(res.body.result.profile[0]))
     })
@@ -80,7 +87,17 @@
    return dispatch => {
      request('get', '/categories')
      .then(res => {
-       dispatch(receiveCategories(res.body.result))
+       dispatch(receiveCategories(res.body.result)
+     )
+     })
+   }
+ }
+
+ export function getUsersProfile (callback) {
+   return dispatch => {
+     request('get', `/profile`)
+     .then(res => {
+       dispatch(getProfileOfUser(res.body.result[0]))
      })
    }
  }
