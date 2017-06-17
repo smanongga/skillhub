@@ -1,25 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route, withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 import Logout from './Logout'
 
 const Navbar = ({ isAuthenticated }) => {
   return (
-    <nav>
-      <div>
-        {isAuthenticated &&
-          <Logout />
-          }
-        {isAuthenticated &&
-          <div>
-            <h5><a href='#'>My Inbox</a></h5>
-            <h5><a href='#'>Teach</a></h5>
-            <h5><a href='#'>Learn</a></h5>
-            </div>}
-        <hr />
-      </div>
-    </nav>
+    <div>
+      {isAuthenticated &&
+        <nav className='navbar navbar-default'>
+          <div className='container'>
+            <div className='navbar-header'>
+              <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+                <span className='sr-only'>Toggle navigation</span>
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+              </button>
+              <Link to='/'> <img src='/skillHub-logo.png' /></Link>
+            </div>
+            <div id='navbar' className='navbar-collapse collapse'>
+              <ul className='nav navbar-nav navbar-right'>
+                <li><Link to='/profile'>Profile</Link></li>
+                <li><a href='#'>My Inbox</a></li>
+                <li><a href='#'>Teach</a></li>
+                <li><a href='#'>Learn</a></li>
+                <li>
+                  <Logout />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      }
+    </div>
   )
 }
 

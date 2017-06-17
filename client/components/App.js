@@ -9,7 +9,9 @@ import Inbox from './Inbox'
 import Sent from './Sent'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
-import Categories from './Categories'
+import CategoriesList from './CategoriesList'
+import CategoryPage from './CategoryPage'
+import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Login from './Login'
 import Home from './Home'
@@ -28,17 +30,17 @@ class App extends React.Component {
     return (
       <Router>
         <div className='app'>
-          <h1>SkillHub</h1>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
             <Route path='/sent/:id' component={Sent} />
             <Route exact path='/' component={Home} />
-            <Route exact path='/profile' component={Profile} />
-            <Route exact path='/profile/:id' component={Profile} />
+            <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
-            <Route path='/categories' component={Categories} />
+            <Route exact path='/profiles/:id' component={Profile} />
+            <Route exact path='/profiles' component={CategoryPage} />
+            <Route path='/categories' component={CategoriesList} />
             <Route path='/contact/:id' component={Contact} />
           </Switch>
         </div>
@@ -66,4 +68,3 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-

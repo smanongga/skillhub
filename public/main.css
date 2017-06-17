@@ -1,3 +1,6 @@
+#navbar ul {
+  margin-top:10px;
+}
 .category-thumbnail {
   height: 300px;
   width: 300px;
@@ -6,4 +9,38 @@
   text-align: center;
   font-size: 30px;
   color: black;
+}
+
+.clear-box {
+  clear: both;
+}
+
+.flex-container{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.profile-photo {
+  background-color:grey;
+  width:100%;
+}
+.profile-thumbnail {
+  width: 23%;
+  margin: 10px;
+  background-color: grey;
+  color: white;
+}
+.profile-thumbnail .photo img{
+  width: 100%;
+}
+
+.profile-thumbnail .user-details{
+  color: white;
+}
+.spacing {
+  margin-bottom:40px;
+}
+.white-box {
+  background:#ffffff;
 }

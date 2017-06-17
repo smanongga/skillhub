@@ -86,22 +86,6 @@ function messageSentError (sentMessages) {
   }
 }
 
-
-// export function sendMessage (messageData) {
-//   return dispatch => {
-//     // We dispatch sendMessage to kickoff the call to the API
-//     dispatch(requestSendMessage(messageData))
-
-//     return request('post', '/contact', messageData)
-//       .then(res => {
-//       dispatch(receiveMessages(res.body.result))
-//      })
-//     .catch(err => {
-//         dispatch(messageError(err.response.body.message))
-//       })
-//   }
-// }
-
 export function readMessage (readId) {
   return dispatch => {
     // We dispatch sendMessage to kickoff the call to the API
@@ -109,11 +93,11 @@ export function readMessage (readId) {
 
     return request('post', '/readmessage', readId)
       .then(res => {
-      dispatch(readComplete(res.body.result))
-     })
-    .catch(err => {
-        dispatch(readError(err.response.body.message))
+        dispatch(readComplete(res.body.result))
       })
+    .catch(err => {
+      dispatch(readError(err.response.body.message))
+    })
   }
 }
 
@@ -148,11 +132,11 @@ export function sendMessage (messageData) {
 
     return request('post', '/contact', messageData)
       .then(res => {
-      dispatch(sendComplete(res.body.result))
-     })
-    .catch(err => {
-        dispatch(sendError(err.response.body.message))
+        dispatch(sendComplete(res.body.result))
       })
+    .catch(err => {
+      dispatch(sendError(err.response.body.message))
+    })
   }
 }
 
@@ -179,4 +163,3 @@ function messageError (messageData) {
     messageData
   }
 }
-

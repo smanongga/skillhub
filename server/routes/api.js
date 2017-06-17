@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const _ = require('lodash')
 const verifyJwt = require('express-jwt')
-const db = require('../db')
+
 const users = require('../lib/users')
 const auth = require('../lib/auth.js')
 const jwt = require('jsonwebtoken')
+const db = require('../db')
 
 const config = require('../../knexfile')[process.env.NODE_ENV || 'development']
 const conn = require('knex')(config)
@@ -80,13 +82,12 @@ router.post('/auth', (req, res) => {
     }
     db.profileExists(conn, decoded.sub)
       .then((exists) => {
-        console.log(exists)
         if (exists.length !== 0) {
           return res.status(200).send({
             firstLogin: false
           })
         }
-        db.addUserToProfile(conn, decoded.sub)
+        db.addUserToProfile(conn, decoded.sub, req.body.user, req.body.email)
           .then((result) => {
             res.status('200').send({
               firstLogin: true
@@ -124,21 +125,35 @@ router.get('/secret', (req, res) => {
   })
 })
 
-router.post('/profile/edit', (req, res) => {
+router.get('/profile/edit', (req, res) => {
+  db.getLocations(conn)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.put('/profile/edit', (req, res) => {
   db.updateProfile(conn, req.body, req.user.sub)
   .then((result) => {
     res.status('200')
   })
 })
 
-router.get('/profile/:id', (req, res) => {
+router.get('/profile', (req, res) => {
+  const connection = req.app.get('db')
+  db.getUsersProfile(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/profiles/:id', (req, res) => {
   const connection = req.app.get('db')
   db.getProfileById(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
   })
 })
-
 
 // Expecting this type of data back:
 // { id: 1,
@@ -161,12 +176,58 @@ router.get('/categories', (req, res) => {
     res.json({result: data})
   })
 })
+
 // Expecting this type of data back:
 // [
 //    { id: 1, name: 'Music'}
 //    { id: 2, name: 'Web Development'}
 //    { id: 3, name: 'Art and Design'}
 // ]
+router.get('/learn', (req, res) => {
+  const connection = req.app.get('db')
+  db.getPeopleLearn(connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/offer', (req, res) => {
+  const connection = req.app.get('db')
+  db.getPeopleOffer(connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
 
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:

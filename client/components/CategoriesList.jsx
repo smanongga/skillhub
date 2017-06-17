@@ -2,23 +2,24 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import {fetchCategories} from '../actions'
+import {getAllCategories} from '../actions'
 
-class Categories extends React.Component {
+class CategoriesList extends React.Component {
   componentDidMount () {
     this.props.fetchCategories()
   }
 
   render () {
     return (
-      <div className='category-container col-md-12'>
+      <div className='container'>
         <div className='category-title'>
           <h2>Browse for teachers or students in these categories:</h2>
           <div>
-            {this.categoriesList.map((category, key) => {
+            {this.props.categoriesList.map((category, i) => {
+              console.log(category)
               return (
-                <Link to={`/profiles/${category}`}key={key}><div className='category-thumbnail col-md-3'>
-                  {category}
+                <Link to={`/profiles/${category.name}`}key={i}><div className='category-thumbnail col-md-3'>
+                  {category.name}
                 </div></Link>
               )
             })}
@@ -31,7 +32,7 @@ class Categories extends React.Component {
 function mapDispatchToProps (dispatch) {
   return {
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(getAllCategories())
     }
   }
 }
@@ -42,4 +43,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList)

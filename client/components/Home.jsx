@@ -4,7 +4,7 @@ import Login from './Login'
 class Home extends React.Component {
   render () {
     return (
-    <div>
+    <div className='container'>
       <h2>Welcome to SkillHub</h2>
       <p>Teach. Learn. Connect. </p>
       <br></br>
