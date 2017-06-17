@@ -29,7 +29,6 @@ class App extends React.Component {
     return (
       <Router>
         <div className='app'>
-          <h1>SkillHub</h1>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
           <Switch>>
