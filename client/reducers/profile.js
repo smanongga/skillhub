@@ -4,7 +4,6 @@ const profile = (state = [], action) => {
   switch (action.type) {
     case UPDATE_PROFILE:
       return [
-        ...state,
         action.updatedProfile
       ]
     case 'GET_PROFILE':
@@ -13,7 +12,6 @@ const profile = (state = [], action) => {
       ]
     case USERS_PROFILE:
       return [
-        ...state,
         action.data
       ]
     default:

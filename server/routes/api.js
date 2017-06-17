@@ -79,7 +79,7 @@ router.post('/auth', (req, res) => {
             firstLogin: false
           })
         }
-        db.addUserToProfile(conn, decoded.sub)
+        db.addUserToProfile(conn, decoded.sub, req.body.user, req.body.email)
           .then((result) => {
             res.status('200').send({
               firstLogin: true
@@ -117,7 +117,8 @@ router.get('/secret', (req, res) => {
   })
 })
 
-router.post('/profile/edit', (req, res) => {
+router.put('/profile/edit', (req, res) => {
+  console.log('req', req.body)
   db.updateProfile(conn, req.body, req.user.sub)
   .then((result) => {
     res.status('200')

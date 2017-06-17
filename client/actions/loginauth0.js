@@ -44,7 +44,7 @@
          }
          AuthService.setUser(user)
          AuthService.setToken(authResult.idToken)
-         return dispatch(initProfile({authToken: AuthService.getToken()}, user, cb))
+         return dispatch(initProfile({authToken: AuthService.getToken(), user: user.username, email: user.email}, user, cb))
        })
      })
    }
@@ -52,7 +52,7 @@
 
  export function initProfile (token, user, cb) {
    return dispatch => {
-     return request('post', '/auth', token)
+     return request('post', '/auth', token, user.username, user.email)
     .then((response) => {
       if (!response.ok) {
         dispatch(loginError(response.body.message))
