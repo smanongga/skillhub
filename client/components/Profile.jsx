@@ -32,7 +32,6 @@ class Profile extends Component {
   }
 
 function mapStateToProps (state) {
-  console.log('this is state', state.profile[0])
   return state.profile[0]
 }
 
