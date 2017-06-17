@@ -6,21 +6,38 @@ import Logout from './Logout'
 
 const Navbar = ({ isAuthenticated }) => {
   return (
-    <nav>
-      <div>
-        {isAuthenticated &&
-          <Logout />
-          }
-        {isAuthenticated &&
-          <div>
-            <h5><Link to='/profile'>Profile</Link></h5>
-            <h5><a href='#'>My Inbox</a></h5>
-            <h5><a href='#'>Teach</a></h5>
-            <h5><a href='#'>Learn</a></h5>
-            </div>}
-        <hr />
+    <div>
+      {isAuthenticated &&
+    <nav className='navbar navbar-default'>
+      <div className='container'>
+        <div className='navbar-header'>
+          <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+            <span className='sr-only'>Toggle navigation</span>
+            <span className='icon-bar'></span>
+            <span className='icon-bar'></span>
+            <span className='icon-bar'></span>
+          </button>
+          <a className='navbar-brand' href='#'>SkillHub</a>
+        </div>
+
+        <div id='navbar' className='navbar-collapse collapse'>
+
+          <ul className='nav navbar-nav'>
+                <li><Link to='/profile'>Profile</Link></li>
+                <li><a href='#'>My Inbox</a></li>
+                <li><a href='#'>Teach</a></li>
+                <li><a href='#'>Learn</a></li>
+          </ul>
+          <ul className='nav navbar-nav navbar-right'>
+            <li>
+              <Logout />
+                </li>
+          </ul>
+        </div>
       </div>
     </nav>
+  }
+  </div>
   )
 }
 
