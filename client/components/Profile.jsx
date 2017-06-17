@@ -7,7 +7,6 @@ class Profile extends Component {
   componentDidMount () {
     this.props.getProfileById(this.props.match.params.id)
     this.props.getUsersProfile()
-    
   }
 
   render () {

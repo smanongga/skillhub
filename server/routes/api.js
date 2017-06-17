@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const _ = require('lodash')
 const verifyJwt = require('express-jwt')
-const db = require('../db')
+
 const users = require('../lib/users')
 const auth = require('../lib/auth.js')
 const jwt = require('jsonwebtoken')
+const db = require('../db')
 
 const config = require('../../knexfile')[process.env.NODE_ENV || 'development']
 const conn = require('knex')(config)
@@ -138,7 +140,6 @@ router.get('/profiles/:id', (req, res) => {
   })
 })
 
-
 // Expecting this type of data back:
 // { id: 1,
 //  name: tony
@@ -160,12 +161,58 @@ router.get('/categories', (req, res) => {
     res.json({result: data})
   })
 })
+
 // Expecting this type of data back:
 // [
 //    { id: 1, name: 'Music'}
 //    { id: 2, name: 'Web Development'}
 //    { id: 3, name: 'Art and Design'}
 // ]
+router.get('/profiles/learn', (req, res) => {
+  const connection = req.app.get('db')
+  db.getPeopleLearn(connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/profiles/offer', (req, res) => {
+  const connection = req.app.get('db')
+  db.getPeopleOffer(connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
 
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
