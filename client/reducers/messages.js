@@ -57,24 +57,24 @@ export default function messages (state = initialState, action) {
         errorMessage: action.message,
         messageData: []
       }
-    case SENT_REQUEST:
-      return {
-        isFetching: true,
-        errorMessage: '',
-        sentMessages: []
-      }
-    case SENT_SUCCESS:
-      return {
-        isFetching: false,
-        messages: action.response,
-        errorMessage: ''
-      }
-    case SENT_FAILURE:
-      return {
-        isFetching: false,
-        errorMessage: action.message,
-        sentMessages: []
-      }
+    // case SENT_REQUEST:
+    //   return {
+    //     isFetching: true,
+    //     errorMessage: '',
+    //     sentMessages: []
+    //   }
+    // case SENT_SUCCESS:
+    //   return {
+    //     isFetching: false,
+    //     messages: action.response,
+    //     errorMessage: ''
+    //   }
+    // case SENT_FAILURE:
+    //   return {
+    //     isFetching: false,
+    //     errorMessage: action.message,
+    //     sentMessages: []
+    //   }
     case READ_REQUEST:
       return {
         ...state,

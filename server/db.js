@@ -5,7 +5,7 @@ module.exports = {
   profileExists,
   getProfileById,
   getMessages,
-  getSentMessages,
+  // getSentMessages,
   addMessage,
   updateProfile,
   readMessage
@@ -116,13 +116,13 @@ function getMessages (id, connection) {
   .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.user_id as senderId')
 }
 
-function getSentMessages (id, connection) {
-  return connection('profiles')
-  .where('profiles.id', '=', id)
-  .join('messages', 'messages.sender_id', '=', 'profiles.id')
-  .join('profiles as receiver', 'messages.profiles_id', '=', 'receiver.id')
-  .select('receiver.first_name as fcirstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
-}
+// function getSentMessages (id, connection) {
+//   return connection('profiles')
+//   .where('profiles.id', '=', id)
+//   .join('messages', 'messages.sender_id', '=', 'profiles.id')
+//   .join('profiles as receiver', 'messages.profiles_id', '=', 'receiver.id')
+//   .select('receiver.first_name as fcirstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
+// }
 
 function getCategories (connection) {
   return connection('categories')

@@ -26,14 +26,6 @@ class Inbox extends React.Component {
 					})
 				}
 			})
-		this.props.fetchMessages(userId)
-			.then(() => {
-				if (this.props.sentMessages.length > 0) {
-					this.setState({
-						selectMessageId: this.props.messages[0].id
-					})
-				}
-			})
 	}
 	
 	openMessage(id) {
