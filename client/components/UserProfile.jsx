@@ -14,6 +14,7 @@ class UserProfile extends Component {
         <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
         <h3>Bio: {this.props.bio}</h3>
         <h3>Location: {this.props.locationCity}</h3>
+        <img src={this.props.photoUrl} />
         <Link to='/profile/edit'><button>Edit Profile</button></Link>
       </div>
     )
