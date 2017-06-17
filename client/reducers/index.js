@@ -4,13 +4,15 @@ import auth from './auth'
 import messages from './messages'
 import profile from './profile'
 import categories from './categories'
-import categoryUsers from './categoryUsers'
+import categoryUsersLearn from './categoryUsersLearn'
+import categoryUsersOffer from './categoryUsersOffer'
 
 const reducers = combineReducers({
   auth,
   profile,
   categories,
-  categoryUsers,
+  categoryUsersLearn,
+  categoryUsersOffer,
   messages
 })
 

@@ -6,7 +6,8 @@
  export const GET_PROFILE = 'GET_PROFILE'
  export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
  export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
- export const RECEIVE_CATEGORY_USERS = 'RECEIVE_CATEGORY_USERS'
+ export const RECEIVE_CATEGORY_USERS_LEARN = 'RECEIVE_CATEGORY_USERS_LEARN'
+ export const RECEIVE_CATEGORY_USERS_OFFER = 'RECEIVE_CATEGORY_USERS_OFFER'
 
  export function updateProfile (text) {
    return {
@@ -37,10 +38,16 @@
    }
  }
 
- export const receiveCategoryUsers = (categoryUsers) => {
+ export const receiveCategoryUsersLearn = (categoryUsersLearn) => {
    return {
-     type: RECEIVE_CATEGORY_USERS,
-     categoryUsers: categoryUsers
+     type: RECEIVE_CATEGORY_USERS_LEARN,
+     categoryUsersLearn: categoryUsersLearn
+   }
+ }
+ export const receiveCategoryUsersOffer = (categoryUsersOffer) => {
+   return {
+     type: RECEIVE_CATEGORY_USERS_OFFER,
+     categoryUsersOffer: categoryUsersOffer
    }
  }
 
@@ -110,11 +117,20 @@
    }
  }
 
- export function getCategoryUsers (callback) {
+ export function getCategoryUsersLearn (callback) {
    return dispatch => {
      request('get', `/profiles/learn`)
      .then(res => {
-       dispatch(receiveCategoryUsers(res.body.result))
+       dispatch(receiveCategoryUsersLearn(res.body.result))
+     })
+   }
+ }
+
+ export function getCategoryUsersOffer (callback) {
+   return dispatch => {
+     request('get', `/profiles/offer`)
+     .then(res => {
+       dispatch(receiveCategoryUsersOffer(res.body.result))
      })
    }
  }
