@@ -56,6 +56,15 @@ router.get('/quote',
     res.json(response)
   }
 )
+
+router.get('/messages/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.post('/auth', (req, res) => {
   jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
@@ -63,7 +72,6 @@ router.post('/auth', (req, res) => {
     }
     db.profileExists(conn, decoded.sub)
       .then((exists) => {
-        console.log(exists)
         if (exists.length !== 0) {
           return res.status(200).send({
             firstLogin: false
@@ -77,6 +85,18 @@ router.post('/auth', (req, res) => {
           })
       })
   })
+})
+
+router.post('/contact', (req, res) => {
+  db.addMessage(conn, req.body)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
+router.post('/readmessage', (req, res) => {
+  db.readMessage(conn, req.body)
+  .then()
 })
 
 // Protect all routes beneath this point
@@ -117,6 +137,8 @@ router.get('/profiles/:id', (req, res) => {
     res.json({result: data})
   })
 })
+
+
 // Expecting this type of data back:
 // { id: 1,
 //  name: tony

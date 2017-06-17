@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getUsersProfile} from '../actions/index'
+import {Link} from 'react-router-dom'
 
 class UserProfile extends Component {
   componentDidMount () {
@@ -13,6 +14,7 @@ class UserProfile extends Component {
         <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
         <h3>Bio: {this.props.bio}</h3>
         <h3>Location: {this.props.locationCity}</h3>
+        <Link to='/profile/edit'><button>Edit Profile</button></Link>
       </div>
     )
   }
