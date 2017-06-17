@@ -45,10 +45,6 @@ class App extends React.Component {
   }
 }
 
-   {isAuthenticated &&
-          <Logout />
-          }
-
 function mapDispatchToProps (dispatch) {
   return {
     loginCreds: (cb) => {

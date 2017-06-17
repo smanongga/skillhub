@@ -16,7 +16,7 @@ import {
 const initialState = {
   isFetching: false,
   errorMessage: '',
-  messages: []
+  messages: {inbox:[]}
 }
 
 export default function messages (state = initialState, action) {
@@ -25,7 +25,7 @@ export default function messages (state = initialState, action) {
       return {
         isFetching: true,
         errorMessage: '',
-        messages: []
+        messages: {inbox: []}
       }
     case MESSAGE_SUCCESS:
       return {

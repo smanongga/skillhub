@@ -59,7 +59,7 @@ router.get('/quote',
 
 router.get('/messages/:id', (req, res) => {
   const connection = req.app.get('db')
-  db.getMessages(Number(req.params.id), connection)
+  db.getMessagesById(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
   })

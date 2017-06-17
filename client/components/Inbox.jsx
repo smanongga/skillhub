@@ -12,20 +12,14 @@ class Inbox extends React.Component {
 		
 		this.state = {
 			selectedMessageId: 0,
-			currentSection: 'inbox',
+			currentSection: 'inbox'
 		}
 	}
 
 	componentWillMount() {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchMessages(userId)
-			.then(() => {
-				if (this.props.messages.length > 0) {
-					this.setState({
-						selectMessageId: this.props.messages[0].id
-					})
-				}
-			})
+			.then()
 	}
 	
 	openMessage(id) {
@@ -240,7 +234,7 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
 	return {
-		messages: state.messages.messages
+		messages: state.messages.messages.inbox
 	}
 }
 

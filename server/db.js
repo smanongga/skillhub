@@ -5,6 +5,7 @@ module.exports = {
   profileExists,
   getProfileById,
   getMessages,
+  getMessagesById,
   // getSentMessages,
   addMessage,
   updateProfile,
@@ -108,6 +109,24 @@ function getFeedbacks (id, connection) {
   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
 }
 
+function getMessagesById (id, connection) {
+  return Promise.all([
+    getMessages(id, connection),
+    getSentMessages(id, connection)
+  ])
+  .then(([result1, result2]) => {
+    const data = {
+      inbox: result1,
+      sent: result2
+    }
+  console.log(data)
+  return data
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
 function getMessages (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
@@ -116,13 +135,13 @@ function getMessages (id, connection) {
   .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.user_id as senderId')
 }
 
-// function getSentMessages (id, connection) {
-//   return connection('profiles')
-//   .where('profiles.id', '=', id)
-//   .join('messages', 'messages.sender_id', '=', 'profiles.id')
-//   .join('profiles as receiver', 'messages.profiles_id', '=', 'receiver.id')
-//   .select('receiver.first_name as fcirstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
-// }
+function getSentMessages (id, connection) {
+  return connection('profiles')
+  .where('profiles.id', '=', id)
+  .join('messages', 'messages.sender_id', '=', 'profiles.id')
+  .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
+  .select('receiver.first_name as firstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
+}
 
 function getCategories (connection) {
   return connection('categories')
