@@ -5,9 +5,11 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {login, requestLogin} from '../actions/loginauth0'
 
 import Navbar from './Navbar'
+import Inbox from './Inbox'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
 import Categories from './Categories'
+import Contact from './Contact'
 import Login from './Login'
 import Home from './Home'
 
@@ -28,12 +30,14 @@ class App extends React.Component {
           <h1>SkillHub</h1>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
-          <Switch>
+          <Switch>>
+            <Route path='/messages/:id' component={Inbox} />
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
+            <Route exact path='/profile/:id' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
-            <Route exact path='/profile/:id' component={Profile} />
+            <Route path='/contact' component={Contact} />
           </Switch>
         </div>
       </Router>
@@ -60,3 +64,4 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+
