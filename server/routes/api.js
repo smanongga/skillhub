@@ -117,6 +117,13 @@ router.get('/secret', (req, res) => {
   })
 })
 
+router.get('/profile/edit', (req, res) => {
+  db.getLocations(conn)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.put('/profile/edit', (req, res) => {
   db.updateProfile(conn, req.body, req.user.sub)
   .then((result) => {
