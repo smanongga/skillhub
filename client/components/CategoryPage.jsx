@@ -14,24 +14,38 @@ class CategoryPage extends Component {
     return (
       <div className='container'>
       <div><h2>To Learn</h2>
-        <div>{this.props.UsersLearn.map((user, i) => {
+        <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
            return (
-             <Link to={`/profile/${user.id}`}key={i}><div className='category-thumbnail col-md-1'>
-             <p>{user.firstName}</p>
-             <br />
-             <p>{user.categories[0].skills}</p>
-           </div></Link>
+             <div className='profile-thumbnail'>
+             <Link to={`/profile/${user.id}`}key={i}>
+             <div>
+               <div className='photo'><img src='/defaultProfile.jpg' /></div>
+               <div className='user-details'>
+                <ul>
+                 <li>{user.firstName}</li>
+                 <li>{user.categories[0].skills}</li>
+                </ul>
+               </div>
+             </div>
+           </Link></div>
            )
         })}</div>
       </div>
       <div className='clear-box'><h2>To Offer</h2></div>
-      <div>{this.props.UsersOffer.map((user, i) => {
+      <div className='flex-container'>{this.props.UsersOffer.map((user, i) => {
          return (
-           <Link to={`/profile/${user.id}`}key={i}><div className='category-thumbnail col-md-1'>
-           <p>{user.firstName}</p>
-           <br />
-           <p>{user.categories[0].skills}</p>
-         </div></Link>
+           <div className='profile-thumbnail'>
+           <Link to={`/profile/${user.id}`}key={i}>
+           <div>
+             <div className='photo'><img src='/defaultProfile.jpg' /></div>
+             <div className='user-details'>
+              <ul>
+               <li>{user.firstName}</li>
+               <li>{user.categories[0].skills}</li>
+              </ul>
+             </div>
+           </div>
+         </Link></div>
          )
       })}</div>
       </div>
