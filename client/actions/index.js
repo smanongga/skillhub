@@ -60,13 +60,15 @@
  export function getProfileOfUser (data) {
    return {
      type: USERS_PROFILE,
+     isFetching: false,
      data
    }
  }
 
  export function addProfileToDb (profile) {
+   console.log(profile)
    return dispatch => {
-     return request('post', '/profile/edit', profile)
+     return request('put', '/profile/edit', profile)
     .then((response) => {
       if (!response.ok) {
         return response.body.message

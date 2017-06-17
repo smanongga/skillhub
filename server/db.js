@@ -34,10 +34,13 @@ function readMessage (conn, readId) {
   })
 }
 
-function addUserToProfile (conn, id) {
+function addUserToProfile (conn, id, username, email) {
   return conn('profiles')
   .where('auth_id', id)
-  .insert({ auth_id: id
+  .insert({
+    auth_id: id,
+    user_name: username,
+    email: email
   })
 }
 
@@ -53,7 +56,6 @@ function updateProfile (conn, profile, id) {
   .update({
     first_name: profile.firstName,
     last_name: profile.lastName,
-    email: profile.email,
     bio: profile.bio,
     photo_url: profile.photoUrl,
     location_city: profile.location
@@ -82,9 +84,8 @@ function getProfileById (id, connection) {
 }
 
 function getUsersProfile (id, connection) {
-  console.log(id)
   return connection('profiles')
-  .select('id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
+  .select('id', 'user_id as userId', 'user_name as userName', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
   .where('auth_id', id)
 }
 
