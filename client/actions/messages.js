@@ -3,12 +3,12 @@ import request from '../utils/api'
 export const MESSAGE_REQUEST = 'MESSAGE_REQUEST'
 export const MESSAGE_SUCCESS = 'MESSAGE_SUCCESS'
 export const MESSAGE_FAILURE = 'MESSAGE_FAILURE'
-export const SEND_REQUEST    = 'SEND_REQUEST'
-export const SEND_SUCCESS    = 'SEND_SUCCESS'
-export const SEND_FAILURE    = 'SEND_FAILURE'
-export const READ_REQUEST    = 'READ_REQUEST'
-export const READ_SUCCESS    = 'READ_SUCCESS'
-export const READ_FAILURE    = 'READ_FAILURE'
+export const SEND_REQUEST = 'SEND_REQUEST'
+export const SEND_SUCCESS = 'SEND_SUCCESS'
+export const SEND_FAILURE = 'SEND_FAILURE'
+export const READ_REQUEST = 'READ_REQUEST'
+export const READ_SUCCESS = 'READ_SUCCESS'
+export const READ_FAILURE = 'READ_FAILURE'
 
 export function fetchMessages (userId) {
   return function (dispatch) {
@@ -45,7 +45,6 @@ function messageError (messages) {
     messages
   }
 }
-
 
 // export function sendMessage (messageData) {
 //   return dispatch => {
@@ -108,11 +107,11 @@ export function sendMessage (messageData) {
 
     return request('post', '/contact', messageData)
       .then(res => {
-      dispatch(sendComplete(res.body.result))
-     })
-    .catch(err => {
-        dispatch(sendError(err.response.body.message))
+        dispatch(sendComplete(res.body.result))
       })
+    .catch(err => {
+      dispatch(sendError(err.response.body.message))
+    })
   }
 }
 
@@ -139,4 +138,3 @@ function messageError (messageData) {
     messageData
   }
 }
-

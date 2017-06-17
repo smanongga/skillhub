@@ -14,11 +14,11 @@ module.exports = {
 function addMessage (conn, messageData) {
   return conn('messages')
  .insert({
-   sender_id: messageData.sender_id, 
-   profile_id: messageData.profile_id, 
-   subject: messageData.subject, 
-   message: messageData.message, 
-   time: messageData.time, 
+   sender_id: messageData.sender_id,
+   profile_id: messageData.profile_id,
+   subject: messageData.subject,
+   message: messageData.message,
+   time: messageData.time,
    read: messageData.read
  })
 }
@@ -27,14 +27,17 @@ function readMessage (conn, readId) {
   return conn('messages')
   .where('id', readId.id)
   .update({
-   read: 'true'
- })
+    read: 'true'
+  })
 }
 
-function addUserToProfile (conn, id) {
+function addUserToProfile (conn, id, username, email) {
   return conn('profiles')
   .where('auth_id', id)
-  .insert({ auth_id: id
+  .insert({
+    auth_id: id,
+    user_name: username,
+    email: email
   })
 }
 
@@ -50,7 +53,6 @@ function updateProfile (conn, profile, id) {
   .update({
     first_name: profile.firstName,
     last_name: profile.lastName,
-    email: profile.email,
     bio: profile.bio,
     photo_url: profile.photoUrl,
     location_city: profile.location
@@ -79,9 +81,8 @@ function getProfileById (id, connection) {
 }
 
 function getUsersProfile (id, connection) {
-  console.log(id)
   return connection('profiles')
-  .select('id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
+  .select('id', 'user_id as userId', 'user_name as userName', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
   .where('auth_id', id)
 }
 
@@ -120,7 +121,7 @@ function getMessages (id, connection) {
   .where('profiles.id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
+  .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
 }
 
 function getCategories (connection) {
