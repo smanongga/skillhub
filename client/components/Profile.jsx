@@ -13,8 +13,8 @@ class Profile extends Component {
     return (
       <div className='container'>
         <div className='row spacing'>
-          <div className='col-md-3'><div className='profile-photo'>{this.props.photo_url}</div></div>
-          <div className='col-md-9'>
+          <div className='col-md-4'><div className='profile-photo'><img src='/defaultProfile.jpg' /></div></div>
+          <div className='col-md-8'>
             <h2>{this.props.firstName} {this.props.lastName}</h2>
             {this.props.locationCity}<br />
             {this.props.bio}</div>

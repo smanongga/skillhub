@@ -39,7 +39,7 @@ class EditProfile extends React.Component {
 
   render () {
     return (
-      <div className='edit-profile'>
+      <div className='edit-profile container'>
         {this.props.profile &&
         <div className='edit-profile-form'>
           <h2>Edit Profile</h2>
