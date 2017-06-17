@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -37,7 +38,7 @@ class Login extends React.Component {
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </button>
-            <a className='navbar-brand' href='#'>SkillHub</a>
+            <Link to='/'> <img src='/skillHub-logo.png' /></Link>
           </div>
           <div id='navbar' className='navbar-collapse collapse'>
             <ul className='nav navbar-nav navbar-right'>
