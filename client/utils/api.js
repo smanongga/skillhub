@@ -23,3 +23,14 @@ export default function consume (method = 'get', endpoint, data = {}) {
       throw err
     })
 }
+
+export function getProfileById (id, callback) {
+  request.get(`/api/v1/profile/${id}`)
+  .end((err, res) => {
+    if (err) {
+      callback(err)
+    } else {
+      callback(null, res.body.result)
+    }
+  })
+}

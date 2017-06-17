@@ -13,7 +13,8 @@ exports.seed = function (knex, Promise) {
         {id: 7, profile_id: 4, skills_id: 6},
         {id: 8, profile_id: 3, skills_id: 7},
         {id: 9, profile_id: 3, skills_id: 2},
-        {id: 10, profile_id: 1, skills_id: 4}
+        {id: 10, profile_id: 1, skills_id: 4},
+        {id: 11, profile_id: 4, skills_id: 2}
       ])
     })
 }

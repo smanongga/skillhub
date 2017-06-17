@@ -6,8 +6,8 @@ exports.seed = function (knex, Promise) {
       // Inserts seed entries
       return knex('categories').insert([
         {id: 1, name: 'Music'},
-        {id: 2, name: 'Web Development'},
-        {id: 3, name: 'Art and Design'}
+        {id: 2, name: 'Tech'},
+        {id: 3, name: 'Arts'}
       ])
     })
 }

@@ -8,8 +8,9 @@ import Navbar from './Navbar'
 import Inbox from './Inbox'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
+import CategoriesList from './CategoriesList'
+import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
-import Categories from './Categories'
 import Contact from './Contact'
 import Login from './Login'
 import Home from './Home'
@@ -36,9 +37,9 @@ class App extends React.Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
-            <Route path='/categories' component={Categories} />
-            <Route exact path='/profiles/:id' component={Profile} />
-            <Route path='/categories' component={Categories} />
+            <Route exact path='/profile/:id' component={Profile} />
+            <Route exact path='/profiles' component={CategoryPage} />
+            <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
           </Switch>
         </div>
