@@ -6,6 +6,7 @@ import {login, requestLogin} from '../actions/loginauth0'
 
 import Navbar from './Navbar'
 import Inbox from './Inbox'
+import Sent from './Sent'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
 import Categories from './Categories'
@@ -32,6 +33,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
+            <Route path='/sent/:id' component={Sent} />
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/profile/:id' component={Profile} />
@@ -44,10 +46,6 @@ class App extends React.Component {
     )
   }
 }
-
-   {isAuthenticated &&
-          <Logout />
-          }
 
 function mapDispatchToProps (dispatch) {
   return {

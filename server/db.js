@@ -120,8 +120,8 @@ function getSentMessages (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
   .join('messages', 'messages.sender_id', '=', 'profiles.id')
-  .join('profiles as receiver', 'messages.profiles_id', '=', 'receiver.id')
-  .select('receiver.first_name as fcirstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
+  .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
+  .select('receiver.first_name as firstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
 }
 
 function getCategories (connection) {

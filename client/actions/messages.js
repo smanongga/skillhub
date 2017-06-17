@@ -51,16 +51,17 @@ function messageError (messages) {
 
 export function fetchSentMessages (userId) {
   return function (dispatch) {
-    dispatch(requestSentMessages())
+    dispatch(requestMessages())
     return request('get', `/sent/${userId}`)
     .then(res => {
-      dispatch(receiveSentMessages(res.body.result))
+      dispatch(receiveMessages(res.body.result))
     })
     .catch(err => {
-      dispatch(messageSentError(err.response.body.message))
+      dispatch(messageError(err.response.body.message))
     })
   }
 }
+
 
 export function receiveSentMessages (sentMessages) {
   return {

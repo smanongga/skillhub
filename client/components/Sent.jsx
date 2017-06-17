@@ -2,11 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchMessages, readMessage} from '../actions/messages'
+import {fetchSentMessages, readMessage} from '../actions/messages'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-class Inbox extends React.Component {
+class Sent extends React.Component {
 	constructor(props) {
 		super(props)
 		
@@ -18,7 +18,7 @@ class Inbox extends React.Component {
 
 	componentWillMount() {
 		const userId = Number(this.props.match.params.id)
-		this.props.fetchMessages(userId)
+		this.props.fetchSentMessages(userId)
 			.then(() => {
 				if (this.props.messages.length > 0) {
 					this.setState({
@@ -246,9 +246,9 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
 	return {
-		fetchMessages: (userId) => dispatch(fetchMessages(userId)),
+		fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
 		readMessage: (id) => dispatch(readMessage(id))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inbox)
+export default connect(mapStateToProps, mapDispatchToProps)(Sent)
