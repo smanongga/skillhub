@@ -11,6 +11,7 @@ import Profile from './Profile'
 import Categories from './Categories'
 import Contact from './Contact'
 import Login from './Login'
+import Home from './Home'
 
 class App extends React.Component {
   constructor (props) {
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
+            <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/profile/:id' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
