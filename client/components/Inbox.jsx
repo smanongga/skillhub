@@ -26,6 +26,14 @@ class Inbox extends React.Component {
 					})
 				}
 			})
+		this.props.fetchMessages(userId)
+			.then(() => {
+				if (this.props.sentMessages.length > 0) {
+					this.setState({
+						selectMessageId: this.props.messages[0].id
+					})
+				}
+			})
 	}
 	
 	openMessage(id) {
@@ -179,7 +187,7 @@ const MessageDetails = ({ message, onDelete }) => {
 		<div className="message-content">
 			<div className="message-content__header">
 				<h3 className="message-content__subject">{message.subject}</h3>
-				<div className="message-content__time">Reply</div>
+				<Link to ={`/contact/${message.senderId}`}><div className="message-content__time">Reply</div></Link>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
 				<div className="message-content__from">{message.firstName} {message.lastName}</div>

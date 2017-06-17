@@ -37,13 +37,17 @@ class App extends React.Component {
             <Route exact path='/profile/:id' component={Profile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route path='/categories' component={Categories} />
-            <Route path='/contact' component={Contact} />
+            <Route path='/contact/:id' component={Contact} />
           </Switch>
         </div>
       </Router>
     )
   }
 }
+
+   {isAuthenticated &&
+          <Logout />
+          }
 
 function mapDispatchToProps (dispatch) {
   return {

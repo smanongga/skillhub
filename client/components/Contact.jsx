@@ -9,8 +9,8 @@ class Contact extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      sender_id: 2,
-      profile_id: 1,
+      sender_id: 1,
+      profile_id: Number(this.props.match.params.id),
       subject: '',
       message: '',
       time: '2000-11-11 19:02:54',

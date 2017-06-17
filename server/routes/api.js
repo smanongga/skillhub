@@ -65,6 +65,14 @@ router.get('/messages/:id', (req, res) => {
   })
 })
 
+router.get('/sent/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getSentMessages(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.post('/auth', (req, res) => {
   jwt.verify(req.body.authToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
