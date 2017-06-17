@@ -6,6 +6,7 @@
  export const GET_PROFILE = 'GET_PROFILE'
  export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
  export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+ export const RECEIVE_CATEGORY_USERS = 'RECEIVE_CATEGORY_USERS'
 
  export function updateProfile (text) {
    return {
@@ -33,6 +34,13 @@
    return {
      type: RECEIVE_CATEGORIES,
      categories: categories
+   }
+ }
+
+ export const receiveCategoryUsers = (categoryUsers) => {
+   return {
+     type: RECEIVE_CATEGORY_USERS,
+     categoryUsers: categoryUsers
    }
  }
 
@@ -98,6 +106,15 @@
      request('get', `/profile`)
      .then(res => {
        dispatch(getProfileOfUser(res.body.result[0]))
+     })
+   }
+ }
+
+ export function getCategoryUsers (callback) {
+   return dispatch => {
+     request('get', `/profiles/learn`)
+     .then(res => {
+       dispatch(receiveCategoryUsers(res.body.result))
      })
    }
  }
