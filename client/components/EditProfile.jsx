@@ -2,13 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
 
-import {updateProfile, addProfileToDb} from '../actions'
+import {updateProfile, addProfileToDb, getLocations} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
 class EditProfile extends React.Component {
   componentDidMount () {
     this.props.getUsersProfile()
+    this.props.getLocations()
   }
   constructor (props) {
     super(props)
@@ -17,14 +18,14 @@ class EditProfile extends React.Component {
       firstName: this.props.firstName,
       lastName: this.props.lastName,
       email: this.props.email,
-      password: '',
-      locationCity: this.props.location,
+      locationCity: this.props.locationCity,
       profilePic: '',
       bio: this.props.bio,
       skillsOffered: [],
       skillsWanted: [],
       displayUpload: true,
-      imageUploading: false
+      imageUploading: false,
+      location: this.props.location || []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -38,6 +39,7 @@ class EditProfile extends React.Component {
   }
 
   handleClick (e) {
+    e.preventDefault()
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
   }
@@ -57,7 +59,7 @@ class EditProfile extends React.Component {
   render () {
     return (
       <div className='edit-profile container'>
-        {this.props.profile &&
+        {this.props.profile && this.props.location &&
           <div className='edit-profile-form'>
             <h2>Edit Profile</h2>
             <div className='row'>
@@ -66,7 +68,13 @@ class EditProfile extends React.Component {
                 <p>Last Name <input name='lastName' onChange={this.handleChange} placeholder={this.props.profile.lastName} /></p>
                 <p>Email <input name='email' onChange={this.handleChange} value={this.props.profile.email} /></p>
                 <p>Bio <input name='bio' onChange={this.handleChange} placeholder={this.props.profile.bio} /></p>
-                <p>Location <input name='location' onChange={this.handleChange} placeholder={this.props.profile.location} /></p>
+                <p>Location <select name='locationCity' onChange={this.handleChange}>
+                  {this.props.location.map((data) => {
+                    return (
+                      <option value={data.location}> {data.location}</option>
+                    )
+                  })}
+                </select></p>
                 <p>Skills Offered <input name='skillsOffered' onChange={this.handleChange} placeholder={this.props.profile.skillsOffered} /></p>
                 <p>Skills Wanted <input name='skillsWanted' onChange={this.handleChange} placeholder={this.props.profile.skillsWanted} /></p>
                 <p><button onClick={this.handleClick}>Save</button></p>
@@ -102,6 +110,9 @@ function mapDispatchToProps (dispatch) {
     },
     updateProfileInStore: (profile) => {
       dispatch(updateProfile(profile))
+    },
+    getLocations: () => {
+      dispatch(getLocations())
     }
   }
 }
@@ -110,7 +121,8 @@ function mapStateToProps (state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
-    profile: state.profile[0]
+    profile: state.profile[0],
+    location: state.location[0]
   }
 }
 

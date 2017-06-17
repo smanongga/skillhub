@@ -8,6 +8,7 @@
  export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
  export const RECEIVE_CATEGORY_USERS_LEARN = 'RECEIVE_CATEGORY_USERS_LEARN'
  export const RECEIVE_CATEGORY_USERS_OFFER = 'RECEIVE_CATEGORY_USERS_OFFER'
+ export const GET_LOCATION = 'GET_LOCATIONS'
 
  export function updateProfile (text) {
    return {
@@ -18,7 +19,7 @@
        lastName: text.lastName,
        email: '',
        photoUrl: text.profilePic,
-       location: text.location,
+       locationCity: text.locationCity,
        bio: text.bio,
        skillsOffered: text.skillsOffered,
        skillsWanted: text.skillsWanted
@@ -65,8 +66,14 @@
    }
  }
 
+ export function locations (location) {
+   return {
+     type: GET_LOCATION,
+     location
+   }
+ }
+
  export function addProfileToDb (profile) {
-   console.log(profile)
    return dispatch => {
      return request('put', '/profile/edit', profile)
     .then((response) => {
@@ -134,5 +141,14 @@
      .then(res => {
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
+   }
+ }
+
+ export function getLocations () {
+   return dispatch => {
+     request('get', '/profile/edit')
+    .then(res => {
+      dispatch(locations(res.body.result))
+    })
    }
  }

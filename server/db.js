@@ -11,7 +11,8 @@ module.exports = {
   getUsersProfile,
   getMessages,
   addMessage,
-  readMessage
+  readMessage,
+  getLocations
 }
 
 function addMessage (conn, messageData) {
@@ -58,7 +59,7 @@ function updateProfile (conn, profile, id) {
     last_name: profile.lastName,
     bio: profile.bio,
     photo_url: profile.profilePic,
-    location_city: profile.location
+    location_city: profile.locationCity
   })
 }
 
@@ -152,4 +153,9 @@ function getPeopleOffer (connection) {
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
+}
+
+function getLocations (connection) {
+  return connection('locations')
+  .select('location')
 }
