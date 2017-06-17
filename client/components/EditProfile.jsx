@@ -60,37 +60,40 @@ class EditProfile extends React.Component {
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
-        <div className='edit-profile-form'>
-          <form>
+          <div className='edit-profile-form'>
             <h2>Edit Profile</h2>
-            <p>User Name <input name='userName' onChange={this.handleChange} value={this.props.profile.userName} /></p>
-            <p>First Name <input name='firstName' onChange={this.handleChange} placeholder={this.props.profile.firstName} /></p>
-            <p>Last Name <input name='lastName' onChange={this.handleChange} placeholder={this.props.profile.lastName} /></p>
-            <p>Email <input name='email' onChange={this.handleChange} value={this.props.profile.email} /></p>
-            <p>Bio <input name='bio' onChange={this.handleChange} placeholder={this.props.profile.bio} /></p>
-            <p>Skills Offered <input name='skillsOffered' onChange={this.handleChange} placeholder={this.props.profile.skillsOffered} /></p>
-            <p>Skills Wanted <input name='skillsWanted' onChange={this.handleChange} placeholder={this.props.profile.skillsWanted} /></p>
-            <select name='locationCity' onChange={this.handleChange}>
-              {this.props.location.map((data) => {
-                return (
-                  <option value={data.location}> {data.location}</option>
-                )
-              })}
-            </select>
-            {this.state.displayUpload && <Dropzone
-              multiple={false}
-              accept='image/*'
-              onDrop={this.handleImageDrop}>
-              <p>Drop an image or click to select a file to upload.</p>
-            </Dropzone>}
-            {this.state.profilePic &&
-            <div>
-              <h4>Upload Successful</h4>
-              <img src={this.state.profilePic} />
-            </div>}
-            <p><button onClick={this.handleClick}>Save</button></p>
-          </form>
-        </div>
+            <div className='row'>
+              <div className='col-md-9'><p>User Name <input name='userName' onChange={this.handleChange} value={this.props.profile.userName} /></p>
+                <p>First Name <input name='firstName' onChange={this.handleChange} placeholder={this.props.profile.firstName} /></p>
+                <p>Last Name <input name='lastName' onChange={this.handleChange} placeholder={this.props.profile.lastName} /></p>
+                <p>Email <input name='email' onChange={this.handleChange} value={this.props.profile.email} /></p>
+                <p>Bio <input name='bio' onChange={this.handleChange} placeholder={this.props.profile.bio} /></p>
+                <p>Location <select name='locationCity' onChange={this.handleChange}>
+                  {this.props.location.map((data) => {
+                    return (
+                      <option value={data.location}> {data.location}</option>
+                    )
+                  })}
+                </select></p>
+                <p>Skills Offered <input name='skillsOffered' onChange={this.handleChange} placeholder={this.props.profile.skillsOffered} /></p>
+                <p>Skills Wanted <input name='skillsWanted' onChange={this.handleChange} placeholder={this.props.profile.skillsWanted} /></p>
+                <p><button onClick={this.handleClick}>Save</button></p>
+              </div>
+              <div className='col-md-3'>
+                {this.state.displayUpload && <Dropzone
+                  multiple={false}
+                  accept='image/*'
+                  onDrop={this.handleImageDrop}>
+                  <p>Drop an image or click to select a file to upload.</p>
+                </Dropzone>}
+                {this.state.profilePic &&
+                <div>
+                  <h4>Upload Successful</h4>
+                  <img src={this.state.profilePic} />
+                </div>}
+              </div>
+            </div>
+          </div>
         }
       </div>
     )
