@@ -1,53 +1,37 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getCategoryUsersLearn} from '../actions/index'
+import {Link} from 'react-router-dom'
 
-import {getCategoryUsersLearn, getCategoryUsersOffers} from '../actions'
-
-class CategoryPage extends React.Component {
+class CategoryPage extends Component {
   componentDidMount () {
-    this.props.fetchCategoryUsersLearn()
-    this.props.fetchCategoryUsersOffers()
+    this.props.getUsersLearn()
   }
+
   render () {
-    return(
+    console.log(this.props.UsersLearn)
+    return (
       <div>
-        <h1>{this.props.match.params.id}</h1>
-        <div><h2>To Learn</h2>
-            <div>
-              {this.props.userWantsToLearn.map((user, i) => {
-                return (
-                  <Link to={`/profile/${id}`} key={i}><div className='category-thumbnail col-md-3'>
-                  //   {user.firstName}
-                  // </div></Link>
-                )
-              })}
-            </div>
-        </div>
-        <div><h2>To Offer</h2></div>
+        <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
+        <h3>Bio: {this.props.bio}</h3>
+        <h3>Location: {this.props.locationCity}</h3>
+        <Link to='/profile/edit'><button>Edit Profile</button></Link>
       </div>
     )
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  console.log(dispatch)
+function mapStateToProps (state) {
   return {
-    fetchCategoryUsersLearn: (cb) => {
-      dispatch(getCategoryUsersLearn)
-    },
-    fetchCategoryUsersOffers: (cb) => {
-      dispatch(getCategoryUsersOffers)
-    }
+   UsersLearn: state.categoryUsersLearn
   }
 }
 
-function mapStateToProps (state) {
-
-console.log(state)
+function mapDispatchToProps (dispatch) {
   return {
-    userWantsToLearn: state.categoryUsersLearn,
-    userWantsToOffer: state.categoryUsersOffer
+    getUsersLearn: (cb) => {
+      dispatch(getCategoryUsersLearn(cb))
+    }
   }
 }
 

@@ -168,7 +168,7 @@ router.get('/categories', (req, res) => {
 //    { id: 2, name: 'Web Development'}
 //    { id: 3, name: 'Art and Design'}
 // ]
-router.get('/skills-learn', (req, res) => {
+router.get('/learn', (req, res) => {
   const connection = req.app.get('db')
   db.getPeopleLearn(connection)
   .then((data) => {
@@ -191,7 +191,7 @@ router.get('/skills-learn', (req, res) => {
   })
 })
 
-router.get('/skills-offer', (req, res) => {
+router.get('/offer', (req, res) => {
   const connection = req.app.get('db')
   db.getPeopleOffer(connection)
   .then((data) => {
