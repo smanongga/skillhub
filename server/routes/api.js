@@ -162,20 +162,6 @@ router.get('/categories', (req, res) => {
   })
 })
 
-router.get('/categories-skills', (req, res) => {
-  const connection = req.app.get('db')
-  db.getCategoriesAndSkills(connection)
-  .then((data) => {
-    const categories = _
-      .uniqBy(data, 'id')
-      .map(category => _.omit(category, 'name'))
-      .map(category => {
-        category.skillsName = data.filter(skill => skill.id === category.id).map(skill => skill.name)
-        return category
-      })
-    res.json({result: categories})
-  })
-})
 // Expecting this type of data back:
 // [
 //    { id: 1, name: 'Music'}
