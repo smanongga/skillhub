@@ -121,7 +121,6 @@ router.get('/secret', (req, res) => {
 
 
 router.get('/messages', (req, res) => {
-  console.log(req.user.sub)
   const connection = req.app.get('db')
   db.getMessages(req.user.sub, connection)
   .then((data) => {
