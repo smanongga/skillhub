@@ -102,7 +102,7 @@
    return dispatch => {
      request('get', `/profiles/${id}`)
     .then(res => {
-      dispatch(saveProfileById(res.body.result.learn))
+      dispatch(saveProfileById(res.body.result))
     })
    }
  }

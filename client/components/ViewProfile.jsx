@@ -23,11 +23,11 @@ class ViewProfile extends Component {
 
 
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-          <ul>
+          <ul className='tags'>
 
-          {this.props.data.map((skill, i) => {
+          {this.props.data.learn.map((skill, i) => {
             return (
-              console.log('list skill', skill.name)
+              <li>{skill}</li>
             )
           })}
         </ul>
@@ -35,12 +35,12 @@ class ViewProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
-          <ul>
-          {/* {this.props.data.teach.map(skill => {
+          <ul className='tags'>
+          {this.props.data.teach.map(skill => {
             return (
               <li>{skill}</li>
             )
-          })} */}
+          })}
         </ul>
       </div>
 
@@ -51,7 +51,7 @@ class ViewProfile extends Component {
 
 function mapStateToProps (state) {
   return {
-    data: state.viewProfile
+    data: state.viewProfile[0]
   }
 }
 
