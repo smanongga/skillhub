@@ -7,7 +7,7 @@ const initialState = {
   isAuthenticated: AuthService.loggedIn(),
   user: AuthService.getToken(),
   errorMessage: '',
-  userid:AuthService.getUser()
+  userid: AuthService.getUser()
 }
 
 export default function auth (state = initialState, action) {

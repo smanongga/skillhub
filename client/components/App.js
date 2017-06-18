@@ -58,7 +58,6 @@ function mapDispatchToProps (dispatch) {
       return dispatch(login(cb))
     },
     createLogin: (cb) => {
-      console.log(cb)
       return dispatch(requestLogin(cb))
     }
   }
