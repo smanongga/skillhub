@@ -44,7 +44,6 @@ class Inbox extends React.Component {
 	}
 
 	// deleteMessage(id) {
-	// 	// Mark the message as 'deleted'
 	// 	const messages = this.state.messages
 	// 	const index = messages.findIndex(x => x.id === id)
 	// 	messages[index].tag = 'deleted'

@@ -137,7 +137,6 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 	)
 }
 
-/* Email classes */
 const MessageListItem = ({ message, onMessageClicked, selected }) => {
 	let classes = "message-item"
 	if (selected) {
