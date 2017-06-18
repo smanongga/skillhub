@@ -13,7 +13,7 @@ class Contact extends Component {
       profile_id: this.props.senderId,
       subject: '',
       message: '',
-      time: '2000-11-11 19:02:54',
+      time: '2000-02-02 12:12:12',
       read: 'false'
     }
     this.handleChange = this.handleChange.bind(this)
@@ -27,7 +27,7 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-     const { profile_id, userId, subject, message, time, read } = this.state  
+     const { profile_id, userId, subject, message, time, read } = this.state 
      const messageData = {
          profile_id: profile_id, 
          userId: userId, 
@@ -37,6 +37,7 @@ class Contact extends Component {
          read: read
     }
     this.props.sendMessage(messageData)
+    this.props.history.push('/messages')
   }
 
   render () {
