@@ -13,8 +13,7 @@ module.exports = {
   readMessage,
   getLocations,
   filterSkillsToOffer,
-  filterSkillsToLearn,
-  formatProfiles
+  filterSkillsToLearn
 }
 
 const _ = require('lodash')
