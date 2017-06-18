@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Login from './Login'
+import CategoriesList from './CategoriesList'
 
 class Frontpage extends React.Component {
   render () {
@@ -36,20 +37,35 @@ class Frontpage extends React.Component {
         <div className='you-can-learn'>
           <div className='container'> <h2>How skillHub works</h2>
             <div className='row'>
-              <div className='col-md-6'><div className='box-item'>Arts</div></div>
-              <div className='col-md-6'><div className='box-item'>Tech</div></div>
+              <div className='col-md-6'><div className='row-item'>
+<a href='https://secure.meetup.com/register/' className='j-modal--register'>
+<h3 className='text--display3 text--heavy'>Find a Meetup</h3>
+<p className='chunk'>Discover local Meetups for all the things you love.</p>
+<p className='text--red text--bold'>Sign up
+</p>
+</a>
+</div></div>
+              <div className='col-md-6'><div class='row'>
+<div className='row-item row-item--shrink text--red'>
+
+<span className='svg svg--plus '>
+</span>
+</div>
+<div className='row-item'>
+<a href='https://secure.meetup.com/create/'>
+<h3 className='text--display3 text--heavy'>Create a Meetup</h3>
+<p className='chunk'>Create your own Meetup, and draw from a community of millions.</p>
+<p className='text--red text--bold'>Create a Meetup
+</p>
+</a>
+</div>
+</div></div>
             </div>
           </div>
         </div>
 
-        <div className='you-can-learn'>
-          <div className='container'> <h2>See what you can learn</h2>
-            <div className='row'>
-              <div className='col-md-4'><div className='box-item'>Arts</div></div>
-              <div className='col-md-4'><div className='box-item'>Tech</div></div>
-              <div className='col-md-4'><div className='box-item'>Music</div></div>
-            </div>
-          </div>
+        <div>
+        <CategoriesList />
         </div>
       </div>
     )
