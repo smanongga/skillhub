@@ -126,18 +126,18 @@
    }
  }
 
- export function getCategoryUsersLearn (callback) {
+ export function getCategoryUsersLearn (id, callback) {
    return dispatch => {
-     request('get', `/learn`)
+     request('get', `/learn/${id}`)
      .then(res => {
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
    }
  }
 
- export function getCategoryUsersOffer (callback) {
+ export function getCategoryUsersOffer (id, callback) {
    return dispatch => {
-     request('get', `/offer`)
+     request('get', `/offer/${id}`)
      .then(res => {
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
