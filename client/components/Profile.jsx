@@ -6,7 +6,6 @@ import {getProfileById, getUsersProfile} from '../actions/index'
 class Profile extends Component {
   componentDidMount () {
     this.props.getProfileById(this.props.match.params.id)
-    this.props.getUsersProfile()
   }
 
   render () {
@@ -21,8 +20,7 @@ class Profile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-
-        </div>
+          </div>
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
@@ -33,7 +31,6 @@ class Profile extends Component {
   }
 
 function mapStateToProps (state) {
-  console.log('this is state', state.profile[0])
   return state.profile[0]
 }
 

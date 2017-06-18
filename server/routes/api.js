@@ -198,6 +198,57 @@ router.get('/learn', (req, res) => {
   })
 })
 
+router.get('/offer/:categorieid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categorieid)
+
+  db.filterSkillsToOffer(connection, id)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/learn/:categorieid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categorieid)
+  db.filterSkillsToLearn(id, connection)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+// GET /pofil
+
 router.get('/offer', (req, res) => {
   const connection = req.app.get('db')
   db.getPeopleOffer(connection)

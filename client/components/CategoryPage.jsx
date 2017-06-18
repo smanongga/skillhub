@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 
 class CategoryPage extends Component {
   componentDidMount () {
-    this.props.getUsersLearn()
-    this.props.getUsersOffer()
+    this.props.getUsersLearn(this.props.match.params.id)
+    this.props.getUsersOffer(this.props.match.params.id)
   }
 
   render () {
@@ -17,7 +17,7 @@ class CategoryPage extends Component {
         <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
            return (
              <div className='profile-thumbnail'>
-             <Link to={`/profile/${user.id}`}key={i}>
+             <Link to={`/profiles/${user.id}`}key={i}>
              <div>
                <div className='photo'><img src='/defaultProfile.jpg' /></div>
                <div className='user-details'>
@@ -35,7 +35,7 @@ class CategoryPage extends Component {
       <div className='flex-container'>{this.props.UsersOffer.map((user, i) => {
          return (
            <div className='profile-thumbnail'>
-           <Link to={`/profile/${user.id}`}key={i}>
+           <Link to={`/profiles/${user.id}`}key={i}>
            <div>
              <div className='photo'><img src='/defaultProfile.jpg' /></div>
              <div className='user-details'>
