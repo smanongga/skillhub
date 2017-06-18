@@ -15,7 +15,6 @@ function logoutSuccess (profile) {
 
 export function logout (history) {
   return dispatch => {
-    console.log(history)
     authService.logout()
     return dispatch(logoutSuccess())
   }
