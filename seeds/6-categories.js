@@ -12,11 +12,10 @@ exports.seed = function (knex, Promise) {
         {id: 5, name: 'Science'},
         {id: 6, name: 'Business'},
         {id: 7, name: 'Writing'},
-        {id: 8, name: 'Culture'},
-        {id: 9, name: 'Culinary'},
-        {id: 10, name: 'Craft'},
-        {id: 11, name: 'Career'},
-        {id: 12, name: 'Sports'}
+        {id: 8, name: 'Culinary'},
+        {id: 9, name: 'Craft'},
+        {id: 10, name: 'Career'},
+        {id: 11, name: 'Sports'}
       ])
     })
 }
