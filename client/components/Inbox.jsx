@@ -131,17 +131,19 @@ class Inbox extends React.Component {
 									<li onClick={() => { setSidebarSection('inbox') }}><a>
 										<span className="fa fa-inbox"></span> Inbox
 										<span className="item-count">{unreadCount}</span></a></li>
-										<Link to ='/sent'><li>
-											<span className="fa fa-paper-plane"></span> Sent
-											<span className="item-count">0</span></li></Link>
-											<li onClick={() => { setSidebarSection('deleted') }}><a>
-												<span className="fa fa-trash-o"></span> Trash
-												<span className="item-count">{deletedCount}</span>
-											</a></li>
-										</ul>
-									</div>
-								)
-							}
+
+									<li><Link to ='/sent'>
+										<span className="fa fa-paper-plane"></span> Sent
+										<span className="item-count">0</span></Link></li>
+
+									<li onClick={() => { setSidebarSection('deleted') }}><a>
+										<span className="fa fa-trash-o"></span> Trash
+										<span className="item-count">{deletedCount}</span>
+									</a></li>
+								</ul>
+							</div>
+						)
+					}
 
 							/* Email classes */
 							const MessageListItem = ({ message, onMessageClicked, selected }) => {
