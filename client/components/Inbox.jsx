@@ -8,17 +8,16 @@ import {mapSenderId} from '../actions'
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Inbox extends React.Component {
-	constructor(props) {
-		super(props)
+  constructor (props) {
+    super(props)
+    this.state = {
+      selectedMessageId: 0,
+      currentSection: 'inbox',
+      senderId: 0
+    }
+  }
 
-		this.state = {
-			selectedMessageId: 0,
-			currentSection: 'inbox',
-			senderId: 0
-		}
-	}
-
-	componentWillMount() {
+  componentWillMount () {
 		this.props.fetchMessages()
 		.then(() => {
 			if (this.props.messages.length > 0) {
