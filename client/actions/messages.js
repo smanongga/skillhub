@@ -13,10 +13,10 @@ export const READ_REQUEST    = 'READ_REQUEST'
 export const READ_SUCCESS    = 'READ_SUCCESS'
 export const READ_FAILURE    = 'READ_FAILURE'
 
-export function fetchMessages (userId) {
+export function fetchMessages () {
   return function (dispatch) {
     dispatch(requestMessages())
-    return request('get', `/messages/${userId}`)
+    return request('get', '/messages')
     .then(res => {
       dispatch(receiveMessages(res.body.result))
     })
@@ -52,7 +52,7 @@ function messageError (messages) {
 export function fetchSentMessages (userId) {
   return function (dispatch) {
     dispatch(requestMessages())
-    return request('get', `/sent/${userId}`)
+    return request('get', `/sent`)
     .then(res => {
       dispatch(receiveMessages(res.body.result))
     })

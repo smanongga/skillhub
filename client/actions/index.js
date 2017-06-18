@@ -9,6 +9,7 @@
  export const RECEIVE_CATEGORY_USERS_LEARN = 'RECEIVE_CATEGORY_USERS_LEARN'
  export const RECEIVE_CATEGORY_USERS_OFFER = 'RECEIVE_CATEGORY_USERS_OFFER'
  export const GET_LOCATION = 'GET_LOCATIONS'
+ export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
 
  export function updateProfile (text) {
    return {
@@ -85,6 +86,19 @@
     })
    }
  }
+
+ export function mapSenderId (senderId) {
+  return dispatch => {
+    dispatch(pushedSenderId(senderId))
+  }
+}
+
+function pushedSenderId (senderId) {
+  return {
+    type: PUSHED_SENDER_ID,
+    senderId
+  }
+}
 
  export const fetchCategories = () => {
    return (dispatch, getState) => {

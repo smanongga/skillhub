@@ -33,15 +33,15 @@ class App extends React.Component {
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
           <Switch>>
-            <Route path='/messages/:id' component={Inbox} />
-            <Route path='/sent/:id' component={Sent} />
+            <Route path='/messages' component={Inbox} />
+            <Route path='/sent' component={Sent} />
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={Profile} />
             <Route exact path='/profiles' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
-            <Route path='/contact/:id' component={Contact} />
+            <Route path='/contact' component={Contact} />
           </Switch>
         </div>
       </Router>

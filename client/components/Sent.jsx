@@ -125,9 +125,9 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 				</p>
 			</div>
 			<ul className="sidebar__inboxes">
-				<li onClick={() => { setSidebarSection('inbox') }}><a>
+				<Link to ='/messages'><li>
 					<span className="fa fa-inbox"></span> Inbox
-					<span className="item-count">{unreadCount}</span></a></li>
+					<span className="item-count">{unreadCount}</span></li></Link>
 				<li onClick={() => { setSidebarSection('sent') }}><a>
 					<span className="fa fa-paper-plane"></span> Sent
 					<span className="item-count">0</span></a></li>
@@ -179,7 +179,6 @@ const MessageDetails = ({ message, onDelete }) => {
 		<div className="message-content">
 			<div className="message-content__header">
 				<h3 className="message-content__subject">{message.subject}</h3>
-				<Link to ={`/contact/${message.senderId}`}><div className="message-content__time">Reply</div></Link>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
 				<div className="message-content__from">{message.firstName} {message.lastName}</div>

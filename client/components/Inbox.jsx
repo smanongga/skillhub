@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import {fetchMessages, readMessage} from '../actions/messages'
+import {mapSenderId} from '../actions'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -13,12 +14,12 @@ class Inbox extends React.Component {
 		this.state = {
 			selectedMessageId: 0,
 			currentSection: 'inbox',
+			senderId: 0
 		}
 	}
 
 	componentWillMount() {
-		const userId = Number(this.props.match.params.id)
-		this.props.fetchMessages(userId)
+		this.props.fetchMessages()
 			.then(() => {
 				if (this.props.messages.length > 0) {
 					this.setState({
@@ -32,8 +33,11 @@ class Inbox extends React.Component {
 		const messages = this.props.messages
 		const index = messages.findIndex(x => x.id === id)
 		messages[index].read = 'true'
+		const senderId = messages[index].senderId
 		const readId = {id}
     	this.props.readMessage(readId)
+			this.props.mapSenderId(senderId)
+			console.log(messages)
 		this.setState({
 			selectedMessageId: id,
 			messages
@@ -128,9 +132,9 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 				<li onClick={() => { setSidebarSection('inbox') }}><a>
 					<span className="fa fa-inbox"></span> Inbox
 					<span className="item-count">{unreadCount}</span></a></li>
-				<li onClick={() => { setSidebarSection('sent') }}><a>
+				<Link to ='/sent'><li>
 					<span className="fa fa-paper-plane"></span> Sent
-					<span className="item-count">0</span></a></li>
+					<span className="item-count">0</span></li></Link>
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
 					<span className="item-count">{deletedCount}</span>
@@ -179,7 +183,7 @@ const MessageDetails = ({ message, onDelete }) => {
 		<div className="message-content">
 			<div className="message-content__header">
 				<h3 className="message-content__subject">{message.subject}</h3>
-				<Link to ={`/contact/${message.senderId}`}><div className="message-content__time">Reply</div></Link>
+				<Link to ="/contact"><div className="message-content__time">Reply</div></Link>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
 				<div className="message-content__from">{message.firstName} {message.lastName}</div>
@@ -247,7 +251,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
 	return {
 		fetchMessages: (userId) => dispatch(fetchMessages(userId)),
-		readMessage: (id) => dispatch(readMessage(id))
+		readMessage: (id) => dispatch(readMessage(id)),
+		mapSenderId: (id) => dispatch(mapSenderId(id))
 	}
 }
 
