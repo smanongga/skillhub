@@ -8,7 +8,6 @@ class Profile extends Component {
 
   componentWillMount () {
     this.props.getProfileById(this.props.match.params.id)
-    this.props.getUsersProfile()
   }
 
 
