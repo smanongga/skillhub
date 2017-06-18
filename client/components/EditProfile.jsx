@@ -40,6 +40,7 @@ class EditProfile extends React.Component {
 
   handleClick (e) {
     e.preventDefault()
+    this.props.history.push('/profile')
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
   }
