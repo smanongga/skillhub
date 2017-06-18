@@ -3,6 +3,7 @@ import {combineReducers} from 'redux'
 import auth from './auth'
 import messages from './messages'
 import profile from './profile'
+import viewProfile from './viewProfile'
 import location from './locations'
 import senderId from './senderId'
 import categories from './categories'
@@ -12,6 +13,7 @@ import categoryUsersOffer from './categoryUsersOffer'
 const reducers = combineReducers({
   auth,
   profile,
+  viewProfile,
   categories,
   categoryUsersLearn,
   categoryUsersOffer,

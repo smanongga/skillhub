@@ -1,4 +1,4 @@
- // import {getAllCategories} from '../utils/api'
+// import {getAllCategories} from '../utils/api'
  import request from '../utils/api'
 
  export const USERS_PROFILE = 'USERS_PROFILE'
@@ -88,18 +88,18 @@
  }
 
  export function mapSenderId (senderId) {
-  return dispatch => {
-    dispatch(pushedSenderId(senderId))
-    console.log(senderId)
-  }
-}
+   return dispatch => {
+     dispatch(pushedSenderId(senderId))
+     console.log(senderId)
+   }
+ }
 
-function pushedSenderId (senderId) {
-  return {
-    type: PUSHED_SENDER_ID,
-    senderId
-  }
-}
+ function pushedSenderId (senderId) {
+   return {
+     type: PUSHED_SENDER_ID,
+     senderId
+   }
+ }
 
  export const fetchCategories = () => {
    return (dispatch, getState) => {
@@ -117,7 +117,7 @@ function pushedSenderId (senderId) {
    return dispatch => {
      request('get', `/profiles/${id}`)
     .then(res => {
-      dispatch(saveProfileById(res.body.result.profile[0]))
+      dispatch(saveProfileById(res.body.result))
     })
    }
  }
