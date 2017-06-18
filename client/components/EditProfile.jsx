@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
-
 import {updateProfile, addProfileToDb, getLocations} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
