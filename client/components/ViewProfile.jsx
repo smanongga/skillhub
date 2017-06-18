@@ -13,34 +13,32 @@ class ViewProfile extends Component {
     return (
        <div className='container'>
          <div className='row spacing'>
-          <div className='col-md-4'><div className='profile-photo'><img src='/defaultProfile.jpg' /></div></div>
+          <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
             {this.props.data.locationCity}<br />
             {this.props.data.bio}</div>
         </div>
         <div className='row spacing'>
-
-
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
           <ul className='tags'>
 
-          {this.props.data.learn.map((skill, i) => {
+          {/* {this.props.data.learn.map((skill, i) => {
             return (
               <li>{skill}</li>
             )
-          })}
+          })} */}
         </ul>
       </div>
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
           <ul className='tags'>
-          {this.props.data.teach.map(skill => {
+          {/* {this.props.data.teach.map(skill => {
             return (
               <li>{skill}</li>
             )
-          })}
+          })} */}
         </ul>
       </div>
 
@@ -52,6 +50,7 @@ class ViewProfile extends Component {
 function mapStateToProps (state) {
   return {
     data: state.viewProfile[0]
+
   }
 }
 

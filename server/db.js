@@ -66,6 +66,7 @@ function getProfileById (id, connection) {
     lastName: result1[0].lastName,
     bio: result1[0].bio,
     locationCity: result1[0].locationCity,
+    photoUrl: result1[0].photoUrl,
     teach: result2,
     learn: result3
   }
