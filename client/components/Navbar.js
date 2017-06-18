@@ -23,8 +23,7 @@ const Navbar = ({ isAuthenticated }) => {
               <ul className='nav navbar-nav navbar-right'>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><a href='#'>My Inbox</a></li>
-                <li><a href='#'>Teach</a></li>
-                <li><a href='#'>Learn</a></li>
+                <li><Link to='/categories'>Teach & Learn</Link></li>
                 <li>
                   <Logout />
                 </li>
