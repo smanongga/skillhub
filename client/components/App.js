@@ -14,9 +14,9 @@ import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
-import Login from './Login'
 import Home from './Home'
 import About from './About'
+import Frontpage from './Frontpage'
 
 class App extends React.Component {
   constructor (props) {
@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Login} />}
+          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
           {this.props.isAuthenticated &&
           <Switch>>

@@ -14,7 +14,7 @@ class About extends React.Component {
          <li>Sam Houlahan</li>
        </ul>
         <p>You can contact us by......</p>
-      
+
               <div class="row">
               <div class="col-md-4">
                 <h2>Heading</h2>
