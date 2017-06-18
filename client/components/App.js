@@ -15,6 +15,7 @@ import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Home from './Home'
+import About from './About'
 import Frontpage from './Frontpage'
 
 class App extends React.Component {
@@ -44,6 +45,7 @@ class App extends React.Component {
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
+            <Route path='/about' component={About} />
           </Switch>
         }
         </div>
