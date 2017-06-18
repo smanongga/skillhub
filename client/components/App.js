@@ -31,6 +31,7 @@ class App extends React.Component {
         <div className='app'>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
+          {this.props.isAuthenticated &&
           <Switch>>
             <Route path='/messages/:id' component={Inbox} />
             <Route exact path='/' component={Home} />
@@ -41,6 +42,7 @@ class App extends React.Component {
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
           </Switch>
+        }
         </div>
       </Router>
     )
