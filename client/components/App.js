@@ -9,7 +9,7 @@ import Navbar from './Navbar'
 import Inbox from './Inbox'
 import Sent from './Sent'
 import EditProfile from './EditProfile'
-import Profile from './Profile'
+import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
@@ -33,17 +33,19 @@ class App extends React.Component {
         <div className='app'>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
+          {this.props.isAuthenticated &&
           <Switch>>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
-            <Route exact path='/profiles/:id' component={Profile} />
+            <Route exact path='/profiles/:id' component={ViewProfile} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
           </Switch>
+        }
         </div>
       </Router>
     )

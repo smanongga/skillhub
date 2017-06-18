@@ -12,7 +12,7 @@ class UserProfile extends Component {
     return (
       <div className='container'>
         <div className='row spacing'>
-          <div className='col-md-4'><div className='profile-photo'><img src='/defaultProfile.jpg' /></div></div>
+          <div className='col-md-4'><div className='profile-photo'><img src={this.props.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.firstName} {this.props.lastName}</h2>
             {this.props.locationCity}<br />
