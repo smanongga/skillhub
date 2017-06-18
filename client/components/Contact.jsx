@@ -9,11 +9,11 @@ class Contact extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      sender_id: 2,
-      profile_id: 1,
+      userId: this.props.userId,
+      profile_id: this.props.senderId,
       subject: '',
       message: '',
-      time: '2000-11-11 19:02:54',
+      time: '2000-02-02 12:12:12',
       read: 'false'
     }
     this.handleChange = this.handleChange.bind(this)
@@ -27,20 +27,21 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-     const { sender_id, profile_id, subject, message, time, read } = this.state  
+     const { profile_id, userId, subject, message, time, read } = this.state 
      const messageData = {
-         sender_id: sender_id, 
          profile_id: profile_id, 
+         userId: userId, 
          subject: subject, 
          message: message, 
          time: time, 
          read: read
     }
     this.props.sendMessage(messageData)
+    this.props.history.push('/messages')
   }
 
   render () {
-    const { sender_id, profile_id, subject, message, time, read } = this.state
+    const { profile_id, userId, subject, message, time, read } = this.state
     return (
       <div>
         <p><input name='subject' placeholder='Subject'
@@ -67,6 +68,12 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+function mapStateToProps (state) {
+	return {
+		userId: state.auth.userid.sub,
+    senderId: state.senderId.senderId
+	}
+}
 // const meapDispatchToProps = (dispatch) => {
 //   return {
 //     registerUser: (creds) => {
@@ -79,5 +86,5 @@ const mapDispatchToProps = (dispatch) => {
 // }
 
 
-export default connect(null, mapDispatchToProps)(Contact)
+export default connect(mapStateToProps, mapDispatchToProps)(Contact)
 

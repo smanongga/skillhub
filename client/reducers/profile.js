@@ -1,4 +1,4 @@
-import { UPDATE_PROFILE, USERS_PROFILE } from '../actions/index'
+import { UPDATE_PROFILE, USERS_PROFILE, PUSHED_SENDER_ID } from '../actions/index'
 
 const profile = (state = [], action) => {
   switch (action.type) {

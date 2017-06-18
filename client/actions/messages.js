@@ -3,17 +3,20 @@ import request from '../utils/api'
 export const MESSAGE_REQUEST = 'MESSAGE_REQUEST'
 export const MESSAGE_SUCCESS = 'MESSAGE_SUCCESS'
 export const MESSAGE_FAILURE = 'MESSAGE_FAILURE'
-export const SEND_REQUEST = 'SEND_REQUEST'
-export const SEND_SUCCESS = 'SEND_SUCCESS'
-export const SEND_FAILURE = 'SEND_FAILURE'
-export const READ_REQUEST = 'READ_REQUEST'
-export const READ_SUCCESS = 'READ_SUCCESS'
-export const READ_FAILURE = 'READ_FAILURE'
+export const SENT_REQUEST    = 'SENT_REQUEST'
+export const SENT_SUCCESS    = 'SENT_SUCCESS'
+export const SENT_FAILURE    = 'SENT_FAILURE'
+export const SEND_REQUEST    = 'SEND_REQUEST'
+export const SEND_SUCCESS    = 'SEND_SUCCESS'
+export const SEND_FAILURE    = 'SEND_FAILURE'
+export const READ_REQUEST    = 'READ_REQUEST'
+export const READ_SUCCESS    = 'READ_SUCCESS'
+export const READ_FAILURE    = 'READ_FAILURE'
 
-export function fetchMessages (userId) {
+export function fetchMessages () {
   return function (dispatch) {
     dispatch(requestMessages())
-    return request('get', `/messages/${userId}`)
+    return request('get', '/messages')
     .then(res => {
       dispatch(receiveMessages(res.body.result))
     })
@@ -46,20 +49,42 @@ function messageError (messages) {
   }
 }
 
-// export function sendMessage (messageData) {
-//   return dispatch => {
-//     // We dispatch sendMessage to kickoff the call to the API
-//     dispatch(requestSendMessage(messageData))
+export function fetchSentMessages (userId) {
+  return function (dispatch) {
+    dispatch(requestMessages())
+    return request('get', `/sent`)
+    .then(res => {
+      dispatch(receiveMessages(res.body.result))
+    })
+    .catch(err => {
+      dispatch(messageError(err.response.body.message))
+    })
+  }
+}
 
-//     return request('post', '/contact', messageData)
-//       .then(res => {
-//       dispatch(receiveMessages(res.body.result))
-//      })
-//     .catch(err => {
-//         dispatch(messageError(err.response.body.message))
-//       })
-//   }
-// }
+
+export function receiveSentMessages (sentMessages) {
+  return {
+    type: SENT_SUCCESS,
+    isFetching: false,
+    response: sentMessages
+  }
+}
+
+function requestSentMessages () {
+  return {
+    type: SENT_REQUEST,
+    isFetching: true
+  }
+}
+
+function messageSentError (sentMessages) {
+  return {
+    type: SENT_FAILURE,
+    isFetching: false,
+    sentMessages
+  }
+}
 
 export function readMessage (readId) {
   return dispatch => {
