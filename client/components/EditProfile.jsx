@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
-
 import {updateProfile, addProfileToDb, getLocations} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
@@ -40,6 +39,7 @@ class EditProfile extends React.Component {
 
   handleClick (e) {
     e.preventDefault()
+    this.props.history.push('/profile')
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
   }
