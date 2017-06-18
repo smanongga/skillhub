@@ -70,7 +70,6 @@ function getProfileById (id, connection) {
     teach: result2,
     learn: result3
   }
-  console.log(data)
   return data
 })
   .catch((err) => {

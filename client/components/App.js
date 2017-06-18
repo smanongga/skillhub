@@ -14,8 +14,8 @@ import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
-import Login from './Login'
 import Home from './Home'
+import Frontpage from './Frontpage'
 
 class App extends React.Component {
   constructor (props) {
@@ -31,10 +31,10 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Login} />}
+          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
           {this.props.isAuthenticated &&
-          <Switch>>
+          <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
             <Route exact path='/' component={Home} />
@@ -58,7 +58,6 @@ function mapDispatchToProps (dispatch) {
       return dispatch(login(cb))
     },
     createLogin: (cb) => {
-      console.log(cb)
       return dispatch(requestLogin(cb))
     }
   }

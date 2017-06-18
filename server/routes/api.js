@@ -98,96 +98,6 @@ router.post('/contact', (req, res) => {
   })
 })
 
-router.post('/readmessage', (req, res) => {
-  db.readMessage(conn, req.body)
-  .then()
-})
-
-// Protect all routes beneath this point
-router.use(
-  verifyJwt({
-    secret: getSecret
-  }),
-  auth.handleError
-)
-
-// These routes are protected
-router.get('/secret', (req, res) => {
-  res.json({
-    message: 'This is a SECRET quote.',
-    user: `Your user ID is: ${req.user.id}`
-  })
-})
-
-
-router.get('/messages', (req, res) => {
-  const connection = req.app.get('db')
-  db.getMessages(req.user.sub, connection)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
-
-router.get('/sent/', (req, res) => {
-  const connection = req.app.get('db')
-  db.getSentMessages(req.user.sub, connection)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
-
-router.post('/contact', (req, res) => {
-  db.addMessage(req.body, conn)
-  .then((result) => {
-    res.send(result)
-  })
-})
-
-
-router.get('/profile/edit', (req, res) => {
-  db.getLocations(conn)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
-
-router.put('/profile/edit', (req, res) => {
-  db.updateProfile(conn, req.body, req.user.sub)
-  .then((result) => {
-    res.status('200')
-  })
-})
-
-router.get('/profile', (req, res) => {
-  const connection = req.app.get('db')
-  db.getUsersProfile(req.user.sub, connection)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
-
-router.get('/profiles/:id', (req, res) => {
-  const connection = req.app.get('db')
-  db.getProfileById(Number(req.params.id), connection)
-  .then((data) => {
-    res.json({result: data})
-  })
-})
-
-// Expecting this type of data back:
-// { id: 1,
-//  name: tony
-//  photo_url: 'www.Tonyphoto.com'
-//  bio: “Hi, I'm Tony. Looking forward to learning with you”
-//    skillsToOffer['car repair', 'baking']
-//    skillsToLearn['guitar','javascript']
-//    feedback[{
-//               commenter_username: 'Jim'
-//               commenter_photo_url: 'www.photo/132.png'
-//               comment: 'Tony was great at teaching my how to bake a cake!'
-//            }]
-// }
-
 router.get('/categories', (req, res) => {
   const connection = req.app.get('db')
   db.getCategories(connection)
@@ -251,6 +161,152 @@ router.get('/learn/:categoryid', (req, res) => {
     res.json({result: profiles})
   })
 })
+
+router.post('/readmessage', (req, res) => {
+  db.readMessage(conn, req.body)
+  .then()
+})
+
+router.get('/offer/:categoryid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categoryid)
+
+  db.filterSkillsToOffer(connection, id)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/learn/:categoryid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categoryid)
+  db.filterSkillsToLearn(connection, id)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/categories', (req, res) => {
+  const connection = req.app.get('db')
+  db.getCategories(connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+
+// Protect all routes beneath this point
+router.use(
+  verifyJwt({
+    secret: getSecret
+  }),
+  auth.handleError
+)
+
+// These routes are protected
+router.get('/secret', (req, res) => {
+  res.json({
+    message: 'This is a SECRET quote.',
+    user: `Your user ID is: ${req.user.id}`
+  })
+})
+
+router.get('/messages', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/sent/', (req, res) => {
+  const connection = req.app.get('db')
+  db.getSentMessages(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.post('/contact', (req, res) => {
+  db.addMessage(req.body, conn)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
+router.get('/profile/edit', (req, res) => {
+  db.getLocations(conn)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.put('/profile/edit', (req, res) => {
+  db.updateProfile(conn, req.body, req.user.sub)
+  .then((result) => {
+    res.status('200')
+  })
+})
+
+router.get('/profile', (req, res) => {
+  const connection = req.app.get('db')
+  db.getUsersProfile(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/profiles/:id', (req, res) => {
+  const connection = req.app.get('db')
+  db.getProfileById(Number(req.params.id), connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+// Expecting this type of data back:
+// { id: 1,
+//  name: tony
+//  photo_url: 'www.Tonyphoto.com'
+//  bio: “Hi, I'm Tony. Looking forward to learning with you”
+//    skillsToOffer['car repair', 'baking']
+//    skillsToLearn['guitar','javascript']
+//    feedback[{
+//               commenter_username: 'Jim'
+//               commenter_photo_url: 'www.photo/132.png'
+//               comment: 'Tony was great at teaching my how to bake a cake!'
+//            }]
+// }
 // GET /pofil
 
 // GET /pofiles/skills/:name

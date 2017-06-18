@@ -5,6 +5,7 @@
 .jumbotron {
   background:none;
   margin-bottom:0px;
+  text-align: center;
 }
 .jumbotron h2 {
   font-size:50px;
@@ -29,7 +30,7 @@ nav.not-loggedin {
   box-shadow: none;
   padding-top:40px;
 }
-nav.not-loggedin .navbar-nav>li>a {
+.frontpage nav.not-loggedin .navbar-nav>li>div>a {
   color:#fff;
   font-weight:bold;
   font-size:20px;
@@ -50,13 +51,11 @@ nav.not-loggedin .navbar-nav>li>a {
   text-align:center;
 }
 .category-thumbnail {
-  height: 300px;
-  width: 300px;
   background: grey;
-  margin: 5px;
   text-align: center;
   font-size: 30px;
   color: black;
+  padding:50px;
 }
 
 .clear-box {
@@ -99,4 +98,10 @@ ul.tags li {
   background:#333;
   color:#fff;
   padding:10px;
+}
+
+.sign-up {
+  width: 100px;
+ margin: auto;
+ margin-top: 20px;
 }
