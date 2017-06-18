@@ -202,9 +202,12 @@ router.get('/categories', (req, res) => {
 //    { id: 2, name: 'Web Development'}
 //    { id: 3, name: 'Art and Design'}
 // ]
-router.get('/learn', (req, res) => {
+
+router.get('/offer/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  db.getPeopleLearn(connection)
+  const id = Number(req.params.categoryid)
+
+  db.filterSkillsToOffer(connection, id)
   .then((data) => {
     const profiles = _
       .uniqBy(data, 'id')
@@ -225,9 +228,10 @@ router.get('/learn', (req, res) => {
   })
 })
 
-router.get('/offer', (req, res) => {
+router.get('/learn/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  db.getPeopleOffer(connection)
+  const id = Number(req.params.categoryid)
+  db.filterSkillsToLearn(connection, id)
   .then((data) => {
     const profiles = _
       .uniqBy(data, 'id')
@@ -247,6 +251,7 @@ router.get('/offer', (req, res) => {
     res.json({result: profiles})
   })
 })
+// GET /pofil
 
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
