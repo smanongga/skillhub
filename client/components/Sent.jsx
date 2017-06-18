@@ -119,12 +119,15 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 				</p>
 			</div>
 			<ul className="sidebar__inboxes">
-				<Link to ='/messages'><li>
+
+				<li><Link to ='/messages'>
 					<span className="fa fa-inbox"></span> Inbox
-					<span className="item-count">{unreadCount}</span></li></Link>
+					<span className="item-count">{unreadCount}</span></Link></li>
+
 				<li onClick={() => { setSidebarSection('sent') }}><a>
 					<span className="fa fa-paper-plane"></span> Sent
 					<span className="item-count">0</span></a></li>
+
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
 					<span className="item-count">{deletedCount}</span>
@@ -134,7 +137,6 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 	)
 }
 
-/* Email classes */
 const MessageListItem = ({ message, onMessageClicked, selected }) => {
 	let classes = "message-item"
 	if (selected) {

@@ -35,7 +35,7 @@ class App extends React.Component {
           {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
           {this.props.isAuthenticated &&
-          <Switch>>
+          <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
             <Route exact path='/' component={Home} />
@@ -60,7 +60,6 @@ function mapDispatchToProps (dispatch) {
       return dispatch(login(cb))
     },
     createLogin: (cb) => {
-      console.log(cb)
       return dispatch(requestLogin(cb))
     }
   }
