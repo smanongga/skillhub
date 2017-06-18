@@ -5,6 +5,7 @@
 .jumbotron {
   background:none;
   margin-bottom:0px;
+  text-align: center;
 }
 .jumbotron h2 {
   font-size:50px;
@@ -99,4 +100,10 @@ ul.tags li {
   background:#333;
   color:#fff;
   padding:10px;
+}
+
+.sign-up {
+  width: 100px;
+ margin: auto;
+ margin-top: 20px;
 }
