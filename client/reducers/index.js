@@ -6,6 +6,7 @@ import profile from './profile'
 import viewProfile from './viewProfile'
 import location from './locations'
 import senderId from './senderId'
+import unreadCount from './unreadCount'
 import categories from './categories'
 import categoryUsersLearn from './categoryUsersLearn'
 import categoryUsersOffer from './categoryUsersOffer'
@@ -19,7 +20,8 @@ const reducers = combineReducers({
   categoryUsersOffer,
   messages,
   location,
-  senderId
+  senderId,
+  unreadCount
 })
 
 export default reducers

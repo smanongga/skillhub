@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchMessages, fetchSentMessages, readMessage} from '../actions/messages'
+import {fetchSentMessages, readMessage} from '../actions/messages'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -13,17 +13,13 @@ class Sent extends React.Component {
 		this.state = {
 			selectedMessageId: 0,
 			currentSection: 'inbox',
-
+      unreadCount: this.props.unreadCount
 		}
 	}
 
 	componentWillMount() {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchSentMessages(userId)
-			.then()
-      		this.setState({
-      inboxMessages: fetchMessages(userId)
-		})
 	}
 	
 	openMessage(id) {
@@ -94,16 +90,8 @@ class Sent extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ messages, setSidebarSection }) => {
-	var unreadCount = messages.reduce(
-		function(previous, msg) {
-			if (msg.read !== "true" ) {
-				return previous + 1
-			}
-			else {
-				return previous
-			}
-		}.bind(this), 0)
+const Sidebar = ({ unreadCount, setSidebarSection }) => {
+	// var unreadCount = unreadCount
 
 	return (
 		<div id="sidebar">
@@ -119,8 +107,7 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 					<span className="item-count">{unreadCount}</span></Link></li>
 
 				<li onClick={() => { setSidebarSection('sent') }}><a>
-					<span className="fa fa-paper-plane"></span> Sent
-					<span className="item-count"></span></a></li>
+					<span className="fa fa-paper-plane"></span> Sent</a></li>
 
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
@@ -229,14 +216,15 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
 	return {
-		messages: state.messages.messages
+		messages: state.messages.messages,
+    unreadCount: state.unreadCount.unreadCount
 	}
 }
 
 function mapDispatchToProps (dispatch) {
 	return {
 		fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
-    fetchMessages: (userId) => dispatch(fetchMessages(userId)),
+    mapSenderId: (id) => dispatch(mapSenderId(id)),
 		readMessage: (id) => dispatch(readMessage(id))
 	}
 }

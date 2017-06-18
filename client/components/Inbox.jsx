@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 
 import {fetchMessages, readMessage} from '../actions/messages'
 import {mapSenderId} from '../actions'
+import {mapUnreadInbox} from '../actions'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -13,7 +14,8 @@ class Inbox extends React.Component {
     this.state = {
       selectedMessageId: 0,
       currentSection: 'inbox',
-      senderId: 0
+      senderId: 0,
+      unreadCount: 0
     }
   }
 
@@ -108,6 +110,7 @@ const Sidebar = ({ messages, setSidebarSection }) => {
       }
     }.bind(this), 0)
 
+
   return (
     <div id="sidebar">
       <div className="sidebar__compose">
@@ -116,18 +119,22 @@ const Sidebar = ({ messages, setSidebarSection }) => {
         </p>
       </div>
       <ul className="sidebar__inboxes">
-        <li onClick={() => { setSidebarSection('inbox') }}><a>
-          <span className="fa fa-inbox"></span> Inbox
+        <li onClick={() => { setSidebarSection('inbox') }}>
+          <a>
+            <span className="fa fa-inbox"></span> Inbox
           <span className="item-count">{unreadCount}</span></a></li>
 
-        <li><Link to ='/sent'>
-          <span className="fa fa-paper-plane"></span> Sent
-          <span className="item-count"></span></Link></li>
+        <li>
+          <Link to ='/sent'>
+            <span className="fa fa-paper-plane"></span> Sent
+          </Link>
+        </li>
 
-        <li onClick={() => { setSidebarSection('deleted') }}><a>
-          <span className="fa fa-trash-o"></span> Trash
-          <span className="item-count"></span>
-        </a></li>
+        <li onClick={() => { setSidebarSection('deleted') }}>
+          <a>
+            <span className="fa fa-trash-o"></span> Trash
+          </a>
+        </li>
       </ul>
     </div>
   )
@@ -240,7 +247,8 @@ function mapDispatchToProps (dispatch) {
   return {
     fetchMessages: (userId) => dispatch(fetchMessages(userId)),
     readMessage: (id) => dispatch(readMessage(id)),
-    mapSenderId: (id) => dispatch(mapSenderId(id))
+    mapSenderId: (id) => dispatch(mapSenderId(id)),
+    mapUnreadInbox: (unreadCount) => dispatch(mapUnreadInbox(unreadCount))
   }
 }
 
