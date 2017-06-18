@@ -90,7 +90,6 @@
  export function mapSenderId (senderId) {
    return dispatch => {
      dispatch(pushedSenderId(senderId))
-     console.log(senderId)
    }
  }
 
