@@ -19,13 +19,7 @@ class Sent extends React.Component {
 	componentWillMount() {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchSentMessages(userId)
-			.then(() => {
-				if (this.props.messages.length > 0) {
-					this.setState({
-						selectMessageId: this.props.messages[0].id
-					})
-				}
-			})
+			.then()
 	}
 	
 	openMessage(id) {
