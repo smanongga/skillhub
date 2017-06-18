@@ -108,16 +108,6 @@ const Sidebar = ({ messages, setSidebarSection }) => {
       }
     }.bind(this), 0)
 
-    var deletedCount = messages.reduce(
-      function(previous, msg) {
-        if (msg.tag === "deleted") {
-          return previous + 1
-        }
-        else {
-          return previous
-        }
-      }.bind(this), 0)
-
   return (
     <div id="sidebar">
       <div className="sidebar__compose">
@@ -132,11 +122,11 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 
         <li><Link to ='/sent'>
           <span className="fa fa-paper-plane"></span> Sent
-          <span className="item-count">0</span></Link></li>
+          <span className="item-count"></span></Link></li>
 
         <li onClick={() => { setSidebarSection('deleted') }}><a>
           <span className="fa fa-trash-o"></span> Trash
-          <span className="item-count">{deletedCount}</span>
+          <span className="item-count"></span>
         </a></li>
       </ul>
     </div>

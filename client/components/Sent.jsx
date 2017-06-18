@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchSentMessages, readMessage} from '../actions/messages'
+import {fetchMessages, fetchSentMessages, readMessage} from '../actions/messages'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -13,6 +13,7 @@ class Sent extends React.Component {
 		this.state = {
 			selectedMessageId: 0,
 			currentSection: 'inbox',
+
 		}
 	}
 
@@ -20,6 +21,9 @@ class Sent extends React.Component {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchSentMessages(userId)
 			.then()
+      		this.setState({
+      inboxMessages: fetchMessages(userId)
+		})
 	}
 	
 	openMessage(id) {
@@ -101,16 +105,6 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 			}
 		}.bind(this), 0)
 
-	var deletedCount = messages.reduce(
-		function(previous, msg) {
-			if (msg.tag === "deleted") {
-				return previous + 1
-			}
-			else {
-				return previous
-			}
-		}.bind(this), 0)
-
 	return (
 		<div id="sidebar">
 			<div className="sidebar__compose">
@@ -126,11 +120,11 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 
 				<li onClick={() => { setSidebarSection('sent') }}><a>
 					<span className="fa fa-paper-plane"></span> Sent
-					<span className="item-count">0</span></a></li>
+					<span className="item-count"></span></a></li>
 
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
-					<span className="item-count">{deletedCount}</span>
+					<span className="item-count"></span>
 					</a></li>
 			</ul>
 		</div>
@@ -242,6 +236,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
 	return {
 		fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
+    fetchMessages: (userId) => dispatch(fetchMessages(userId)),
 		readMessage: (id) => dispatch(readMessage(id))
 	}
 }
