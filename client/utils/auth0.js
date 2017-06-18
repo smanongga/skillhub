@@ -4,7 +4,18 @@ const localStorage = global.window.localStorage
 
 export default class AuthService {
   constructor (clientId, domain) {
-    this.lock = new Auth0Lock(clientId, domain)
+    this.lock = new Auth0Lock(clientId, domain, {
+      auth: {
+        redirectUrl: 'http://localhost:3000',
+        responseType: 'token'
+      },
+      languageDictionary: {
+        title: ''
+      },
+      theme: {
+        logo: '/skillHub-logo.png'
+      }
+    })
   }
 
   login () {
