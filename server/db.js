@@ -16,6 +16,8 @@ module.exports = {
   filterSkillsToLearn
 }
 
+const _ = require('lodash')
+
 function addUserToProfile (conn, id, username, email) {
   return conn('profiles')
   .where('auth_id', id)
@@ -173,6 +175,7 @@ function filterSkillsToOffer (conn, id) {
   .join('categories', 'skills.category_id', '=', 'categories.id')
   .where('skills.category_id', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
+  .then(formatProfiles)
 }
 
 function filterSkillsToLearn (connection, id) {
@@ -182,9 +185,31 @@ function filterSkillsToLearn (connection, id) {
   .join('categories', 'skills.category_id', '=', 'categories.id')
   .where('skills.category_id', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
+  .then(formatProfiles)
 }
 
 function getLocations (connection) {
   return connection('locations')
   .select('location')
+}
+
+function formatProfiles (data) {
+  return _.uniqBy(data, 'id')
+    .map(profile => _.omit(profile, ['cat_name', 'skills_cat_id', 'cat_id', 'skills_name']))
+    .map(addCategoriesToProfile)
+
+  function addCategoriesToProfile (profile) {
+    profile.categories = _
+      .uniqBy(data.filter(category => category.id === profile.id), 'cat_id')
+      .map(addSkillsToCategory)
+    return profile
+
+    function addSkillsToCategory (category) {
+      return {
+        category: category.cat_name,
+        skills: data.filter(skill => skill.skills_cat_id === category.cat_id && skill.id === profile.id)
+          .map(skill => skill.skills_name)
+      }
+    }
+  }
 }
