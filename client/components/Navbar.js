@@ -22,7 +22,7 @@ const Navbar = ({ isAuthenticated }) => {
             <div id='navbar' className='navbar-collapse collapse'>
               <ul className='nav navbar-nav navbar-right'>
                 <li><Link to='/profile'>Profile</Link></li>
-                <li><a href='#'>My Inbox</a></li>
+                <li><Link to='/messages'>My Inbox</Link></li>
                 <li><Link to='/categories'>Teach & Learn</Link></li>
                 <li>
                   <Logout />
