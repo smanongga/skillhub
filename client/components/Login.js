@@ -45,6 +45,7 @@ class Login extends React.Component {
               <div id='navbar' className='navbar-collapse collapse'>
                 <ul className='nav navbar-nav navbar-right'>
                   <li><a href='#' onClick={this.handleLogin}>Login</a></li>
+                  <li><a href='#' onClick={this.handleLogin}>Sign-up</a></li>
                 </ul>
               </div>
             </div>
