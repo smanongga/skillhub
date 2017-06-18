@@ -52,7 +52,10 @@ class Login extends React.Component {
           </nav>
           <div className='jumbotron'>
             <div className='container'>
-              <h2 className='slogan'><span className='first'>Teach</span>. Learn. <span className='second'>Connect</span>. </h2>
+              <h2 className='slogan'><span className='first'>Teach</span>. Learn. <span className='second'>Connect</span>.
+                <a className='btn btn-success sign-up' href='#' onClick={this.handleLogin}>Sign up</a>
+            </h2>
+
             </div>
           </div>
         </div>
