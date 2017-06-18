@@ -20,7 +20,11 @@ class Profile extends Component {
     return (
       <div className='container'>
         <div className='row spacing'>
-          <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
+          <div className='col-md-4'>
+            <div className='profile-photo'>
+              <img src={this.props.data.photoUrl} />
+            </div>
+          </div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
             {this.props.data.locationCity}<br />
@@ -30,7 +34,8 @@ class Profile extends Component {
               Contact me
             </button>
           {this.props.locationCity}<br />
-          {this.props.bio}</div>
+          {this.props.bio}
+        </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
             <ul>

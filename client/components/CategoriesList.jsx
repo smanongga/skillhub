@@ -14,12 +14,16 @@ class CategoriesList extends React.Component {
       <div className='container'>
         <div className='category-title'>
           <h2>Browse for teachers or students in these categories:</h2>
-          <div>
+          <div className='row'>
             {this.props.categoriesList.map((category, i) => {
               return (
-                <Link to={`/skills/${category.id}`}key={i}><div className='category-thumbnail col-md-3'>
-                  {category.name}
-                </div></Link>
+                <Link to={`/skills/${category.id}`}key={i}>
+                  <div className='col-md-4'>
+                    <div className='category-thumbnail'>
+                    {category.name}
+                  </div>
+                  </div>
+                </Link>
               )
             })}
           </div>
