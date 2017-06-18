@@ -5,8 +5,6 @@ module.exports = {
   profileExists,
   getProfileById,
   updateProfile,
-  getPeopleLearn,
-  getPeopleOffer,
   getCategoriesAndSkills,
   getUsersProfile,
   getMessages,
@@ -139,22 +137,6 @@ function getCategoriesAndSkills (connection) {
   .join('skills', 'skills.category_id', '=', 'categories.id')
   .join('profiles', 'skills.id')
   .select('categories.id', 'skills.id as skillId', 'categories.name', 'skills.name', 'categories.name as catName')
-}
-
-function getPeopleLearn (connection) {
-  return connection('profiles')
-  .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
-  .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
-  .join('categories', 'skills.category_id', '=', 'categories.id')
-  .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
-}
-
-function getPeopleOffer (connection) {
-  return connection('profiles')
-  .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
-  .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
-  .join('categories', 'skills.category_id', '=', 'categories.id')
-  .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
 }
 
 function filterSkillsToOffer (conn, id) {

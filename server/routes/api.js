@@ -175,32 +175,10 @@ router.get('/categories', (req, res) => {
 //    { id: 2, name: 'Web Development'}
 //    { id: 3, name: 'Art and Design'}
 // ]
-router.get('/learn', (req, res) => {
-  const connection = req.app.get('db')
-  db.getPeopleLearn(connection)
-  .then((data) => {
-    const profiles = _
-      .uniqBy(data, 'id')
-      .map(profile => _.omit(profile, 'cat_name'))
-      .map(profile => _.omit(profile, 'skills_cat_id'))
-      .map(profile => _.omit(profile, 'cat_id'))
-      .map(profile => _.omit(profile, 'skills_name'))
-      .map(profile => {
-        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
-          return {
-            category: categories.cat_name,
-            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
-          }
-        })
-        return profile
-      })
-    res.json({result: profiles})
-  })
-})
 
-router.get('/offer/:categorieid', (req, res) => {
+router.get('/offer/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  const id = Number(req.params.categorieid)
+  const id = Number(req.params.categoryid)
 
   db.filterSkillsToOffer(connection, id)
   .then((data) => {
@@ -223,9 +201,9 @@ router.get('/offer/:categorieid', (req, res) => {
   })
 })
 
-router.get('/learn/:categorieid', (req, res) => {
+router.get('/learn/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  const id = Number(req.params.categorieid)
+  const id = Number(req.params.categoryid)
   db.filterSkillsToLearn(id, connection)
   .then((data) => {
     const profiles = _
@@ -248,29 +226,6 @@ router.get('/learn/:categorieid', (req, res) => {
 })
 
 // GET /pofil
-
-router.get('/offer', (req, res) => {
-  const connection = req.app.get('db')
-  db.getPeopleOffer(connection)
-  .then((data) => {
-    const profiles = _
-      .uniqBy(data, 'id')
-      .map(profile => _.omit(profile, 'cat_name'))
-      .map(profile => _.omit(profile, 'skills_cat_id'))
-      .map(profile => _.omit(profile, 'cat_id'))
-      .map(profile => _.omit(profile, 'skills_name'))
-      .map(profile => {
-        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
-          return {
-            category: categories.cat_name,
-            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
-          }
-        })
-        return profile
-      })
-    res.json({result: profiles})
-  })
-})
 
 // GET /pofiles/skills/:name
 // Needs to return profile object with array of skills:
