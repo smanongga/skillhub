@@ -36,7 +36,6 @@ class Inbox extends React.Component {
 		const readId = {id}
 		this.props.readMessage(readId)
 		this.props.mapSenderId(senderId)
-		console.log(messages)
 		this.setState({
 			selectedMessageId: id,
 			messages
