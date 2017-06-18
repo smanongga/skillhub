@@ -50,13 +50,11 @@ nav.not-loggedin .navbar-nav>li>a {
   text-align:center;
 }
 .category-thumbnail {
-  height: 300px;
-  width: 300px;
   background: grey;
-  margin: 5px;
   text-align: center;
   font-size: 30px;
   color: black;
+  padding:50px;
 }
 
 .clear-box {
