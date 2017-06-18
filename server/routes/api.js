@@ -204,7 +204,7 @@ router.get('/offer/:categoryid', (req, res) => {
 router.get('/learn/:categoryid', (req, res) => {
   const connection = req.app.get('db')
   const id = Number(req.params.categoryid)
-  db.filterSkillsToLearn(id, connection)
+  db.filterSkillsToLearn(connection, id)
   .then((data) => {
     const profiles = _
       .uniqBy(data, 'id')
@@ -224,7 +224,6 @@ router.get('/learn/:categoryid', (req, res) => {
     res.json({result: profiles})
   })
 })
-
 // GET /pofil
 
 // GET /pofiles/skills/:name
