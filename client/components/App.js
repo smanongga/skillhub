@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserHistory} from 'react-router'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -28,7 +29,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router>
+      <Router history={BrowserHistory}>
         <div className='app'>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />

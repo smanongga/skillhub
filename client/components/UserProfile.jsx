@@ -11,11 +11,21 @@ class UserProfile extends Component {
   render () {
     return (
       <div className='container'>
-        <h3>Name: {this.props.firstName} {this.props.lastName} </h3>
-        <h3>Bio: {this.props.bio}</h3>
-        <h3>Location: {this.props.locationCity}</h3>
-        <img src={this.props.photoUrl} />
-        <Link to='/profile/edit'><button>Edit Profile</button></Link>
+        <div className='row spacing'>
+          <div className='col-md-4'><div className='profile-photo'><img src='/defaultProfile.jpg' /></div></div>
+          <div className='col-md-8'>
+            <h2>{this.props.firstName} {this.props.lastName}</h2>
+            {this.props.locationCity}<br />
+            {this.props.bio}</div>
+          <Link to='/profile/edit'><button>Edit Profile</button></Link>
+        </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
+          </div>
+        </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
+        </div>
       </div>
     )
   }
