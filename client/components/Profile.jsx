@@ -1,11 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {getProfileById, getUsersProfile} from '../actions/index'
+import {getProfileById, getUsersProfile, mapSenderId} from '../actions/index'
 
 class Profile extends Component {
   componentDidMount () {
     this.props.getProfileById(this.props.match.params.id)
+  }
+  
+  handleContactClick (event) {
+    const senderId = this.props.match.params.id
+    this.props.mapSenderId(senderId)
+    this.props.history.push('/contact')
   }
 
   render () {
@@ -15,6 +21,9 @@ class Profile extends Component {
           <div className='col-md-4'><div className='profile-photo'><img src='/defaultProfile.jpg' /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.firstName} {this.props.lastName}</h2>
+            <button onClick={(e) => this.handleContactClick(e)}>
+            Contact me
+            </button>
             {this.props.locationCity}<br />
             {this.props.bio}</div>
         </div>
@@ -36,12 +45,14 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+
     getProfileById: (id, cb) => {
       dispatch(getProfileById(id, cb))
     },
     getUsersProfile: (cb) => {
       dispatch(getUsersProfile(cb))
-    }
+    },
+    mapSenderId: (senderId) => dispatch(mapSenderId(senderId))
   }
 }
 

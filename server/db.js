@@ -8,31 +8,12 @@ module.exports = {
   getCategoriesAndSkills,
   getUsersProfile,
   getMessages,
+  getSentMessages,
   addMessage,
   readMessage,
   getLocations,
   filterSkillsToOffer,
   filterSkillsToLearn
-}
-
-function addMessage (conn, messageData) {
-  return conn('messages')
- .insert({
-   sender_id: messageData.sender_id,
-   profile_id: messageData.profile_id,
-   subject: messageData.subject,
-   message: messageData.message,
-   time: messageData.time,
-   read: messageData.read
- })
-}
-
-function readMessage (conn, readId) {
-  return conn('messages')
-  .where('id', readId.id)
-  .update({
-    read: 'true'
-  })
 }
 
 function addUserToProfile (conn, id, username, email) {
@@ -70,18 +51,18 @@ function getProfileById (id, connection) {
     getSkillsToLearn(id, connection),
     getFeedbacks(id, connection)
   ])
-.then(([result1, result2, result3, result4]) => {
-  const data = {
-    profile: result1,
-    skillsToOffer: result2,
-    skillsToLearn: result3,
-    feedback: result4
-  }
+  .then(([result1, result2, result3, result4]) => {
+    const data = {
+      profile: result1,
+      skillsToOffer: result2,
+      skillsToLearn: result3,
+      feedback: result4
+    }
   return data
-})
-.catch((err) => {
-  console.log(err)
-})
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 }
 
 function getUsersProfile (id, connection) {
@@ -122,16 +103,50 @@ function getFeedbacks (id, connection) {
 
 function getMessages (id, connection) {
   return connection('profiles')
-  .where('profiles.id', '=', id)
+  .where('profiles.auth_id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read')
+  .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.id as senderId', 'messages.profile_id as receiverId')
+}
+
+function getSentMessages (id, connection) {
+  return connection('profiles')
+  .where('profiles.auth_id', '=', id)
+  .join('messages', 'messages.sender_id', '=', 'profiles.id')
+  .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
+  .select('receiver.first_name as firstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
+}
+
+function addMessage (messageData, conn) {
+  return conn('profiles')
+    .where('profiles.auth_id', '=', messageData.userId)
+    .select('profiles.id as userId')
+    .then(result => {
+      return conn('messages')
+      .insert({
+        sender_id: result[0].userId,
+        profile_id: messageData.profile_id,
+        subject: messageData.subject,
+        message: messageData.message,
+        time: messageData.time,
+        read: messageData.read
+      })
+    })
+}
+
+function readMessage (conn, readId) {
+  return conn('messages')
+  .where('id', readId.id)
+  .update({
+    read: 'true'
+  })
 }
 
 function getCategories (connection) {
   return connection('categories')
   .select()
 }
+
 function getCategoriesAndSkills (connection) {
   return connection('categories')
   .join('skills', 'skills.category_id', '=', 'categories.id')
