@@ -27,6 +27,7 @@ class Login extends React.Component {
   }
 
   render () {
+    console.log(this.props.history)
     return (
       <div>
         <a href='#' onClick={this.handleLogin}>Login</a>

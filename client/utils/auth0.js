@@ -6,14 +6,15 @@ export default class AuthService {
   constructor (clientId, domain) {
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'http://localhost:3000',
+        redirectUrl: window.location.origin,
         responseType: 'token'
       },
       languageDictionary: {
         title: ''
       },
       theme: {
-        logo: '/skillHub-logo.png'
+        logo: '/skillHub-logo.png',
+        primaryColor: '#E96241'
       }
     })
   }

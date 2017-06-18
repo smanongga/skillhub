@@ -167,6 +167,64 @@ router.post('/readmessage', (req, res) => {
   .then()
 })
 
+router.get('/offer/:categoryid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categoryid)
+
+  db.filterSkillsToOffer(connection, id)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/learn/:categoryid', (req, res) => {
+  const connection = req.app.get('db')
+  const id = Number(req.params.categoryid)
+  db.filterSkillsToLearn(connection, id)
+  .then((data) => {
+    const profiles = _
+      .uniqBy(data, 'id')
+      .map(profile => _.omit(profile, 'cat_name'))
+      .map(profile => _.omit(profile, 'skills_cat_id'))
+      .map(profile => _.omit(profile, 'cat_id'))
+      .map(profile => _.omit(profile, 'skills_name'))
+      .map(profile => {
+        profile.categories = _.uniqBy(data.filter(categories => categories.id === profile.id), 'cat_id').map(categories => {
+          return {
+            category: categories.cat_name,
+            skills: data.filter(skill => skill.skills_cat_id === categories.cat_id && skill.id === profile.id).map(skill => skill.skills_name)
+          }
+        })
+        return profile
+      })
+    res.json({result: profiles})
+  })
+})
+
+router.get('/categories', (req, res) => {
+  const connection = req.app.get('db')
+  db.getCategories(connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -182,7 +240,6 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
-
 
 router.get('/messages', (req, res) => {
   const connection = req.app.get('db')
@@ -206,7 +263,6 @@ router.post('/contact', (req, res) => {
     res.send(result)
   })
 })
-
 
 router.get('/profile/edit', (req, res) => {
   db.getLocations(conn)
@@ -251,8 +307,6 @@ router.get('/profiles/:id', (req, res) => {
 //               comment: 'Tony was great at teaching my how to bake a cake!'
 //            }]
 // }
-
-
 // GET /pofil
 
 // GET /pofiles/skills/:name

@@ -40,7 +40,7 @@ class App extends React.Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
-            <Route exact path='/profiles/:id' component={UserProfile} />
+            <Route exact path='/profiles/:id' component={ViewProfile} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
@@ -58,7 +58,6 @@ function mapDispatchToProps (dispatch) {
       return dispatch(login(cb))
     },
     createLogin: (cb) => {
-      console.log(cb)
       return dispatch(requestLogin(cb))
     }
   }

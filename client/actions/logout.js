@@ -7,15 +7,14 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
   'meal-mate.au.auth0.com')
 
-function logoutSuccess (profile) {
+function logoutSuccess (history) {
   return {
     type: LOGOUT_SUCCESS
   }
 }
 
-export function logout (history) {
+export function logout () {
   return dispatch => {
-    console.log(history)
     authService.logout()
     return dispatch(logoutSuccess())
   }
