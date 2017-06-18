@@ -1,4 +1,4 @@
-import {getProfileById} from '../actions/index'
+import {getProfileById, mapSenderId} from '../actions/index'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
@@ -6,6 +6,12 @@ class ViewProfile extends Component {
 
   componentDidMount () {
     this.props.fetchProfileById(this.props.match.params.id)
+  }
+
+  handleContactClick (event) {
+    const senderId = this.props.match.params.id
+    this.props.mapSenderId(senderId)
+    this.props.history.push('/contact')
   }
 
   render () {
@@ -16,6 +22,9 @@ class ViewProfile extends Component {
           <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
+            <button onClick={(e) => this.handleContactClick(e)}>
+              Contact me
+            </button>
             {this.props.data.locationCity}<br />
             {this.props.data.bio}</div>
         </div>
@@ -58,7 +67,8 @@ function mapDispatchToProps (dispatch) {
   return {
     fetchProfileById: (id, cb) => {
       dispatch(getProfileById(id, cb))
-    }
+    },
+    mapSenderId: (senderId) => dispatch(mapSenderId(senderId))
   }
 }
 
