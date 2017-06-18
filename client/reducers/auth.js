@@ -6,7 +6,8 @@ const initialState = {
   isFetching: false,
   isAuthenticated: AuthService.loggedIn(),
   user: AuthService.getToken(),
-  errorMessage: ''
+  errorMessage: '',
+  userid:AuthService.getUser()
 }
 
 export default function auth (state = initialState, action) {

@@ -1,11 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserHistory} from 'react-router'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
 import Navbar from './Navbar'
 import Inbox from './Inbox'
+import Sent from './Sent'
 import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
@@ -27,13 +29,14 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router>
+      <Router history={BrowserHistory}>
         <div className='app'>
           {!this.props.isAuthenticated && <Route path='/' component={Login} />}
           <Navbar />
           {this.props.isAuthenticated &&
           <Switch>>
-            <Route path='/messages/:id' component={Inbox} />
+            <Route path='/messages' component={Inbox} />
+            <Route path='/sent' component={Sent} />
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />

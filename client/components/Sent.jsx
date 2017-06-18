@@ -2,42 +2,32 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchMessages, readMessage} from '../actions/messages'
-import {mapSenderId} from '../actions'
+import {fetchSentMessages, readMessage} from '../actions/messages'
 
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-class Inbox extends React.Component {
+class Sent extends React.Component {
 	constructor(props) {
 		super(props)
 		
 		this.state = {
 			selectedMessageId: 0,
 			currentSection: 'inbox',
-			senderId: 0
 		}
 	}
 
 	componentWillMount() {
-		this.props.fetchMessages()
-			.then(() => {
-				if (this.props.messages.length > 0) {
-					this.setState({
-						selectMessageId: this.props.messages[0].id
-					})
-				}
-			})
+		const userId = Number(this.props.match.params.id)
+		this.props.fetchSentMessages(userId)
+			.then()
 	}
 	
 	openMessage(id) {
 		const messages = this.props.messages
 		const index = messages.findIndex(x => x.id === id)
 		messages[index].read = 'true'
-		const senderId = messages[index].senderId
 		const readId = {id}
     	this.props.readMessage(readId)
-			this.props.mapSenderId(senderId)
-			console.log(messages)
 		this.setState({
 			selectedMessageId: id,
 			messages
@@ -129,12 +119,12 @@ const Sidebar = ({ messages, setSidebarSection }) => {
 				</p>
 			</div>
 			<ul className="sidebar__inboxes">
-				<li onClick={() => { setSidebarSection('inbox') }}><a>
+				<Link to ='/messages'><li>
 					<span className="fa fa-inbox"></span> Inbox
-					<span className="item-count">{unreadCount}</span></a></li>
-				<Link to ='/sent'><li>
+					<span className="item-count">{unreadCount}</span></li></Link>
+				<li onClick={() => { setSidebarSection('sent') }}><a>
 					<span className="fa fa-paper-plane"></span> Sent
-					<span className="item-count">0</span></li></Link>
+					<span className="item-count">0</span></a></li>
 				<li onClick={() => { setSidebarSection('deleted') }}><a>
 					<span className="fa fa-trash-o"></span> Trash
 					<span className="item-count">{deletedCount}</span>
@@ -183,7 +173,6 @@ const MessageDetails = ({ message, onDelete }) => {
 		<div className="message-content">
 			<div className="message-content__header">
 				<h3 className="message-content__subject">{message.subject}</h3>
-				<Link to ="/contact"><div className="message-content__time">Reply</div></Link>
 				{getDeleteButton()}
 				<div className="message-content__time">{date}</div>
 				<div className="message-content__from">{message.firstName} {message.lastName}</div>
@@ -250,10 +239,9 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
 	return {
-		fetchMessages: (userId) => dispatch(fetchMessages(userId)),
-		readMessage: (id) => dispatch(readMessage(id)),
-		mapSenderId: (id) => dispatch(mapSenderId(id))
+		fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
+		readMessage: (id) => dispatch(readMessage(id))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Inbox)
+export default connect(mapStateToProps, mapDispatchToProps)(Sent)

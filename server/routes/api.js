@@ -59,9 +59,11 @@ router.get('/quote',
   }
 )
 
-router.get('/messages/:id', (req, res) => {
+
+
+router.get('/sent/:id', (req, res) => {
   const connection = req.app.get('db')
-  db.getMessages(Number(req.params.id), connection)
+  db.getSentMessages(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
   })
@@ -90,7 +92,7 @@ router.post('/auth', (req, res) => {
 })
 
 router.post('/contact', (req, res) => {
-  db.addMessage(conn, req.body)
+  db.addMessage(req.body, conn)
   .then((result) => {
     res.send(result)
   })
@@ -116,6 +118,31 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
+
+
+router.get('/messages', (req, res) => {
+  const connection = req.app.get('db')
+  db.getMessages(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/sent/', (req, res) => {
+  const connection = req.app.get('db')
+  db.getSentMessages(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.post('/contact', (req, res) => {
+  db.addMessage(req.body, conn)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
 
 router.get('/profile/edit', (req, res) => {
   db.getLocations(conn)
