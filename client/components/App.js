@@ -16,6 +16,7 @@ import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Login from './Login'
 import Home from './Home'
+import About from './About'
 
 class App extends React.Component {
   constructor (props) {
@@ -44,6 +45,7 @@ class App extends React.Component {
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
+            <Route path='/about' component={About} />
           </Switch>
         }
         </div>
