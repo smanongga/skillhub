@@ -57,16 +57,16 @@ class Login extends React.Component {
         </div>
         <div className='you-can-learn'>
           <div className='container'> <h2>See what you can learn</h2>
-          <div className='row'>
-            <div className='col-md-4'><div className='box-item'>Arts</div></div>
-            <div className='col-md-4'><div className='box-item'>Tech</div></div>
-            <div className='col-md-4'><div className='box-item'>Music</div></div>
+            <div className='row'>
+              <div className='col-md-4'><div className='box-item'>Arts</div></div>
+              <div className='col-md-4'><div className='box-item'>Tech</div></div>
+              <div className='col-md-4'><div className='box-item'>Music</div></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 }
 
 function mapDispatchToProps (dispatch) {

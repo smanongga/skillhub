@@ -88,18 +88,18 @@
  }
 
  export function mapSenderId (senderId) {
-  return dispatch => {
-    dispatch(pushedSenderId(senderId))
-    console.log(senderId)
-  }
-}
+   return dispatch => {
+     dispatch(pushedSenderId(senderId))
+     console.log(senderId)
+   }
+ }
 
-function pushedSenderId (senderId) {
-  return {
-    type: PUSHED_SENDER_ID,
-    senderId
-  }
-}
+ function pushedSenderId (senderId) {
+   return {
+     type: PUSHED_SENDER_ID,
+     senderId
+   }
+ }
 
  export const fetchCategories = () => {
    return (dispatch, getState) => {

@@ -50,7 +50,6 @@ function getProfileById (id, connection) {
     getSkillsToOffer(id, connection),
     getSkillsToLearn(id, connection)
   ])
-<<<<<<< HEAD
 .then(([result1, result2, result3]) => {
   // function getFields (input, field) {
   //   var output = []
@@ -71,17 +70,8 @@ function getProfileById (id, connection) {
     learn: result3
   }
   console.log(data)
-=======
-  .then(([result1, result2, result3, result4]) => {
-    const data = {
-      profile: result1,
-      skillsToOffer: result2,
-      skillsToLearn: result3,
-      feedback: result4
-    }
->>>>>>> 89f266a9bcbda8f7d2aa1fe8e6a985c1a6bb5806
   return data
-  })
+})
   .catch((err) => {
     console.log(err)
   })
@@ -128,7 +118,7 @@ function getMessages (id, connection) {
   .where('profiles.auth_id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
-  .select('sender.first_name as firstName', 'sender.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.id as senderId', 'messages.profile_id as receiverId')
+  .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.id as senderId', 'messages.profile_id as receiverId')
 }
 
 function getSentMessages (id, connection) {
@@ -136,7 +126,7 @@ function getSentMessages (id, connection) {
   .where('profiles.auth_id', '=', id)
   .join('messages', 'messages.sender_id', '=', 'profiles.id')
   .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
-  .select('receiver.first_name as firstName', 'receiver.last_name as lastName','messages.message', 'messages.time', 'messages.subject', 'messages.id')
+  .select('receiver.first_name as firstName', 'receiver.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id')
 }
 
 function addMessage (messageData, conn) {
