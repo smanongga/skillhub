@@ -1,4 +1,4 @@
- // import {getAllCategories} from '../utils/api'
+// import {getAllCategories} from '../utils/api'
  import request from '../utils/api'
 
  export const USERS_PROFILE = 'USERS_PROFILE'
@@ -102,7 +102,7 @@
    return dispatch => {
      request('get', `/profiles/${id}`)
     .then(res => {
-      dispatch(saveProfileById(res.body.result.profile[0]))
+      dispatch(saveProfileById(res.body.result.learn))
     })
    }
  }

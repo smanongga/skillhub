@@ -67,16 +67,28 @@ function getProfileById (id, connection) {
   return Promise.all([
     getProfile(id, connection),
     getSkillsToOffer(id, connection),
-    getSkillsToLearn(id, connection),
-    getFeedbacks(id, connection)
+    getSkillsToLearn(id, connection)
   ])
-.then(([result1, result2, result3, result4]) => {
+.then(([result1, result2, result3]) => {
+  // function getFields (input, field) {
+  //   var output = []
+  //   for (var i = 0; i < input.length; ++i)
+  //     output.push(input[i][field])
+  //   return output
+  // }
+  //
+  // const teach = getFields(result2, 'name')
+  // const learn = getFields(result3, 'name')
+
   const data = {
-    profile: result1,
-    skillsToOffer: result2,
-    skillsToLearn: result3,
-    feedback: result4
+    firstName: result1[0].firstName,
+    lastName: result1[0].lastName,
+    bio: result1[0].bio,
+    locationCity: result1[0].locationCity,
+    teach: result2,
+    learn: result3
   }
+  console.log(data)
   return data
 })
 .catch((err) => {
@@ -112,13 +124,13 @@ function getSkillsToOffer (id, connection) {
   .select('skills.name')
 }
 
-function getFeedbacks (id, connection) {
-  return connection('profiles')
-  .where('profiles.id', '=', id)
-  .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
-  .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-  .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
-}
+// function getFeedbacks (id, connection) {
+//   return connection('profiles')
+//   .where('profiles.id', '=', id)
+//   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
+//   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
+//   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
+// }
 
 function getMessages (id, connection) {
   return connection('profiles')
