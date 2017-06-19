@@ -11,6 +11,14 @@ class ViewProfile extends Component {
     this.props.fetchProfileById(this.props.match.params.id)
   }
 
+  componentWillReceiveProps (nextProps) {
+    const oldId = this.props.match.params.id
+    const newId = nextProps.match.params.id
+    if (newId !== oldId) {
+      this.props.fetchProfileById(newId)
+    }
+  }
+
   handleContactClick (event) {
     const senderId = this.props.match.params.id
     this.props.mapSenderId(senderId)
@@ -18,7 +26,7 @@ class ViewProfile extends Component {
   }
 
   render () {
-    console.log('This is props', this.props.data)
+    console.log('Rendering ViewProfile', this.props.data)
     return (
       <div className='container'>
          {this.props.waiting && <WaitingIndicator />}

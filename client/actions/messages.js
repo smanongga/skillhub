@@ -93,11 +93,9 @@ function messageSentError (sentMessages) {
 export function readMessage (readId) {
   return dispatch => {
     // We dispatch sendMessage to kickoff the call to the API
-    dispatch(waitingIndicator())
     dispatch(requestReadMessage(readId))
     return request('post', '/readmessage', readId)
       .then(res => {
-        dispatch(notWaiting())
         dispatch(readComplete(res.body.result))
       })
     .catch(err => {

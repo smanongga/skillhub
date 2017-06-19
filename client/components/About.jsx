@@ -4,16 +4,15 @@ import Login from './Login'
 class About extends React.Component {
   render () {
     return (
-      <div className='container'>
-        <p>This app was created by the following students at EDA.</p>
+      <div className='about container'>
+        <p>skillHub was created by the following students at <a href='https://www.devacademy.co.nz/'>Enspiral Dev Academy</a></p>
         <ul>
-          <li>Rory Macdonald </li>
-          <li>Sam Manongga</li>
-          <li>Julie Crutchley</li>
-          <li>Robert Fisher</li>
-          <li>Sam Houlahan</li>
+          <li><a href='https://github.com/rory-macdonald'>Rory Macdonald</a></li>
+          <li><a href='https://github.com/smanongga'>Sam Manongga</a></li>
+          <li><a href='https://github.com/juliecrutchley'>Julie Crutchley</a></li>
+          <li><a href='https://github.com/rob-dev-builder'>Robert Fisher</a></li>
+          <li><a href='https://github.com/Sam-Houlahan'>Sam Houlahan</a></li>
         </ul>
-        <p>You can contact us by......</p>
         <div class='row'>
           <div class='col-md-4'>
             <h2>Heading</h2>
