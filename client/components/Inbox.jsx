@@ -85,25 +85,22 @@ class Inbox extends React.Component {
               messages={this.props.messages}
               setSidebarSection={(section) => { this.setSidebarSection(section) }} />
           </div>
-          <div className='col-md-4'>
+          <div className='inbox-container'>
+            <div className='col-md-4'>
               <MessageList
-              messages={this.props.messages}
-              onMessageSelected={(id) => { this.openMessage(id) }}
-              selectedMessageId={this.state.selectedMessageId}
-              currentSection={this.state.currentSection} />
+                messages={this.props.messages}
+                onMessageSelected={(id) => { this.openMessage(id) }}
+                selectedMessageId={this.state.selectedMessageId}
+                currentSection={this.state.currentSection} />
+            </div>
+            <div className='col-md-6'>
+              <MessageDetails
+                message={currentMessage}
+                onDelete={(id) => { this.deleteMessage(id) }} />
+            </div>
           </div>
-         <div className='col-md-6'>
-             <MessageDetails
-             message={currentMessage}
-             onDelete={(id) => { this.deleteMessage(id) }} />
-         </div>
-
-        {/* <div className='inbox-container'>
-
-
-        </div> */}
+        </div>
       </div>
-    </div>
     )
   }
 }
