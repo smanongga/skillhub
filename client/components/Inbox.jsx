@@ -115,14 +115,14 @@ const Sidebar = ({ messages, setSidebarSection }) => {
     <div id="sidebar">
       <div className="sidebar__compose">
         <p className="btn compose">
-          My Messages <span className="fa fa-pencil"></span>
+          My Inbox <span className="fa fa-pencil"></span>
         </p>
       </div>
       <ul className="sidebar__inboxes">
-        <li onClick={() => { setSidebarSection('inbox') }}>
+        {/*<li onClick={() => { setSidebarSection('inbox') }}>
           <a>
             <span className="fa fa-inbox"></span> Inbox
-          <span className="item-count">{unreadCount}</span></a></li>
+          <span className="item-count">{unreadCount}</span></a></li>*/}
 
         <li>
           <Link to ='/sent'>

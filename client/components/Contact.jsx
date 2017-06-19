@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import {sendMessage} from '../actions/messages'
 import ErrorMessage from './ErrorMessage'
@@ -28,12 +29,13 @@ class Contact extends Component {
 
   handleClick (event) {
      const { profile_id, userId, subject, message, time, read } = this.state 
+     const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
      const messageData = {
          profile_id: profile_id, 
          userId: userId, 
          subject: subject, 
          message: message, 
-         time: time, 
+         time: buildDate, 
          read: read
     }
     this.props.sendMessage(messageData)
