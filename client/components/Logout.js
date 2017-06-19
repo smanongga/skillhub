@@ -2,12 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../actions/logout'
 
-const Logout = (props) => {
-  return (
-    <a href='#' onClick={props.logoutUser}>
-      Logout
-    </a>
-  )
+class Logout extends React.Component {
+
+  render () {
+    return (
+      <a href='#' onClick={this.props.logoutUser}>Logout</a>
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
