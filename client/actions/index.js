@@ -29,7 +29,7 @@
         console.log(res.body.result)
       })
       .catch(err => {
-        dispatch(feedbackError(err.response.body.message))
+        dispatch(feedbackError(err.message))
       })
    }
  }
