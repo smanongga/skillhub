@@ -10,7 +10,7 @@
     "eslint": "eslint src test",
     "start": "node server",
     "test:watch": "ava --watch",
-    "knex": "knex",
+    "knex": "knex"
   },
   "author": "EDA",
   "license": "ISC",
