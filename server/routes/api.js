@@ -214,7 +214,6 @@ router.get('/profile', (req, res) => {
   db.getUsersProfile(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
-    console.log(data)
   })
 })
 
