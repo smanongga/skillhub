@@ -9,7 +9,7 @@ var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oc
 class Sent extends React.Component {
 	constructor(props) {
 		super(props)
-		
+
 		this.state = {
 			selectedMessageId: 0,
 		}
@@ -19,7 +19,7 @@ class Sent extends React.Component {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchSentMessages(userId)
 	}
-	
+
 	openMessage(id) {
 		const messages = this.props.messages
 		const index = messages.findIndex(x => x.id === id)
@@ -31,13 +31,13 @@ class Sent extends React.Component {
 			messages
 		})
 	}
-	
+
 	// deleteMessage(id) {
 	// 	// Mark the message as 'deleted'
 	// 	const messages = this.state.messages
 	// 	const index = messages.findIndex(x => x.id === id)
 	// 	messages[index].tag = 'deleted'
-		
+
 	// 	// Select the next message in the list
 	// 	let selectedMessageId = ''
 	// 	for (const message of messages) {
@@ -46,7 +46,7 @@ class Sent extends React.Component {
 	// 			break
 	// 		}
 	// 	}
-		
+
 	// 	this.setState({
 	// 		messages,
 	// 		selectedMessageId
@@ -149,7 +149,7 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   if (messages.length === 0) {
     return (
       <div className='message-list empty'>
-        Nothing to see here, great job!
+        Nothing to see here!
       </div>
     )
   }
