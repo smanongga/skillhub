@@ -33,7 +33,8 @@ class EditProfile extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleImageDrop = this.handleImageDrop.bind(this)
-    this.handleInput = this.handleInput.bind(this)
+    this.handleWantedInput = this.handleWantedInput.bind(this)
+    this.handleOfferedInput = this.handleOfferedInput.bind(this)
   }
 
   handleChange (e) {
@@ -42,12 +43,18 @@ class EditProfile extends React.Component {
     })
   }
 
-  handleInput (e) {
+  handleOfferedInput (e) {
     this.setState({
-      skillsOffered: e,
+      skillsOffered: e
+    })
+  }
+
+  handleWantedInput (e) {
+    this.setState({
       skillsWanted: e
     })
   }
+
 
   handleClick (e) {
     e.preventDefault()
@@ -71,7 +78,6 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    console.log(this.state.skillsWanted)
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
@@ -126,10 +132,10 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Offered</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
                       multiple
-                      onChange={this.handleInput}
+                      maxHeight={100}
+                      onChange={this.handleOfferedInput}
                       options={this.props.skills.map((data) => {
                         return data
                       })}
@@ -141,10 +147,10 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Wanted</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
+                      maxHeight={100}
                       multiple
-                      onChange={this.handleInput}
+                      onChange={this.handleWantedInput}
                       options={this.props.skills.map((data) => {
                         return data
                       })}
@@ -161,6 +167,11 @@ class EditProfile extends React.Component {
                   onDrop={this.handleImageDrop}>
                   <p>Drop an image or click to select a file to upload.</p>
                 </Dropzone>}
+
+                {/* {this.state.profilePic === '' ? null :
+          <div>
+            <img src={this.props.profile.photoUrl} />
+          </div>} */}
                 {this.state.profilePic &&
                   <div>
                     <h4>Upload Successful</h4>
@@ -210,7 +221,7 @@ function mapStateToProps (state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
-    profile: state.profile[0],
+    profile: state.profile,
     location: state.location[0],
     skills: state.skills
   }

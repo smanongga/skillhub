@@ -219,7 +219,7 @@ router.post('/profile/skills-learn', (req, res) => {
 
 router.get('/profile', (req, res) => {
   const connection = req.app.get('db')
-  db.getUsersProfile(req.user.sub, connection)
+  db.getOwnProfile(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
   })
@@ -227,7 +227,7 @@ router.get('/profile', (req, res) => {
 
 router.get('/profiles/:id', (req, res) => {
   const connection = req.app.get('db')
-  db.getProfileById(Number(req.params.id), connection)
+  db.getOtherProfileById(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
   })

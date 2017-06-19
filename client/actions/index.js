@@ -56,7 +56,6 @@
    return {
      type: UPDATE_PROFILE,
      updatedProfile: {
-       id: text.id,
        userName: '',
        firstName: text.firstName,
        lastName: text.lastName,
@@ -211,7 +210,7 @@
    return dispatch => {
      request('get', `/profile`)
      .then(res => {
-       dispatch(getProfileOfUser(res.body.result[0]))
+       dispatch(getProfileOfUser(res.body.result))
      })
    }
  }

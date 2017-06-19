@@ -47,13 +47,14 @@ class Contact extends Component {
     const { profile_id, userId, subject, message, time, read } = this.state
     return (
       <div className='container'>
-        <p><input name='subject' placeholder='Subject'
+        <h1>Send Message</h1>
+        <p><input className='form-control' name='subject' placeholder='Subject'
           onChange={this.handleChange} value={subject} /></p>
 
-        <p><input name='message' placeholder='Message'
-          onChange={this.handleChange} value={message} /></p>
+         <textarea className='form-control' name='message' placeholder='Message'
+          onChange={this.handleChange} value={message}> </textarea>
 
-        <button onClick={(e) => this.handleClick(e)}>
+        <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
           Send
         </button>
 
