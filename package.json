@@ -11,8 +11,6 @@
     "start": "node server",
     "test:watch": "ava --watch",
     "knex": "knex",
-    "postinstall": "knex migrate:latest && webpack --config webpack.prod.config.js"
-  },
   "author": "EDA",
   "license": "ISC",
   "dependencies": {
