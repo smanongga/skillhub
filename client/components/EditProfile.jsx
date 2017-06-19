@@ -5,6 +5,7 @@ import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkills
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 import {Typeahead} from 'react-bootstrap-typeahead'
+import Validation from 'react-validation'
 
 class EditProfile extends React.Component {
   componentDidMount () {
@@ -181,7 +182,6 @@ class EditProfile extends React.Component {
             <div className='row'>
               <div className='col-md-2'></div>
               <div className='col-md-7'><button className='btn btn-primary' onClick={this.handleClick}>Save</button></div>
-               
               <div className='col-md-3'></div>
             </div>
             </div>

@@ -55,11 +55,11 @@ function messageError (messages) {
 export function fetchSentMessages (userId) {
   return function (dispatch) {
     dispatch(waitingIndicator())
-    dispatch(requestMessages())
+    dispatch(requestSentMessages())
     return request('get', `/sent`)
     .then(res => {
-      dispatch(notWaiting())
       dispatch(receiveMessages(res.body.result))
+      dispatch(notWaiting())
     })
     .catch(err => {
       dispatch(messageSentError(err.response.body.message))
@@ -93,11 +93,9 @@ function messageSentError (sentMessages) {
 export function readMessage (readId) {
   return dispatch => {
     // We dispatch sendMessage to kickoff the call to the API
-    dispatch(waitingIndicator())
     dispatch(requestReadMessage(readId))
     return request('post', '/readmessage', readId)
       .then(res => {
-        dispatch(notWaiting())
         dispatch(readComplete(res.body.result))
       })
     .catch(err => {
