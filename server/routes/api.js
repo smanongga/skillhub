@@ -158,10 +158,9 @@ router.get('/messages', (req, res) => {
   })
 })
 
-router.get('/feedback', (req, res) => {
+router.get('/feedback/', (req, res) => {
   const connection = req.app.get('db')
-  console.log(req.body)
-  db.getFeedback(req.body, connection)
+  db.getFeedback(Object.keys(req.query)[0], connection)
   .then((data) => {
     res.json({result: data})
   })

@@ -17,7 +17,7 @@
 
  export function fetchFeedback (id) {
    return function (dispatch) {
-     dispatch(requestFeedback())
+     dispatch(requestFeedback(id))
      return request('get', '/feedback', id)
      .then(res => {
        dispatch(receiveFeedback(res.body.result))

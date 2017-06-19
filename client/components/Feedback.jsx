@@ -1,19 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import FeedbackItem from './FeedbackItem'
-import fetchFeedback from '../actions'
+// import FeedbackItem from './FeedbackItem'
+import {fetchFeedback} from '../actions'
 
 class Feedback extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-
     }
   }
 
   componentWillMount () {
-    this.props.fetchFeedback(this.props.match.params.id)
+    const profileId = this.props.match.params.id
+    this.props.fetchFeedback(profileId)
   }
 
   render () {
@@ -37,13 +37,26 @@ const FeedbackList = ({ feedback }) => {
   return (
     <div>
       <button>New Feedback</button>
-      {feedback.map((feedbackItem, key) => {
+      {feedback.map((feedbackDetails, key) => {
         return (
           <div key={key}>
-            <FeedbackItem feedbackItem={feedbackItem} />
+            <FeedbackItem feedbackDetails={feedbackDetails} />
           </div>
         )
       })}
+    </div>
+  )
+}
+
+const FeedbackItem = ({ feedbackDetails}) => {
+  return (
+    <div>
+      <div className='message-item__details'>
+        <p>{feedbackDetails.firstName} {feedbackDetails.lastName}</p>
+      </div>
+      <div>
+        <p>{feedbackDetails.message}</p>
+      </div>
     </div>
   )
 }
