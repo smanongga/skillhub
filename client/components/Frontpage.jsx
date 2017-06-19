@@ -45,7 +45,7 @@ class Frontpage extends React.Component {
                 </a>
               </div>
               </div>
-              <div className='col-md-6'><div class='row'>
+              <div className='col-md-6'><div className='row'>
                 <div className='row-item row-item--shrink text--red'>
                 <span className='svg svg--plus '></span>
                 </div>
