@@ -7,130 +7,95 @@ import {fetchSentMessages, readMessage} from '../actions/messages'
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Sent extends React.Component {
-  constructor (props) {
-    super(props)
+	constructor(props) {
+		super(props)
+		
+		this.state = {
+			selectedMessageId: 0,
+		}
+	}
 
-    this.state = {
-      selectedMessageId: 0,
-      currentSection: 'inbox'
-    }
-  }
-
-  componentWillMount () {
-    const userId = Number(this.props.match.params.id)
-    this.props.fetchSentMessages(userId)
-    .then()
-  }
-
-  openMessage (id) {
-    const messages = this.props.messages
-    const index = messages.findIndex(x => x.id === id)
-    messages[index].read = 'true'
-    const readId = {id}
+	componentWillMount() {
+		const userId = Number(this.props.match.params.id)
+		this.props.fetchSentMessages(userId)
+	}
+	
+	openMessage(id) {
+		const messages = this.props.messages
+		const index = messages.findIndex(x => x.id === id)
+		messages[index].read = 'true'
+		const readId = {id}
     this.props.readMessage(readId)
-    this.setState({
-      selectedMessageId: id,
-      messages
-    })
-  }
+		this.setState({
+			selectedMessageId: id,
+			messages
+		})
+	}
+	
+	// deleteMessage(id) {
+	// 	// Mark the message as 'deleted'
+	// 	const messages = this.state.messages
+	// 	const index = messages.findIndex(x => x.id === id)
+	// 	messages[index].tag = 'deleted'
+		
+	// 	// Select the next message in the list
+	// 	let selectedMessageId = ''
+	// 	for (const message of messages) {
+	// 		if (message.tag === this.state.currentSection) {
+	// 			selectedMessageId = message.id
+	// 			break
+	// 		}
+	// 	}
+		
+	// 	this.setState({
+	// 		messages,
+	// 		selectedMessageId
+	// 	})
+	// }
 
-  // deleteMessage(id) {
-  // // Mark the message as 'deleted'
-  //  const messages = this.state.messages
-  //  const index = messages.findIndex(x => x.id === id)
-  // messages[index].tag = 'deleted'
-
-  //  // Select the next message in the list
-  //  let selectedMessageId = ''
-  //  for (const message of messages) {
-  //    if (message.tag === this.state.currentSection) {
-  //    selectedMessageId = message.id
-  //   break
-  //  }
-  // }
-
-  //   this.setState({
-  //   messages,
-  //   selectedMessageId
-  //  })
-  // }
-
-  setSidebarSection (section) {
-    let selectedMessageId = this.state.selectedMessageId
-    if (section !== this.state.currentSection) {
-      selectedMessageId = ''
-    }
-
-    this.setState({
-      currentSection: section,
-      selectedMessageId
-    })
-  }
-
-  render () {
-    const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
-    return (
-      <div className='container'>
+	render() {
+		const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
+		return (
+			<div className='container'>
         <div className='row'>
           <div className='col-md-2'>
-            <Sidebar
-              messages={this.props.messages}
-              setSidebarSection={(section) => { this.setSidebarSection(section) }} />
+				    <Sidebar messages={this.props.messages} />
           </div>
-          <div className='inbox-container'>
+				  <div className='inbox-container'>
             <div className='col-md-4'>
               <MessageList
                 messages={this.props.messages}
                 onMessageSelected={(id) => { this.openMessage(id) }}
-                selectedMessageId={this.state.selectedMessageId}
-                currentSection={this.state.currentSection} />
+                selectedMessageId={this.state.selectedMessageId} />
             </div>
             <div className='col-md-6'>
-              <MessageDetails
-                message={currentMessage}
-                onDelete={(id) => { this.deleteMessage(id) }} />
+					    <MessageDetails
+						    message={currentMessage}
+						    onDelete={(id) => { this.deleteMessage(id) }} />
             </div>
           </div>
-        </div>
-      </div>
-    )
-  }
- }
+				</div>
+			</div>
+		)
+	}
+}
 
-  /* Sidebar */
-const Sidebar = ({ messages, setSidebarSection }) => {
-  var unreadCount = messages.reduce(
-   function (previous, msg) {
-     if (msg.read !== 'true') {
-       return previous + 1
-     } else {
-       return previous
-     }
-   }.bind(this), 0)
+/* Sidebar */
+const Sidebar = () => {
+	// var unreadCount = unreadCount
+  // <span className="item-count">{unreadCount}</span>
 
-  var deletedCount = messages.reduce(
-   function (previous, msg) {
-     if (msg.tag === 'deleted') {
-       return previous + 1
-     } else {
-       return previous
-     }
-   }.bind(this), 0)
-  return (
-    <div id='sidebar'>
-      <div className='sidebar__compose'>
-        <p className='btn compose'> My Messages <span className='fa fa-pencil'></span></p>
-      </div>
-      <ul className='sidebar__inboxes'>
-        <li><Link to ='/messages'>
-          <span className='fa fa-inbox'></span> Inbox <span className='item-count'>{unreadCount}</span></Link></li>
-        <li onClick={() => { setSidebarSection('sent') }}><a>
-          <span className='fa fa-paper-plane'></span> Sent <span className='item-count'>0</span></a></li>
-        <li onClick={() => { setSidebarSection('deleted') }}><a> <span className='fa fa-trash-o'></span> Trash <span className='item-count'>{deletedCount}</span>
-        </a></li>
-      </ul>
-    </div>
-  )
+	return (
+		<div id="sidebar">
+			<div className="sidebar__compose">
+				<p className="btn compose">My Sent Items <span className="fa fa-pencil"></span></p>
+			</div>
+			<ul className="sidebar__inboxes">
+				<li><Link to ='/messages'><span className="fa fa-inbox"></span> Inbox</Link></li>
+				<li><a><span className="fa fa-trash-o"></span> Trash</a></li>
+			</ul>
+		</div>
+	)
 }
 
 const MessageListItem = ({ message, onMessageClicked, selected }) => {
@@ -179,32 +144,32 @@ const MessageDetails = ({ message, onDelete }) => {
   )
 }
 
-						/* EmailList contains a list of Email components */
-						const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
-							if (messages.length === 0) {
-								return (
-									<div className='message-list empty'>
-										Nothing to see here, great job!
-									</div>
-								)
-							}
+/* EmailList contains a list of Email components */
+const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
+  if (messages.length === 0) {
+    return (
+      <div className='message-list empty'>
+        Nothing to see here, great job!
+      </div>
+    )
+  }
 
-							return (
-								<div className='message-list'>
-									{
-										messages.map(message => {
-											return (
-												<MessageListItem
-													key={message.id}
-													onMessageClicked={(id) => { onMessageSelected(id) }}
-													message={message}
-													selected={selectedMessageId === message.id} />
-												)
-											})
-										}
-									</div>
-								)
-							}
+  return (
+    <div className='message-list'>
+      {
+        messages.map(message => {
+          return (
+            <MessageListItem
+              key={message.id}
+              onMessageClicked={(id) => { onMessageSelected(id) }}
+              message={message}
+              selected={selectedMessageId === message.id} />
+            )
+          })
+        }
+      </div>
+    )
+  }
 // Render
 // $.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
 // type: 'GET',
@@ -228,16 +193,17 @@ const getPrettyTime = (date) => {
 }
 
 function mapStateToProps (state) {
-  return {
-    messages: state.messages.messages
-  }
+	return {
+		messages: state.messages.messages
+	}
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
-    readMessage: (id) => dispatch(readMessage(id))
-  }
+	return {
+		fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
+    mapSenderId: (id) => dispatch(mapSenderId(id)),
+		readMessage: (id) => dispatch(readMessage(id))
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sent)
