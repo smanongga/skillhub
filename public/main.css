@@ -115,7 +115,9 @@ ul.tags li {
   width: 100px;
  margin: auto;
  margin-top: 20px;
+ float: none;
 }
+
 footer {
  background:#333;
  width: 100%;

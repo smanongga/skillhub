@@ -35,26 +35,16 @@ class Frontpage extends React.Component {
           </div>
         </div>
         <div className='you-can-learn'>
-          <div className='container'> <h2>How skillHub works</h2>
+          <div className='container'> <h2>About skillHub</h2>
             <div className='row'>
               <div className='col-md-6'><div className='row-item'>
-                <a href='https://secure.meetup.com/register/' className='j-modal--register'>
-                  <h3 className='text--display3 text--heavy'>Find a Meetup</h3>
-                  <p className='chunk'>Discover local Meetups for all the things you love.</p>
-                  <p className='text--red text--bold'>Sign up</p>
-                </a>
+                  <p className='chunk'>skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise</p>
+                  <p className='chunk'>Sign up and search for like minded people in your area to teach or to learn from </p>
               </div>
               </div>
               <div className='col-md-6'><div className='row'>
                 <div className='row-item row-item--shrink text--red'>
                 <span className='svg svg--plus '></span>
-                </div>
-                <div className='row-item'>
-                  <a href='https://secure.meetup.com/create/'>
-                    <h3 className='text--display3 text--heavy'>Create a Meetup</h3>
-                    <p className='chunk'>Create your own Meetup, and draw from a community of millions.</p>
-                    <p className='text--red text--bold'>Create a Meetup</p>
-                  </a>
                 </div>
               </div>
               </div>

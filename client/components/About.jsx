@@ -5,7 +5,7 @@ class About extends React.Component {
   render () {
     return (
       <div className='container'>
-        <p>This app was created by the following students at EDA.</p>
+        <p>This app was created by the following students at Enspiral Dev Academy</p>
         <ul>
           <li>Rory Macdonald </li>
           <li>Sam Manongga</li>
