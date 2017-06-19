@@ -135,7 +135,7 @@ export function sendMessage (messageData) {
         dispatch(sendComplete(res.body.result))
       })
     .catch(err => {
-      dispatch(sendError(err.response.body.message))
+      dispatch(messageError(err.response.body.message))
     })
   }
 }

@@ -19,15 +19,15 @@ class Inbox extends React.Component {
   }
 
   componentWillMount () {
-		this.props.fetchMessages()
-		.then(() => {
-			if (this.props.messages.length > 0) {
-				this.setState({
-					selectMessageId: this.props.messages[0].id
-				})
-			}
-		})
-	}
+    this.props.fetchMessages()
+    .then(() => {
+      if (this.props.messages.length > 0) {
+        this.setState({
+          selectMessageId: this.props.messages[0].id
+        })
+      }
+    })
+  }
 
 	openMessage(id) {
 		const messages = this.props.messages
@@ -46,17 +46,25 @@ class Inbox extends React.Component {
   render() {
   const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
-      <div>
-        <Sidebar
-        messages={this.props.messages} />
-        <div className="inbox-container">
-          <MessageList
-          messages={this.props.messages}
-          onMessageSelected={(id) => { this.openMessage(id) }}
-          selectedMessageId={this.state.selectedMessageId} />
-          <MessageDetails
-          message={currentMessage}
-          onDelete={(id) => { this.deleteMessage(id) }} />
+      <div className='container'>
+        <div className='row'>
+          <div className='col-md-2'>
+            <Sidebar
+              messages={this.props.messages} />
+          </div>
+          <div className="inbox-container">
+            <div className='col-md-4'>
+              <MessageList
+                messages={this.props.messages}
+                onMessageSelected={(id) => { this.openMessage(id) }}
+                selectedMessageId={this.state.selectedMessageId} />
+            </div>
+            <div className='col-md-6'>
+              <MessageDetails
+                message={currentMessage}
+                onDelete={(id) => { this.deleteMessage(id) }} />
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -66,11 +74,10 @@ class Inbox extends React.Component {
 /* Sidebar */
 const Sidebar = ({ messages}) => {
   var unreadCount = messages.reduce(
-    function(previous, msg) {
-      if (msg.read !== "true" ) {
+    function (previous, msg) {
+      if (msg.read !== 'true') {
         return previous + 1
-      }
-      else {
+      } else {
         return previous
       }
     }.bind(this), 0)
@@ -103,18 +110,18 @@ const Sidebar = ({ messages}) => {
 
 /* Email classes */
 const MessageListItem = ({ message, onMessageClicked, selected }) => {
-  let classes = "message-item"
+  let classes = 'message-item'
   if (selected) {
-    classes += " selected"
+    classes += ' selected'
   }
 
   return (
     <div onClick={() => { onMessageClicked(message.id) }} className={classes}>
-      <div className="message-item__unread-dot" data-read={message.read}></div>
-      <div className="message-item__subject truncate">{message.subject}</div>
-      <div className="message-item__details">
-        <span className="message-item__from truncate">{message.firstName} {message.lastName}</span>
-        <span className="message-item__time truncate">{getPrettyDate(message.time)}</span>
+      <div className='message-item__unread-dot' data-read={message.read}></div>
+      <div className='message-item__subject truncate'>{message.subject}</div>
+      <div className='message-item__details'>
+        <span className='message-item__from truncate'>{message.firstName} {message.lastName}</span>
+        <span className='message-item__time truncate'>{getPrettyDate(message.time)}</span>
       </div>
     </div>
   )
@@ -123,7 +130,7 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
 const MessageDetails = ({ message, onDelete }) => {
   if (!message) {
     return (
-      <div className="message-content empty"></div>
+      <div className='message-content empty'></div>
     )
   }
 
@@ -131,21 +138,21 @@ const MessageDetails = ({ message, onDelete }) => {
 
   const getDeleteButton = () => {
     if (message.tag !== 'deleted') {
-      return <span onClick={() => { onDelete(message.id) }} className="delete-btn fa fa-trash-o"></span>
+      return <span onClick={() => { onDelete(message.id) }} className='delete-btn fa fa-trash-o'></span>
     }
     return undefined
   }
 
   return (
-    <div className="message-content">
-      <div className="message-content__header">
-        <h3 className="message-content__subject">{message.subject}</h3>
-        <Link to ="/contact"><div className="message-content__time">Reply</div></Link>
+    <div className='message-content'>
+      <div className='message-content__header'>
+        <h3 className='message-content__subject'>{message.subject}</h3>
+        <Link to ='/contact'><div className='message-content__time'>Reply</div></Link>
         {getDeleteButton()}
-        <div className="message-content__time">{date}</div>
-        <div className="message-content__from">{message.firstName} {message.lastName}</div>
+        <div className='message-content__time'>{date}</div>
+        <div className='message-content__from'>{message.firstName} {message.lastName}</div>
       </div>
-      <div className="message-content__message">{message.message}</div>
+      <div className='message-content__message'>{message.message}</div>
     </div>
   )
 }
@@ -154,22 +161,22 @@ const MessageDetails = ({ message, onDelete }) => {
 const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   if (messages.length === 0) {
     return (
-      <div className="message-list empty">
+      <div className='message-list empty'>
         Nothing to see here, great job!
       </div>
     )
   }
 
   return (
-    <div className="message-list">
+    <div className='message-list'>
       {
         messages.map(message => {
           return (
             <MessageListItem
-            key={message.id}
-            onMessageClicked={(id) => { onMessageSelected(id) }}
-            message={message}
-            selected={selectedMessageId === message.id} />
+              key={message.id}
+              onMessageClicked={(id) => { onMessageSelected(id) }}
+              message={message}
+              selected={selectedMessageId === message.id} />
           )
         })
       }
@@ -177,11 +184,11 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   )
 }
 // Render
-//$.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
-//	type: 'GET',
-//	success: function(result) {
-//		React.render(<App emails={result} />, document.getElementById('inbox'))
-//	}
+// $.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
+// type: 'GET',
+// success: function(result) {
+//  React.render(<App emails={result} />, document.getElementById('inbox'))
+// }
 // })
 
 // Helper methods
@@ -208,8 +215,7 @@ function mapDispatchToProps (dispatch) {
   return {
     fetchMessages: (userId) => dispatch(fetchMessages(userId)),
     readMessage: (id) => dispatch(readMessage(id)),
-    mapSenderId: (id) => dispatch(mapSenderId(id)),
-    mapUnreadInbox: (unreadCount) => dispatch(mapUnreadInbox(unreadCount))
+    mapSenderId: (id) => dispatch(mapSenderId(id))
   }
 }
 

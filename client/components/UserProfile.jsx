@@ -32,7 +32,9 @@ class UserProfile extends Component {
 }
 
 function mapStateToProps (state) {
-  return state.profile[0]
+  console.log(state.profile[0])
+    return state.profile[0]
+  
 }
 
 function mapDispatchToProps (dispatch) {

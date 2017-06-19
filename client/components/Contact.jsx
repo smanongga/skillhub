@@ -45,7 +45,7 @@ class Contact extends Component {
   render () {
     const { profile_id, userId, subject, message, time, read } = this.state
     return (
-      <div>
+      <div className='container'>
         <p><input name='subject' placeholder='Subject'
           onChange={this.handleChange} value={subject} /></p>
 
@@ -71,10 +71,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
-	return {
-		userId: state.auth.userid.sub,
+  return {
+    userId: state.auth.userid.sub,
     senderId: state.senderId.senderId
-	}
+  }
 }
 // const meapDispatchToProps = (dispatch) => {
 //   return {
@@ -87,6 +87,4 @@ function mapStateToProps (state) {
 //   }
 // }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Contact)
-
