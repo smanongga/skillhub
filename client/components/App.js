@@ -19,6 +19,7 @@ import Home from './Home'
 import About from './About'
 import Frontpage from './Frontpage'
 import Footer from './Footer'
+import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {
   constructor (props) {
@@ -35,6 +36,7 @@ class App extends React.Component {
       <Router history={BrowserHistory}>
         <div className='app'>
           <Navbar />
+          <ErrorMessage />
           {!this.props.isAuthenticated &&
             <Switch>
               <Route exact path='/' component={Frontpage} />
