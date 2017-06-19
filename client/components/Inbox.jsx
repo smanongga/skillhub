@@ -43,25 +43,25 @@ class Inbox extends React.Component {
     })
   }
 
-// deleteMessage(id) {
-// const messages = this.state.messages
-// const index = messages.findIndex(x => x.id === id)
-// messages[index].tag = 'deleted'
+  // deleteMessage(id) {
+  // const messages = this.state.messages
+  // const index = messages.findIndex(x => x.id === id)
+  // messages[index].tag = 'deleted'
 
-// // Select the next message in the list
-// let selectedMessageId = ''
-// for (const message of messages) {
-// if (message.tag === this.state.currentSection) {
-// selectedMessageId = message.id
-// break
-// }
-// }
+  // // Select the next message in the list
+  // let selectedMessageId = ''
+  // for (const message of messages) {
+  //   if (message.tag === this.state.currentSection) {
+  //    selectedMessageId = message.id
+  //   break
+  //   }
+  // }
 
-// this.setState({
-// messages,
-// selectedMessageId
-// })
-// }
+  //  this.setState({
+  //  messages,
+  //  selectedMessageId
+  //  })
+  // }
 
   setSidebarSection (section) {
     let selectedMessageId = this.state.selectedMessageId
@@ -78,22 +78,19 @@ class Inbox extends React.Component {
   render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-2'> <Sidebar
+      <div>
+        <Sidebar
+          messages={this.props.messages}
+          setSidebarSection={(section) => { this.setSidebarSection(section) }} />
+        <div className='inbox-container'>
+          <MessageList
             messages={this.props.messages}
-            setSidebarSection={(section) => { this.setSidebarSection(section) }} /></div>
-          <div className='col-md-10'> <div className='inbox-container'>
-            <MessageList
-              messages={this.props.messages}
-              onMessageSelected={(id) => { this.openMessage(id) }}
-              selectedMessageId={this.state.selectedMessageId}
-              currentSection={this.state.currentSection} />
-            <MessageDetails
-              message={currentMessage}
-              onDelete={(id) => { this.deleteMessage(id) }} />
-          </div>
-          </div>
+            onMessageSelected={(id) => { this.openMessage(id) }}
+            selectedMessageId={this.state.selectedMessageId}
+            currentSection={this.state.currentSection} />
+          <MessageDetails
+            message={currentMessage}
+            onDelete={(id) => { this.deleteMessage(id) }} />
         </div>
       </div>
     )
@@ -110,27 +107,27 @@ const Sidebar = ({ messages, setSidebarSection }) => {
         return previous
       }
     }.bind(this), 0)
+
   var deletedCount = messages.reduce(
-       function (previous, msg) {
-         if (msg.tag === 'deleted') {
-           return previous + 1
-         } else {
-           return previous
-         }
-    }.bind(this), 0)
+      function (previous, msg) {
+        if (msg.tag === 'deleted') {
+          return previous + 1
+        } else {
+          return previous
+        }
+      }.bind(this), 0)
 
   return (
     <div id='sidebar'>
       <div className='sidebar__compose'>
-        <p className='btn compose'> My Messages
-          <span className='fa fa-pencil'></span>
+        <p className='btn compose'>
+          My Messages <span className='fa fa-pencil'></span>
         </p>
       </div>
       <ul className='sidebar__inboxes'>
         <li onClick={() => { setSidebarSection('inbox') }}><a>
           <span className='fa fa-inbox'></span> Inbox
           <span className='item-count'>{unreadCount}</span></a></li>
-
         <li><Link to='/sent'>
           <span className='fa fa-paper-plane'></span> Sent
           <span className='item-count'>0</span></Link></li>
@@ -183,7 +180,7 @@ const MessageDetails = ({ message, onDelete }) => {
     <div className='message-content'>
       <div className='message-content__header'>
         <h3 className='message-content__subject'>{message.subject}</h3>
-        <Link to='/contact'><div className='message-content__time'>Reply</div></Link>
+        <Link to ='/contact'><div className='message-content__time'>Reply</div></Link>
         {getDeleteButton()}
         <div className='message-content__time'>{date}</div>
         <div className='message-content__from'>{message.firstName} {message.lastName}</div>
@@ -221,10 +218,10 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 }
 // Render
 // $.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
-//  type: 'GET',
-//  success: function(result) {
-//   React.render(<App emails={result} />, document.getElementById('inbox'))
-//  }
+// type: 'GET',
+// success: function(result) {
+//  React.render(<App emails={result} />, document.getElementById('inbox'))
+// }
 // })
 
 // Helper methods

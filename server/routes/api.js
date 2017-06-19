@@ -58,8 +58,6 @@ router.get('/quote',
   }
 )
 
-
-
 router.get('/sent/:id', (req, res) => {
   const connection = req.app.get('db')
   db.getSentMessages(Number(req.params.id), connection)
@@ -104,13 +102,6 @@ router.get('/categories', (req, res) => {
     res.json({result: data})
   })
 })
-
-// Expecting this type of data back:
-// [
-//    { id: 1, name: 'Music'}
-//    { id: 2, name: 'Web Development'}
-//    { id: 3, name: 'Art and Design'}
-// ]
 
 router.get('/offer/:categoryid', (req, res) => {
   const connection = req.app.get('db')
@@ -201,6 +192,7 @@ router.get('/profile', (req, res) => {
   db.getUsersProfile(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
+    console.log(data)
   })
 })
 
