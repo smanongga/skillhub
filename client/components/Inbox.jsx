@@ -13,7 +13,6 @@ class Inbox extends React.Component {
     super(props)
     this.state = {
       selectedMessageId: 0,
-      currentSection: 'inbox',
       senderId: 0,
       unreadCount: 0
     }
@@ -44,51 +43,17 @@ class Inbox extends React.Component {
 		})
 	}
 
-	// deleteMessage(id) {
-	// 	const messages = this.state.messages
-	// 	const index = messages.findIndex(x => x.id === id)
-	// 	messages[index].tag = 'deleted'
-
-	// 	// Select the next message in the list
-	// 	let selectedMessageId = ''
-	// 	for (const message of messages) {
-	// 		if (message.tag === this.state.currentSection) {
-	// 			selectedMessageId = message.id
-	// 			break
-	// 		}
-	// 	}
-
-	// 	this.setState({
-	// 		messages,
-	// 		selectedMessageId
-	// 	})
-	// }
-
-	setSidebarSection(section) {
-		let selectedMessageId = this.state.selectedMessageId
-		if (section !== this.state.currentSection) {
-			selectedMessageId = ''
-		}
-
-		this.setState({
-			currentSection: section,
-			selectedMessageId
-		})
-	}
-
   render() {
   const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
       <div>
         <Sidebar
-        messages={this.props.messages}
-        setSidebarSection={(section) => { this.setSidebarSection(section) }} />
+        messages={this.props.messages} />
         <div className="inbox-container">
           <MessageList
           messages={this.props.messages}
           onMessageSelected={(id) => { this.openMessage(id) }}
-          selectedMessageId={this.state.selectedMessageId}
-          currentSection={this.state.currentSection} />
+          selectedMessageId={this.state.selectedMessageId} />
           <MessageDetails
           message={currentMessage}
           onDelete={(id) => { this.deleteMessage(id) }} />
@@ -99,7 +64,7 @@ class Inbox extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ messages, setSidebarSection }) => {
+const Sidebar = ({ messages}) => {
   var unreadCount = messages.reduce(
     function(previous, msg) {
       if (msg.read !== "true" ) {
@@ -115,22 +80,18 @@ const Sidebar = ({ messages, setSidebarSection }) => {
     <div id="sidebar">
       <div className="sidebar__compose">
         <p className="btn compose">
-          My Inbox <span className="fa fa-pencil"></span>
+          My Inbox
         </p>
       </div>
       <ul className="sidebar__inboxes">
-        {/*<li onClick={() => { setSidebarSection('inbox') }}>
-          <a>
-            <span className="fa fa-inbox"></span> Inbox
-          <span className="item-count">{unreadCount}</span></a></li>*/}
-
+        {/*<span className="item-count">{unreadCount}</span></a></li>*/}
         <li>
-          <Link to ='/sent'>
-            <span className="fa fa-paper-plane"></span> Sent
+          <Link to ='/sent'><span className="fa fa-inbox"></span>
+            Sent
           </Link>
         </li>
 
-        <li onClick={() => { setSidebarSection('deleted') }}>
+        <li>
           <a>
             <span className="fa fa-trash-o"></span> Trash
           </a>

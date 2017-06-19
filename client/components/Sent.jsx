@@ -12,7 +12,6 @@ class Sent extends React.Component {
 		
 		this.state = {
 			selectedMessageId: 0,
-			currentSection: 'inbox',
       unreadCount: this.props.unreadCount
 		}
 	}
@@ -54,32 +53,18 @@ class Sent extends React.Component {
 	// 		selectedMessageId
 	// 	})
 	// }
-	
-	setSidebarSection(section) {
-		let selectedMessageId = this.state.selectedMessageId
-		if (section !== this.state.currentSection) {
-			selectedMessageId = ''
-		}
-		
-		this.setState({
-			currentSection: section,
-			selectedMessageId
-		})
-	}
-	
+
 	render() {
 		const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
 		return (
 			<div>
 				<Sidebar
-					messages={this.props.messages}
-					setSidebarSection={(section) => { this.setSidebarSection(section) }} />
+					messages={this.props.messages} />
 				<div className="inbox-container">
 					<MessageList
 						messages={this.props.messages}
 						onMessageSelected={(id) => { this.openMessage(id) }}
-						selectedMessageId={this.state.selectedMessageId}
-						currentSection={this.state.currentSection} />
+						selectedMessageId={this.state.selectedMessageId} />
 					<MessageDetails
 						message={currentMessage}
 						onDelete={(id) => { this.deleteMessage(id) }} />
@@ -90,7 +75,7 @@ class Sent extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ unreadCount, setSidebarSection }) => {
+const Sidebar = ({ unreadCount}) => {
 	// var unreadCount = unreadCount
 
 	return (
@@ -105,7 +90,7 @@ const Sidebar = ({ unreadCount, setSidebarSection }) => {
 				<li><Link to ='/messages'>
 					<span className="fa fa-inbox"></span> Inbox
 					<span className="item-count">{unreadCount}</span></Link></li>
-				<li onClick={() => { setSidebarSection('deleted') }}><a>
+				<li><a>
 					<span className="fa fa-trash-o"></span> Trash
 					<span className="item-count"></span>
 					</a></li>
