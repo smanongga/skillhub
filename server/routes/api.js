@@ -58,8 +58,6 @@ router.get('/quote',
   }
 )
 
-
-
 router.get('/sent/:id', (req, res) => {
   const connection = req.app.get('db')
   db.getSentMessages(Number(req.params.id), connection)
@@ -105,13 +103,6 @@ router.get('/categories', (req, res) => {
   })
 })
 
-// Expecting this type of data back:
-// [
-//    { id: 1, name: 'Music'}
-//    { id: 2, name: 'Web Development'}
-//    { id: 3, name: 'Art and Design'}
-// ]
-
 router.get('/offer/:categoryid', (req, res) => {
   const connection = req.app.get('db')
   const id = Number(req.params.categoryid)
@@ -142,7 +133,6 @@ router.get('/categories', (req, res) => {
     res.json({result: data})
   })
 })
-
 
 // Protect all routes beneath this point
 router.use(
@@ -202,6 +192,7 @@ router.get('/profile', (req, res) => {
   db.getUsersProfile(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
+    console.log(data)
   })
 })
 
@@ -212,34 +203,5 @@ router.get('/profiles/:id', (req, res) => {
     res.json({result: data})
   })
 })
-
-// Expecting this type of data back:
-// { id: 1,
-//  name: tony
-//  photo_url: 'www.Tonyphoto.com'
-//  bio: “Hi, I'm Tony. Looking forward to learning with you”
-//    skillsToOffer['car repair', 'baking']
-//    skillsToLearn['guitar','javascript']
-//    feedback[{
-//               commenter_username: 'Jim'
-//               commenter_photo_url: 'www.photo/132.png'
-//               comment: 'Tony was great at teaching my how to bake a cake!'
-//            }]
-// }
-// GET /pofil
-
-// GET /pofiles/skills/:name
-// Needs to return profile object with array of skills:
-// { id: 1,
-//  name: tony
-//    skillsToLearn['guitar','javascript']
-// }
-
-// GET /pofiles/skills/:name
-// Needs to return profile object with array of skills:
-// { id: 1,
-//  name: tony
-//    skillsToLearn['guitar','javascript']
-// }
 
 module.exports = router
