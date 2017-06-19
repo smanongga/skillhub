@@ -128,6 +128,11 @@ class EditProfile extends React.Component {
                   onDrop={this.handleImageDrop}>
                   <p>Drop an image or click to select a file to upload.</p>
                 </Dropzone>}
+
+                {this.state.profilePic === '' ? null :
+          <div>
+            <img src={this.props.profile.photoUrl} />
+          </div>}
                 {this.state.profilePic &&
                   <div>
                     <h4>Upload Successful</h4>
