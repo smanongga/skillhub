@@ -235,7 +235,7 @@
       dispatch(saveProfileById(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.result))
+      return dispatch(error(err.res.body.result))
     })
    }
  }
@@ -250,7 +250,7 @@
      )
      })
      .catch((err) => {
-       return dispatch(error(err.response.body.result))
+       return dispatch(error(err.res.body.result))
      })
    }
  }
@@ -259,12 +259,12 @@
    return dispatch => {
      dispatch(waitingIndicator())
      request('get', `/profile`)
-     .then(res => {
+     .then((res) => {
        dispatch(getProfileOfUser(res.body.result))
        dispatch(notWaiting())
      })
      .catch((err) => {
-       return dispatch(error(err.response.body.result))
+       dispatch(error(err.message))
      })
    }
  }
@@ -278,7 +278,7 @@
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
      .catch((err) => {
-       return dispatch(error(err.response.body.result))
+       return dispatch(error(err.res.body.result))
      })
    }
  }
@@ -292,7 +292,7 @@
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
      .catch((err) => {
-       return dispatch(error(err.response.body.result))
+       return dispatch(error(err.res.body.result))
      })
    }
  }
@@ -306,7 +306,7 @@
       dispatch(locations(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.result))
+      return dispatch(error(err.res.body.result))
     })
    }
  }
@@ -320,7 +320,7 @@
       dispatch(skills(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.result))
+      return dispatch(error(err.res.body.result))
     })
    }
  }
