@@ -11,7 +11,7 @@ class CategoriesList extends React.Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container categories'>
         <div className='category-title'>
           <h2>Browse for teachers or students in these categories:</h2>
           <div className='row'>
