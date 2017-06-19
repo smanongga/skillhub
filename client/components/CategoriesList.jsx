@@ -19,7 +19,7 @@ class CategoriesList extends React.Component {
               return (
                 <Link to={`/skills/${category.id}`} key={i}>
                   <div className='col-md-3'>
-                    <div className='category-thumbnail'>
+                    <div className={`category-thumbnail ${category.name.toLowerCase()}`}>
                       {category.name}
                     </div>
                   </div>
