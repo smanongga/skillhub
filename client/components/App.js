@@ -12,6 +12,7 @@ import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
+import CategoryPageTest from './CategoryPageTest'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Home from './Home'
@@ -34,8 +35,13 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
+          {!this.props.isAuthenticated &&
+            <Switch>
+              <Route exact path='/' component={Frontpage} />
+              <Route path='/skills/:id' component={CategoryPageTest} />
+            </Switch>
+            }
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
