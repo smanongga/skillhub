@@ -10,17 +10,15 @@ class CategoryPage extends Component {
   }
 
   render () {
-    console.log(this.props)
+    console.log(this.props.UsersLearn)
     return (
       <div className='container'>
-        <div>
-          <h1>{this.props.title}</h1>
-          <h2>To Learn</h2>
+        <div><h2>To Learn</h2>
           <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
             return (
               <div className='profile-thumbnail'>
-                <Link to={`/profiles/${user.id}`} key={i}>
-                  <div id={i}>
+                <Link to={`/profiles/${user.id}`}key={i}>
+                  <div>
                     <div className='photo'><img src='/defaultProfile.jpg' /></div>
                     <div className='user-details'>
                       <ul>
@@ -39,7 +37,7 @@ class CategoryPage extends Component {
         <div className='flex-container'>{this.props.UsersOffer.map((user, i) => {
           return (
             <div className='profile-thumbnail'>
-              <Link to={`/profiles/${user.id}`} key={i}>
+              <Link to={`/profiles/${user.id}`}key={i}>
                 <div>
                   <div className='photo'><img src='/defaultProfile.jpg' /></div>
                   <div className='user-details'>

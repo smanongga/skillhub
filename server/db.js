@@ -13,7 +13,10 @@ module.exports = {
   readMessage,
   getLocations,
   filterSkillsToOffer,
-  filterSkillsToLearn
+  filterSkillsToLearn,
+  getSkills,
+  insertSkillsToOffer,
+  insertSkillsToLearn
 }
 
 const _ = require('lodash')
@@ -46,6 +49,42 @@ function updateProfile (conn, profile, id) {
   })
 }
 
+function insertSkillsToOffer (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result[0].id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_offer')
+      .insert(skillsWithProfileId)
+  })
+}
+
+function insertSkillsToLearn (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result[0].id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_learn')
+      .insert(skillsWithProfileId)
+  })
+}
+
+function getProfileIdByAuthId (conn, authId) {
+  return conn('profiles')
+  .where('auth_id', authId)
+  .select('id')
+}
+
 function getProfileById (id, connection) {
   return Promise.all([
     getProfile(id, connection),
@@ -53,6 +92,16 @@ function getProfileById (id, connection) {
     getSkillsToLearn(id, connection)
   ])
 .then(([result1, result2, result3]) => {
+  // function getFields (input, field) {
+  //   var output = []
+  //   for (var i = 0; i < input.length; ++i)
+  //     output.push(input[i][field])z
+  //   return output
+  // }
+  //
+  // const teach = getFields(result2, 'name')
+  // const learn = getFields(result3, 'name')
+
   const data = {
     firstName: result1[0].firstName,
     lastName: result1[0].lastName,
@@ -148,6 +197,11 @@ function readMessage (conn, readId) {
 
 function getCategories (connection) {
   return connection('categories')
+  .select()
+}
+
+function getSkills (connection) {
+  return connection('skills')
   .select()
 }
 
