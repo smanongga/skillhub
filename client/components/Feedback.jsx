@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {BrowserRouter as Router , Link} from 'react-router-dom'
 
 // import FeedbackItem from './FeedbackItem'
 import {fetchFeedback} from '../actions'
@@ -12,7 +13,7 @@ class Feedback extends React.Component {
   }
 
   componentWillMount () {
-    const profileId = this.props.match.params.id
+    const profileId = this.props.pageId
     this.props.fetchFeedback(profileId)
   }
 
@@ -48,11 +49,11 @@ const FeedbackList = ({ feedback }) => {
   )
 }
 
-const FeedbackItem = ({ feedbackDetails}) => {
+const FeedbackItem = ({feedbackDetails}) => {
   return (
     <div>
       <div className='message-item__details'>
-        <p>{feedbackDetails.firstName} {feedbackDetails.lastName}</p>
+        <Link to={`/profiles/${feedbackDetails.commenterId}`}>{feedbackDetails.firstName} {feedbackDetails.lastName}</Link>
       </div>
       <div>
         <p>{feedbackDetails.message}</p>

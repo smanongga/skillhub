@@ -2,6 +2,8 @@ import {getProfileById, mapSenderId} from '../actions/index'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
+import Feedback from './Feedback'
+
 class ViewProfile extends Component {
 
   componentWillMount () {
@@ -50,6 +52,10 @@ class ViewProfile extends Component {
               })}
             </ul>
           </div>
+        </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Feedback</h2></div>
+          <Feedback pageId={this.props.match.params.id} />
         </div>
       </div>
     )
