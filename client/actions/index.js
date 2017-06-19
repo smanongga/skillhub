@@ -160,7 +160,7 @@
       }
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.message))
+      return dispatch(error(err.message))
     })
    }
  }
@@ -178,7 +178,7 @@
       }
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.message))
+      return dispatch(error(err.message))
     })
    }
  }
@@ -196,7 +196,7 @@
       }
     })
     .catch((err) => {
-      return dispatch(error(err.response.body.message))
+      return dispatch(error(err.message))
     })
    }
  }
@@ -235,7 +235,7 @@
       dispatch(saveProfileById(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.res.body.result))
+      return dispatch(error(err.message))
     })
    }
  }
@@ -250,7 +250,7 @@
      )
      })
      .catch((err) => {
-       return dispatch(error(err.res.body.result))
+       return dispatch(error(err.message))
      })
    }
  }
@@ -278,7 +278,7 @@
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
      .catch((err) => {
-       return dispatch(error(err.res.body.result))
+       return dispatch(error(err.message))
      })
    }
  }
@@ -292,7 +292,7 @@
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
      .catch((err) => {
-       return dispatch(error(err.res.body.result))
+       return dispatch(error(err.message))
      })
    }
  }
@@ -306,7 +306,7 @@
       dispatch(locations(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.res.body.result))
+      return dispatch(error(err.message))
     })
    }
  }
@@ -320,7 +320,7 @@
       dispatch(skills(res.body.result))
     })
     .catch((err) => {
-      return dispatch(error(err.res.body.result))
+      return dispatch(error(err.message))
     })
    }
  }
