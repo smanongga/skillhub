@@ -1,18 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
-import {updateProfile, addProfileToDb, getLocations} from '../actions'
+import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
+import {Typeahead} from 'react-bootstrap-typeahead'
 
 class EditProfile extends React.Component {
   componentDidMount () {
     this.props.getUsersProfile()
     this.props.getLocations()
+    this.props.getSkills()
   }
   constructor (props) {
     super(props)
     this.state = {
+      id: this.props.id,
       userName: '',
       firstName: this.props.firstName,
       lastName: this.props.lastName,
@@ -24,11 +27,13 @@ class EditProfile extends React.Component {
       skillsWanted: [],
       displayUpload: true,
       imageUploading: false,
-      location: this.props.location || []
+      location: this.props.location || [],
+      skills: this.props.skills || []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleImageDrop = this.handleImageDrop.bind(this)
+    this.handleInput = this.handleInput.bind(this)
   }
 
   handleChange (e) {
@@ -37,11 +42,20 @@ class EditProfile extends React.Component {
     })
   }
 
+  handleInput (e) {
+    this.setState({
+      skillsOffered: e,
+      skillsWanted: e
+    })
+  }
+
   handleClick (e) {
     e.preventDefault()
     this.props.history.push('/profile')
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
+    this.props.updateSkillsOffered(this.state.skillsOffered)
+    this.props.updateSkillsWanted(this.state.skillsWanted)
   }
 
   handleImageDrop (files) {
@@ -57,6 +71,7 @@ class EditProfile extends React.Component {
   }
 
   render () {
+    console.log(this.state.skillsWanted)
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
@@ -110,13 +125,31 @@ class EditProfile extends React.Component {
                 <div className='row'>
                   <div className='col-md-3'><p>Skills Offered</p></div>
                   <div className='col-md-9'>
-                    <p><input name='skillsOffered' className='form-control' onChange={this.handleChange} placeholder={this.props.profile.skillsOffered} /></p>
+                    <Typeahead
+                      clearButton
+                      labelKey='name'
+                      multiple
+                      onChange={this.handleInput}
+                      options={this.props.skills.map((data) => {
+                        return data
+                      })}
+                      placeholder='Choose your skills'
+                        />
                   </div>
                 </div>
                 <div className='row'>
                   <div className='col-md-3'><p>Skills Wanted</p></div>
                   <div className='col-md-9'>
-                    <p><input name='skillsWanted' className='form-control' onChange={this.handleChange} placeholder={this.props.profile.skillsWanted} /></p>
+                    <Typeahead
+                      clearButton
+                      labelKey='name'
+                      multiple
+                      onChange={this.handleInput}
+                      options={this.props.skills.map((data) => {
+                        return data
+                      })}
+                      placeholder='Choose your skills'
+                        />
                   </div>
                 </div>
 
@@ -160,6 +193,15 @@ function mapDispatchToProps (dispatch) {
     },
     getLocations: () => {
       dispatch(getLocations())
+    },
+    getSkills: () => {
+      dispatch(getSkills())
+    },
+    updateSkillsOffered: (skills) => {
+      dispatch(addProfileSkillsOffered(skills))
+    },
+    updateSkillsWanted: (skills) => {
+      dispatch(addProfileSkillsWanted(skills))
     }
   }
 }
@@ -169,7 +211,8 @@ function mapStateToProps (state) {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     profile: state.profile[0],
-    location: state.location[0]
+    location: state.location[0],
+    skills: state.skills
   }
 }
 

@@ -20,8 +20,8 @@ class CategoriesList extends React.Component {
                 <Link to={`/skills/${category.id}`}key={i}>
                   <div className='col-md-4'>
                     <div className='category-thumbnail'>
-                    {category.name}
-                  </div>
+                      {category.name}
+                    </div>
                   </div>
                 </Link>
               )
