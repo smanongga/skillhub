@@ -79,15 +79,5 @@ function mapStateToProps (state) {
     senderId: state.senderId.senderId
   }
 }
-// const meapDispatchToProps = (dispatch) => {
-//   return {
-//     registerUser: (creds) => {
-//       return dispatch(registerUser(creds))
-//     },
-//     registerError: (message) => {
-//       dispatch(registerError(message))
-//     }
-//   }
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact)
