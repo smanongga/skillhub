@@ -12,7 +12,6 @@ class Sent extends React.Component {
 		
 		this.state = {
 			selectedMessageId: 0,
-      unreadCount: this.props.unreadCount
 		}
 	}
 
@@ -62,7 +61,7 @@ class Sent extends React.Component {
           <div className='col-md-2'>
 				    <Sidebar messages={this.props.messages} />
           </div>
-				  <div className="inbox-container">
+				  <div className='inbox-container'>
             <div className='col-md-4'>
               <MessageList
                 messages={this.props.messages}
@@ -89,18 +88,11 @@ const Sidebar = () => {
 	return (
 		<div id="sidebar">
 			<div className="sidebar__compose">
-				<p className="btn compose">
-					My Sent Items <span className="fa fa-pencil"></span>
-				</p>
+				<p className="btn compose">My Sent Items <span className="fa fa-pencil"></span></p>
 			</div>
 			<ul className="sidebar__inboxes">
-
-				<li><Link to ='/messages'>
-					<span className="fa fa-inbox"></span> Inbox
-					</Link></li>
-				<li><a>
-					<span className="fa fa-trash-o"></span> Trash
-					</a></li>
+				<li><Link to ='/messages'><span className="fa fa-inbox"></span> Inbox</Link></li>
+				<li><a><span className="fa fa-trash-o"></span> Trash</a></li>
 			</ul>
 		</div>
 	)
@@ -202,8 +194,7 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
 	return {
-		messages: state.messages.messages,
-    unreadCount: state.unreadCount.unreadCount
+		messages: state.messages.messages
 	}
 }
 

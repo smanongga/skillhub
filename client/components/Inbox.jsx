@@ -4,17 +4,15 @@ import {Link} from 'react-router-dom'
 
 import {fetchMessages, readMessage} from '../actions/messages'
 import {mapSenderId} from '../actions'
-import {mapUnreadInbox} from '../actions'
 
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Inbox extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       selectedMessageId: 0,
-      senderId: 0,
-      unreadCount: 0
+      senderId: 0
     }
   }
 
@@ -84,13 +82,13 @@ const Sidebar = ({ messages}) => {
 
 
   return (
-    <div id="sidebar">
-      <div className="sidebar__compose">
-        <p className="btn compose">
+    <div id='sidebar'>
+      <div className='sidebar__compose'>
+        <p className='btn compose'>
           My Inbox
         </p>
       </div>
-      <ul className="sidebar__inboxes">
+      <ul className='sidebar__inboxes'>
         {/*<span className="item-count">{unreadCount}</span></a></li>*/}
         <li>
           <Link to ='/sent'><span className="fa fa-inbox"></span>

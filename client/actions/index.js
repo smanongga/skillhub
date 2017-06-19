@@ -10,7 +10,6 @@
  export const RECEIVE_CATEGORY_USERS_OFFER = 'RECEIVE_CATEGORY_USERS_OFFER'
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
- export const PUSHED_UNREAD_COUNT = 'PUSHED_UNREAD_COUNT'
 
  export function updateProfile (text) {
    return {
@@ -98,19 +97,6 @@
    return {
      type: PUSHED_SENDER_ID,
      senderId
-   }
- }
-
-  export function mapUnreadInbox (unreadCount) {
-   return dispatch => {
-     dispatch(pushedUnreadCount(unreadCount))
-   }
- }
-
- function pushedUnreadCount (unreadCount) {
-   return {
-     type: PUSHED_UNREAD_COUNT,
-     unreadCount
    }
  }
 
