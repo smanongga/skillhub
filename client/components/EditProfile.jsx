@@ -126,9 +126,9 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Offered</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
                       multiple
+                      maxHeight={100}
                       onChange={this.handleInput}
                       options={this.props.skills.map((data) => {
                         return data
@@ -141,8 +141,8 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Wanted</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
+                      maxHeight={100}
                       multiple
                       onChange={this.handleInput}
                       options={this.props.skills.map((data) => {

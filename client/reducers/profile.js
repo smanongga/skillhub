@@ -1,6 +1,6 @@
 import { UPDATE_PROFILE, USERS_PROFILE, PUSHED_SENDER_ID, UPDATE_SKILLS } from '../actions/index'
 
-const profile = (state = {}, action) => {
+const profile = (state = [], action) => {
   switch (action.type) {
     case UPDATE_PROFILE:
       return [
