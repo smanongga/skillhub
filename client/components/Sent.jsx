@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 import {fetchSentMessages, readMessage} from '../actions/messages'
 
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Sent extends React.Component {
 	constructor(props) {
@@ -182,7 +182,7 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
   const newDate = date.split('-')
-  const month = months[0]
+  const month = months[newDate[1]]
   return `${month} ${newDate[2]}, ${newDate[0]}`
 }
 

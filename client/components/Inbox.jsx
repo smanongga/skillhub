@@ -193,7 +193,6 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
   const newDate = date.split('-')
-  console.log(newDate)
   const month = months[newDate[1]]
   return `${month} ${newDate[2]}, ${newDate[0]}`
 }
