@@ -148,7 +148,6 @@ router.post('/categories/skills-learn', (req, res) => {
    })
 })
 
-
 // Protect all routes beneath this point
 router.use(
   verifyJwt({

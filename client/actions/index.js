@@ -11,15 +11,19 @@
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
  export const GET_SKILLS = 'GET_SKILLS'
+ export const WAITING_INDICATOR = 'WAITING_INDICATOR'
+ export const NOT_WAITING = 'NOT_WAITING'
  export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
  export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
  export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
 
  export function fetchFeedback (id) {
    return function (dispatch) {
+     dispatch(waitingIndicator())
      dispatch(requestFeedback(id))
      return request('get', '/feedback', id)
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveFeedback(res.body.result))
        console.log(res.body.result)
      })
@@ -66,6 +70,18 @@
        skillsOffered: text.skillsOffered,
        skillsWanted: text.skillsWanted
      }
+   }
+ }
+
+ export const waitingIndicator = () => {
+   return {
+     type: WAITING_INDICATOR
+   }
+ }
+
+ export const notWaiting = () => {
+   return {
+     type: NOT_WAITING
    }
  }
  export const requestCategories = () => {
@@ -125,11 +141,13 @@
 
  export function addProfileToDb (profile) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('put', '/profile/edit', profile)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
     })
@@ -138,11 +156,13 @@
 
  export function addProfileSkillsOffered (skills) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('post', '/profile/skills-offered', skills)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
     })
@@ -151,11 +171,13 @@
 
  export function addProfileSkillsWanted (skills) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('post', '/profile/skills-learn', skills)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
     })
@@ -178,10 +200,12 @@
  export const fetchCategories = () => {
    return (dispatch, getState) => {
      const state = getState()
+     dispatch(waitingIndicator())
      if (state.categories.length === 0) {
        getAllCategories((err, res) => {
          if (err) return console.log(err)
          dispatch(receiveCategories(res.result))
+         dispatch(notWaiting())
        })
      }
    }
@@ -198,8 +222,10 @@
 
  export function getAllCategories (callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/categories')
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveCategories(res.body.result)
      )
      })
@@ -208,17 +234,21 @@
 
  export function getUsersProfile (callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/profile`)
      .then(res => {
        dispatch(getProfileOfUser(res.body.result))
+       dispatch(notWaiting())
      })
    }
  }
 
  export function getCategoryUsersLearn (id, callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/learn/${id}`)
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
    }
@@ -226,8 +256,10 @@
 
  export function getCategoryUsersOffer (id, callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/offer/${id}`)
      .then(res => {
+       dispatch(notWaiting())       
        dispatch(receiveCategoryUsersOffer(res.body.result))
      })
    }
@@ -235,8 +267,10 @@
 
  export function getLocations () {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/profile/edit')
     .then(res => {
+      dispatch(notWaiting())
       dispatch(locations(res.body.result))
     })
    }
@@ -244,8 +278,10 @@
 
  export function getSkills () {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/profile/edit/skills')
     .then(res => {
+      dispatch(notWaiting())
       dispatch(skills(res.body.result))
     })
    }
