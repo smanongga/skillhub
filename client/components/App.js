@@ -15,6 +15,7 @@ import CategoryPage from './CategoryPage'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Home from './Home'
+import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
 import Footer from './Footer'
@@ -35,6 +36,7 @@ class App extends React.Component {
         <div className='app'>
           {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
+          {this.props.waiting && <WaitingIndicator />}
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
@@ -69,7 +71,8 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    waiting: state.waiting
   }
 }
 

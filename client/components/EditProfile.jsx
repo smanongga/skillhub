@@ -5,6 +5,7 @@ import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkills
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 import {Typeahead} from 'react-bootstrap-typeahead'
+import WaitingIndicator from './WaitingIndicator'
 
 class EditProfile extends React.Component {
   componentDidMount () {
@@ -54,7 +55,6 @@ class EditProfile extends React.Component {
       skillsWanted: e
     })
   }
-
 
   handleClick (e) {
     e.preventDefault()
@@ -182,6 +182,7 @@ class EditProfile extends React.Component {
             <div className='row'>
               <div className='col-md-2'></div>
               <div className='col-md-7'><button className='btn btn-primary' onClick={this.handleClick}>Save</button></div>
+               
               <div className='col-md-3'></div>
             </div>
             </div>
@@ -223,7 +224,8 @@ function mapStateToProps (state) {
     user: state.auth.user,
     profile: state.profile,
     location: state.location[0],
-    skills: state.skills
+    skills: state.skills,
+    waiting: state.waiting
   }
 }
 

@@ -1,5 +1,6 @@
 import request from '../utils/api'
 
+import {waitingIndicator, notWaiting} from './index'
 export const MESSAGE_REQUEST = 'MESSAGE_REQUEST'
 export const MESSAGE_SUCCESS = 'MESSAGE_SUCCESS'
 export const MESSAGE_FAILURE = 'MESSAGE_FAILURE'
@@ -15,9 +16,11 @@ export const READ_FAILURE    = 'READ_FAILURE'
 
 export function fetchMessages () {
   return function (dispatch) {
+    dispatch(waitingIndicator())
     dispatch(requestMessages())
     return request('get', '/messages')
     .then(res => {
+      dispatch(notWaiting())
       dispatch(receiveMessages(res.body.result))
     })
     .catch(err => {
@@ -51,9 +54,11 @@ function messageError (messages) {
 
 export function fetchSentMessages (userId) {
   return function (dispatch) {
+    dispatch(waitingIndicator())
     dispatch(requestMessages())
     return request('get', `/sent`)
     .then(res => {
+      dispatch(notWaiting())
       dispatch(receiveMessages(res.body.result))
     })
     .catch(err => {
@@ -89,10 +94,11 @@ function messageSentError (sentMessages) {
 export function readMessage (readId) {
   return dispatch => {
     // We dispatch sendMessage to kickoff the call to the API
+    dispatch(waitingIndicator())
     dispatch(requestReadMessage(readId))
-
     return request('post', '/readmessage', readId)
       .then(res => {
+        dispatch(notWaiting())
         dispatch(readComplete(res.body.result))
       })
     .catch(err => {
@@ -128,10 +134,11 @@ function readError (readId) {
 export function sendMessage (messageData) {
   return dispatch => {
     // We dispatch sendMessage to kickoff the call to the API
+    dispatch(waitingIndicator())
     dispatch(requestSendMessage(messageData))
-
     return request('post', '/contact', messageData)
       .then(res => {
+        dispatch(notWaiting())
         dispatch(sendComplete(res.body.result))
       })
     .catch(err => {

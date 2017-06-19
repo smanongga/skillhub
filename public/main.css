@@ -122,3 +122,10 @@ footer {
  height: 60px;
  padding-bottom:200px;
 }
+
+.waiting-indicator {
+  width:5%;
+  height:5%;
+  margin-left:45%;
+  z-index:3;
+}
