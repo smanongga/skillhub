@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom'
 
 import {fetchSentMessages, readMessage} from '../actions/messages'
 
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Sent extends React.Component {
 	constructor(props) {
 		super(props)
-		
+
 		this.state = {
 			selectedMessageId: 0,
 		}
@@ -19,7 +19,7 @@ class Sent extends React.Component {
 		const userId = Number(this.props.match.params.id)
 		this.props.fetchSentMessages(userId)
 	}
-	
+
 	openMessage(id) {
 		const messages = this.props.messages
 		const index = messages.findIndex(x => x.id === id)
@@ -31,13 +31,13 @@ class Sent extends React.Component {
 			messages
 		})
 	}
-	
+
 	// deleteMessage(id) {
 	// 	// Mark the message as 'deleted'
 	// 	const messages = this.state.messages
 	// 	const index = messages.findIndex(x => x.id === id)
 	// 	messages[index].tag = 'deleted'
-		
+
 	// 	// Select the next message in the list
 	// 	let selectedMessageId = ''
 	// 	for (const message of messages) {
@@ -46,7 +46,7 @@ class Sent extends React.Component {
 	// 			break
 	// 		}
 	// 	}
-		
+
 	// 	this.setState({
 	// 		messages,
 	// 		selectedMessageId
@@ -149,7 +149,7 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   if (messages.length === 0) {
     return (
       <div className='message-list empty'>
-        Nothing to see here, great job!
+        Nothing to see here!
       </div>
     )
   }
@@ -182,7 +182,8 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
   const newDate = date.split('-')
-  const month = months[0]
+  const monthFix = Number(newDate[1])
+  const month = months[monthFix]
   return `${month} ${newDate[2]}, ${newDate[0]}`
 }
 
