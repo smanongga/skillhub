@@ -5,7 +5,6 @@ import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkills
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 import {Typeahead} from 'react-bootstrap-typeahead'
-import WaitingIndicator from './WaitingIndicator'
 
 class EditProfile extends React.Component {
   componentDidMount () {
@@ -224,8 +223,7 @@ function mapStateToProps (state) {
     user: state.auth.user,
     profile: state.profile,
     location: state.location[0],
-    skills: state.skills,
-    waiting: state.waiting
+    skills: state.skills
   }
 }
 
