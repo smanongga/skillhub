@@ -11,6 +11,58 @@
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
  export const GET_SKILLS = 'GET_SKILLS'
+ export const WAITING_INDICATOR = 'WAITING_INDICATOR'
+ export const NOT_WAITING = 'NOT_WAITING'
+ export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
+ export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
+ export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
+ export const ERROR_MESSAGE = 'ERROR_MESSAGE'
+
+ export function fetchFeedback (id) {
+   return function (dispatch) {
+     dispatch(waitingIndicator())
+     dispatch(requestFeedback(id))
+     return request('get', '/feedback', id)
+      .then(res => {
+        dispatch(notWaiting())
+        dispatch(receiveFeedback(res.body.result))
+        console.log(res.body.result)
+      })
+      .catch(err => {
+        dispatch(feedbackError(err.message))
+      })
+   }
+ }
+
+ export function receiveFeedback (feedback) {
+   return {
+     type: FEEDBACK_SUCCESS,
+     isFetching: false,
+     response: feedback
+   }
+ }
+
+ function requestFeedback () {
+   return {
+     type: FEEDBACK_REQUEST,
+     isFetching: true
+   }
+ }
+
+ function feedbackError (feedback) {
+   return {
+     type: FEEDBACK_FAILURE,
+     isFetching: false,
+     feedback
+   }
+ }
+
+ export function error (message) {
+   return {
+     type: ERROR_MESSAGE,
+     errorMessage: message
+   }
+ }
 
  export function updateProfile (text) {
    return {
@@ -26,6 +78,18 @@
        skillsOffered: text.skillsOffered,
        skillsWanted: text.skillsWanted
      }
+   }
+ }
+
+ export const waitingIndicator = () => {
+   return {
+     type: WAITING_INDICATOR
+   }
+ }
+
+ export const notWaiting = () => {
+   return {
+     type: NOT_WAITING
    }
  }
  export const requestCategories = () => {
@@ -85,39 +149,54 @@
 
  export function addProfileToDb (profile) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('put', '/profile/edit', profile)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
+    })
+    .catch((err) => {
+      return dispatch(error(err.message))
     })
    }
  }
 
  export function addProfileSkillsOffered (skills) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('post', '/profile/skills-offered', skills)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
+    })
+    .catch((err) => {
+      return dispatch(error(err.message))
     })
    }
  }
 
  export function addProfileSkillsWanted (skills) {
    return dispatch => {
+     dispatch(waitingIndicator())
      return request('post', '/profile/skills-learn', skills)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
       } else {
+        dispatch(notWaiting())
         return response.req
       }
+    })
+    .catch((err) => {
+      return dispatch(error(err.message))
     })
    }
  }
@@ -138,10 +217,12 @@
  export const fetchCategories = () => {
    return (dispatch, getState) => {
      const state = getState()
+     dispatch(waitingIndicator())
      if (state.categories.length === 0) {
        getAllCategories((err, res) => {
-         if (err) return console.log(err)
+         if (err) return dispatch(error(err.message))
          dispatch(receiveCategories(res.result))
+         dispatch(notWaiting())
        })
      }
    }
@@ -153,60 +234,93 @@
     .then(res => {
       dispatch(saveProfileById(res.body.result))
     })
+    .catch((err) => {
+      return dispatch(error(err.message))
+    })
    }
  }
 
  export function getAllCategories (callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/categories')
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveCategories(res.body.result)
      )
+     })
+     .catch((err) => {
+       return dispatch(error(err.message))
      })
    }
  }
 
  export function getUsersProfile (callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/profile`)
-     .then(res => {
+     .then((res) => {
        dispatch(getProfileOfUser(res.body.result))
+       dispatch(notWaiting())
+     })
+     .catch((err) => {
+       dispatch(error(err.message))
      })
    }
  }
 
  export function getCategoryUsersLearn (id, callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/learn/${id}`)
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveCategoryUsersLearn(res.body.result))
+     })
+     .catch((err) => {
+       return dispatch(error(err.message))
      })
    }
  }
 
  export function getCategoryUsersOffer (id, callback) {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', `/offer/${id}`)
      .then(res => {
+       dispatch(notWaiting())
        dispatch(receiveCategoryUsersOffer(res.body.result))
+     })
+     .catch((err) => {
+       return dispatch(error(err.message))
      })
    }
  }
 
  export function getLocations () {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/profile/edit')
     .then(res => {
+      dispatch(notWaiting())
       dispatch(locations(res.body.result))
+    })
+    .catch((err) => {
+      return dispatch(error(err.message))
     })
    }
  }
 
  export function getSkills () {
    return dispatch => {
+     dispatch(waitingIndicator())
      request('get', '/profile/edit/skills')
     .then(res => {
+      dispatch(notWaiting())
       dispatch(skills(res.body.result))
+    })
+    .catch((err) => {
+      return dispatch(error(err.message))
     })
    }
  }

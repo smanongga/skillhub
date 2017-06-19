@@ -55,7 +55,6 @@ class EditProfile extends React.Component {
     })
   }
 
-
   handleClick (e) {
     e.preventDefault()
     this.props.history.push('/profile')
@@ -182,6 +181,7 @@ class EditProfile extends React.Component {
             <div className='row'>
               <div className='col-md-2'></div>
               <div className='col-md-7'><button className='btn btn-primary' onClick={this.handleClick}>Save</button></div>
+               
               <div className='col-md-3'></div>
             </div>
             </div>
