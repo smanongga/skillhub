@@ -31,12 +31,12 @@ class Contact extends Component {
      const { profile_id, userId, subject, message, time, read } = this.state 
      const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
      const messageData = {
-         profile_id: profile_id, 
-         userId: userId, 
-         subject: subject, 
-         message: message, 
-         time: buildDate, 
-         read: read
+            profile_id: profile_id, 
+            userId: userId, 
+            subject: subject, 
+            message: message, 
+            time: buildDate, 
+            read: read
     }
     console.log(messageData)
     this.props.sendMessage(messageData)
