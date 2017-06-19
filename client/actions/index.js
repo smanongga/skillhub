@@ -11,7 +11,15 @@
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
  export const GET_SKILLS = 'GET_SKILLS'
+ export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 
+ export function error (message) {
+   return {
+     type: ERROR_MESSAGE,
+     errorMessage: message
+   }
+ }
+ 
  export function updateProfile (text) {
    return {
      type: UPDATE_PROFILE,
