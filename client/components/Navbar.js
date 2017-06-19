@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import Logout from './Logout'
+import Login from './Login'
 
 const Navbar = ({ isAuthenticated }) => {
   return (
@@ -28,6 +29,26 @@ const Navbar = ({ isAuthenticated }) => {
                 <li>
                   <Logout />
                 </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      }
+      {!isAuthenticated &&
+        <nav className='navbar navbar-default not-loggedin'>
+          <div className='container'>
+            <div className='navbar-header'>
+              <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+                <span className='sr-only'>Toggle navigation</span>
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+              </button>
+              <Link to='/'> <img src='/skillHub-logo.png' /></Link>
+            </div>
+            <div id='navbar' className='navbar-collapse collapse'>
+              <ul className='nav navbar-nav navbar-right'>
+                <li><Login /></li>
               </ul>
             </div>
           </div>

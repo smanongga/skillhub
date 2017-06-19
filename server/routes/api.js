@@ -134,6 +134,21 @@ router.get('/categories', (req, res) => {
   })
 })
 
+router.post('/categories/skills-offered', (req, res) => {
+  db.insertSkillsToOffer(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
+router.post('/categories/skills-learn', (req, res) => {
+  db.insertSkillsToLearn(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({

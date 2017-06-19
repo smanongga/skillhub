@@ -32,10 +32,9 @@ h2.slogan .second {
 }
 
 nav.not-loggedin {
-  background:none;
   border:none;
   box-shadow: none;
-  padding-top:40px;
+  margin-bottom:1px;
 }
 .frontpage nav.not-loggedin .navbar-nav>li>div>a {
   color:#fff;
