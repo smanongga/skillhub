@@ -75,8 +75,9 @@ class Sent extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ unreadCount}) => {
+const Sidebar = () => {
 	// var unreadCount = unreadCount
+  // <span className="item-count">{unreadCount}</span>
 
 	return (
 		<div id="sidebar">
@@ -89,10 +90,9 @@ const Sidebar = ({ unreadCount}) => {
 
 				<li><Link to ='/messages'>
 					<span className="fa fa-inbox"></span> Inbox
-					<span className="item-count">{unreadCount}</span></Link></li>
+					</Link></li>
 				<li><a>
 					<span className="fa fa-trash-o"></span> Trash
-					<span className="item-count"></span>
 					</a></li>
 			</ul>
 		</div>
