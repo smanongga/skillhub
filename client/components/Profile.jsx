@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {getProfileById, getUsersProfile, mapSenderId} from '../actions/index'
 
 class Profile extends Component {
-
   componentWillMount () {
     this.props.getProfileById(this.props.match.params.id)
   }

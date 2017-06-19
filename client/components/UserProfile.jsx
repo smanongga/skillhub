@@ -9,7 +9,6 @@ class UserProfile extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className='container'>
         <div className='row spacing'>
@@ -22,25 +21,25 @@ class UserProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-          <ul className='tags'>
-            {this.props.data.learn.map((skill, i) => {
-              return (
-                <li key={i}>{skill.name}</li>
-              )
-            })}
-          </ul>
+            <ul className='tags'>
+              {this.props.data.learn.map((skill, i) => {
+                return (
+                  <li key={i}>{skill.name}</li>
+                )
+              })}
+            </ul>
           </div>
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
-          <ul className='tags'>
-            {this.props.data.teach.map((skill, i) => {
-              return (
-                <li key={i}>{skill.name}</li>
-              )
-            })}
-          </ul>
-        </div>
+            <ul className='tags'>
+              {this.props.data.teach.map((skill, i) => {
+                return (
+                  <li key={i}>{skill.name}</li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     )
@@ -48,7 +47,6 @@ class UserProfile extends Component {
 }
 
 function mapStateToProps (state) {
-  console.log(state)
   return {
     data: state.profile
   }
