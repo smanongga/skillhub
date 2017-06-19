@@ -62,7 +62,6 @@ export function fetchSentMessages (userId) {
   }
 }
 
-
 export function receiveSentMessages (sentMessages) {
   return {
     type: SENT_SUCCESS,

@@ -11,6 +11,46 @@
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
  export const GET_SKILLS = 'GET_SKILLS'
+ export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
+ export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
+ export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
+
+ export function fetchFeedback (id) {
+   return function (dispatch) {
+     dispatch(requestFeedback(id))
+     return request('get', '/feedback', id)
+     .then(res => {
+       dispatch(receiveFeedback(res.body.result))
+       console.log(res.body.result)
+     })
+     .catch(err => {
+       dispatch(feedbackError(err.response.body.message))
+     })
+   }
+ }
+
+ export function receiveFeedback (feedback) {
+   return {
+     type: FEEDBACK_SUCCESS,
+     isFetching: false,
+     response: feedback
+   }
+ }
+
+ function requestFeedback () {
+   return {
+     type: FEEDBACK_REQUEST,
+     isFetching: true
+   }
+ }
+
+ function feedbackError (feedback) {
+   return {
+     type: FEEDBACK_FAILURE,
+     isFetching: false,
+     feedback
+   }
+ }
 
  export function updateProfile (text) {
    return {

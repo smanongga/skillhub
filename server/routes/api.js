@@ -158,6 +158,14 @@ router.get('/messages', (req, res) => {
   })
 })
 
+router.get('/feedback/', (req, res) => {
+  const connection = req.app.get('db')
+  db.getFeedback(Object.keys(req.query)[0], connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.get('/sent/', (req, res) => {
   const connection = req.app.get('db')
   db.getSentMessages(req.user.sub, connection)

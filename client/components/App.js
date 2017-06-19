@@ -17,6 +17,7 @@ import Contact from './Contact'
 import Home from './Home'
 import About from './About'
 import Frontpage from './Frontpage'
+import Feedback from './Feedback'
 import Footer from './Footer'
 
 class App extends React.Component {
@@ -43,6 +44,7 @@ class App extends React.Component {
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
+            <Route exact path='/feedback/:id' component={Feedback} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />

@@ -17,7 +17,8 @@ module.exports = {
   filterSkillsToLearn,
   getSkills,
   insertSkillsToOffer,
-  insertSkillsToLearn
+  insertSkillsToLearn,
+  getFeedback
 }
 
 const _ = require('lodash')
@@ -187,6 +188,14 @@ function getMessages (id, connection) {
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
   .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.id as senderId', 'messages.profile_id as receiverId')
+}
+
+function getFeedback (id, connection) {
+  return connection('profiles')
+  .where('profiles.id', '=', id)
+  .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
+  .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
+  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId')
 }
 
 function getSentMessages (id, connection) {
