@@ -78,21 +78,32 @@ class Inbox extends React.Component {
   render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
-      <div>
-        <Sidebar
-          messages={this.props.messages}
-          setSidebarSection={(section) => { this.setSidebarSection(section) }} />
-        <div className='inbox-container'>
-          <MessageList
-            messages={this.props.messages}
-            onMessageSelected={(id) => { this.openMessage(id) }}
-            selectedMessageId={this.state.selectedMessageId}
-            currentSection={this.state.currentSection} />
-          <MessageDetails
-            message={currentMessage}
-            onDelete={(id) => { this.deleteMessage(id) }} />
-        </div>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-md-2'>
+            <Sidebar
+              messages={this.props.messages}
+              setSidebarSection={(section) => { this.setSidebarSection(section) }} />
+          </div>
+          <div className='col-md-4'>
+              <MessageList
+              messages={this.props.messages}
+              onMessageSelected={(id) => { this.openMessage(id) }}
+              selectedMessageId={this.state.selectedMessageId}
+              currentSection={this.state.currentSection} />
+          </div>
+         <div className='col-md-6'>
+             <MessageDetails
+             message={currentMessage}
+             onDelete={(id) => { this.deleteMessage(id) }} />
+         </div>
+
+        {/* <div className='inbox-container'>
+
+
+        </div> */}
       </div>
+    </div>
     )
   }
 }
