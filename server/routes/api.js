@@ -105,7 +105,7 @@ router.get('/categories', (req, res) => {
 
 router.get('/offer/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  const id = Number(req.params.categoryid)
+  const id = req.params.categoryid
   db.filterSkillsToOffer(connection, id)
   .then((result) => {
     res.json({result})
@@ -114,7 +114,7 @@ router.get('/offer/:categoryid', (req, res) => {
 
 router.get('/learn/:categoryid', (req, res) => {
   const connection = req.app.get('db')
-  const id = Number(req.params.categoryid)
+  const id = req.params.categoryid
   db.filterSkillsToLearn(connection, id)
   .then((result) => {
     res.json({result})
