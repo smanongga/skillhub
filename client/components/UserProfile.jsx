@@ -2,15 +2,18 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getUsersProfile} from '../actions/index'
 import {Link} from 'react-router-dom'
+import WaitingIndicator from './WaitingIndicator'
 
 class UserProfile extends Component {
-  componentDidMount () {
+  componentWillMount () {
     this.props.getUsersProfile()
   }
 
   render () {
+    console.log(this.props.data.learn)
     return (
       <div className='container'>
+        {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
@@ -48,7 +51,8 @@ class UserProfile extends Component {
 
 function mapStateToProps (state) {
   return {
-    data: state.profile
+    data: state.profile,
+    waiting: state.waiting
   }
 }
 
