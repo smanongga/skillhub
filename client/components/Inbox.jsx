@@ -160,7 +160,7 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   if (messages.length === 0) {
     return (
       <div className='message-list empty'>
-        Nothing to see here, great job!
+        Nothing to see here!
       </div>
     )
   }
