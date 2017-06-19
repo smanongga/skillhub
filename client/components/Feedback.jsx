@@ -17,6 +17,14 @@ class Feedback extends React.Component {
     this.props.fetchFeedback(profileId)
   }
 
+  componentWillReceiveProps (nextProps) {
+  const oldId = this.props.pageId
+  const newId = nextProps.pageId
+    if (newId !== oldId) {
+      this.props.fetchFeedback(newId)
+    }
+  }
+
   render () {
     return (
       <div className='col-md-4'>
