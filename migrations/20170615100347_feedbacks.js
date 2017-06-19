@@ -4,7 +4,7 @@ exports.up = knex => knex.schema.createTable('feedbacks', table => {
   table.foreign('profile_id').references('profiles.id')
   table.integer('commenter_id').unsigned()
   table.foreign('commenter_id').references('profiles.id')
-  table.text('message', 'mediumtext')
+  table.text('message')
 })
 
 exports.down = knex => knex.schema.dropTable('feedbacks')

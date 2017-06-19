@@ -14,7 +14,6 @@ const profile = (state = initialState, action) => {
         action.data
       ]
     case USERS_PROFILE:
-            
       return action.data
 
     case UPDATE_SKILLS:

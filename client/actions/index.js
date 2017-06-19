@@ -16,7 +16,6 @@
    return {
      type: UPDATE_PROFILE,
      updatedProfile: {
-       id: text.id,
        userName: '',
        firstName: text.firstName,
        lastName: text.lastName,

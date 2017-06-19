@@ -33,7 +33,8 @@ class EditProfile extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleImageDrop = this.handleImageDrop.bind(this)
-    this.handleInput = this.handleInput.bind(this)
+    this.handleWantedInput = this.handleWantedInput.bind(this)
+    this.handleOfferedInput = this.handleOfferedInput.bind(this)
   }
 
   handleChange (e) {
@@ -42,12 +43,18 @@ class EditProfile extends React.Component {
     })
   }
 
-  handleInput (e) {
+  handleOfferedInput (e) {
     this.setState({
-      skillsOffered: e,
+      skillsOffered: e
+    })
+  }
+
+  handleWantedInput (e) {
+    this.setState({
       skillsWanted: e
     })
   }
+
 
   handleClick (e) {
     e.preventDefault()
@@ -125,10 +132,10 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Offered</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
                       multiple
-                      onChange={this.handleInput}
+                      maxHeight={100}
+                      onChange={this.handleOfferedInput}
                       options={this.props.skills.map((data) => {
                         return data
                       })}
@@ -140,10 +147,10 @@ class EditProfile extends React.Component {
                   <div className='col-md-3'><p>Skills Wanted</p></div>
                   <div className='col-md-9'>
                     <Typeahead
-                      clearButton
                       labelKey='name'
+                      maxHeight={100}
                       multiple
-                      onChange={this.handleInput}
+                      onChange={this.handleWantedInput}
                       options={this.props.skills.map((data) => {
                         return data
                       })}
