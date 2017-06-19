@@ -19,7 +19,7 @@
      errorMessage: message
    }
  }
- 
+
  export function updateProfile (text) {
    return {
      type: UPDATE_PROFILE,
@@ -101,6 +101,9 @@
         return response.req
       }
     })
+    .catch((err) => {
+      return dispatch(error(err.response.body.message))
+    })
    }
  }
 
@@ -114,6 +117,9 @@
         return response.req
       }
     })
+    .catch((err) => {
+      return dispatch(error(err.response.body.message))
+    })
    }
  }
 
@@ -126,6 +132,9 @@
       } else {
         return response.req
       }
+    })
+    .catch((err) => {
+      return dispatch(error(err.response.body.message))
     })
    }
  }
@@ -148,7 +157,7 @@
      const state = getState()
      if (state.categories.length === 0) {
        getAllCategories((err, res) => {
-         if (err) return console.log(err)
+         if (err) return dispatch(error(err.message))
          dispatch(receiveCategories(res.result))
        })
      }
@@ -161,6 +170,9 @@
     .then(res => {
       dispatch(saveProfileById(res.body.result))
     })
+    .catch((err) => {
+      return dispatch(error(err.response.body.result))
+    })
    }
  }
 
@@ -171,6 +183,9 @@
        dispatch(receiveCategories(res.body.result)
      )
      })
+     .catch((err) => {
+       return dispatch(error(err.response.body.result))
+     })
    }
  }
 
@@ -179,6 +194,9 @@
      request('get', `/profile`)
      .then(res => {
        dispatch(getProfileOfUser(res.body.result))
+     })
+     .catch((err) => {
+       return dispatch(error(err.response.body.result))
      })
    }
  }
@@ -189,6 +207,9 @@
      .then(res => {
        dispatch(receiveCategoryUsersLearn(res.body.result))
      })
+     .catch((err) => {
+       return dispatch(error(err.response.body.result))
+     })
    }
  }
 
@@ -197,6 +218,9 @@
      request('get', `/offer/${id}`)
      .then(res => {
        dispatch(receiveCategoryUsersOffer(res.body.result))
+     })
+     .catch((err) => {
+       return dispatch(error(err.response.body.result))
      })
    }
  }
@@ -207,6 +231,9 @@
     .then(res => {
       dispatch(locations(res.body.result))
     })
+    .catch((err) => {
+      return dispatch(error(err.response.body.result))
+    })
    }
  }
 
@@ -215,6 +242,9 @@
      request('get', '/profile/edit/skills')
     .then(res => {
       dispatch(skills(res.body.result))
+    })
+    .catch((err) => {
+      return dispatch(error(err.response.body.result))
     })
    }
  }
