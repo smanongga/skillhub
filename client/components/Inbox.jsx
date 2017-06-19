@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {fetchMessages, readMessage} from '../actions/messages'
 import {mapSenderId} from '../actions'
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Inbox extends React.Component {
   constructor (props) {
@@ -193,7 +193,8 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
   const newDate = date.split('-')
-  const month = months[0]
+  const monthFix = Number(newDate[1])
+  const month = months[monthFix]
   return `${month} ${newDate[2]}, ${newDate[0]}`
 }
 
@@ -211,7 +212,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchMessages: (userId) => dispatch(fetchMessages(userId)),
+    fetchMessages: () => dispatch(fetchMessages()),
     readMessage: (id) => dispatch(readMessage(id)),
     mapSenderId: (id) => dispatch(mapSenderId(id))
   }
