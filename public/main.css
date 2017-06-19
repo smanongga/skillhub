@@ -30,7 +30,6 @@ h2.slogan .first {
 h2.slogan .second {
   color:#FF7F00;
 }
-
 nav.not-loggedin {
   border:none;
   box-shadow: none;
@@ -54,7 +53,9 @@ nav.not-loggedin {
   color:#000;
   font-size:30px;
   padding:30px;
-  text-align:center;
+}
+.category-title {
+  text-align: center;
 }
 .categories {
   margin-bottom:60px;
@@ -63,15 +64,47 @@ nav.not-loggedin {
   background: grey;
   text-align: center;
   font-size: 30px;
-  color: black;
+  color: white;
   padding:50px;
   margin-bottom: 20px;
+  background-size: 262px 121px
 }
-
+.music {
+  background-image: url('/categories/music.jpg');
+}
+.tech {
+  background-image: url('/categories/tech.jpg');
+}
+.arts {
+  background-image: url('/categories/art.jpg');
+}
+.craft {
+  background-image: url('/categories/craft.jpg');
+}
+.business {
+  background-image: url('/categories/business.jpg');
+}
+.culinary {
+  background-image: url('/categories/culinary.jpg');
+}
+.science {
+  background-image: url('/categories/science.jpg');
+}
+.writing {
+  background-image: url('/categories/writing.jpg');
+}
+.sports {
+  background-image: url('/categories/sport.jpg');
+}
+.career {
+  background-image: url('/categories/career.jpg');
+}
+.language {
+  background-image: url('/categories/language.jpg');
+}
 .clear-box {
   clear: both;
 }
-
 .flex-container{
   display: flex;
   width: 100%;
@@ -92,7 +125,6 @@ nav.not-loggedin {
 .profile-thumbnail .photo img{
   width: 100%;
 }
-
 .profile-thumbnail .user-details{
   color: white;
 }
@@ -110,14 +142,12 @@ ul.tags li {
   padding:5px;
   border-radius: 10px 10px 10px 10px;
 }
-
 .sign-up {
   width: 100px;
  margin: auto;
  margin-top: 20px;
  float: none;
 }
-
 footer {
  background:#333;
  width: 100%;
@@ -130,10 +160,4 @@ footer {
   height:5%;
   margin-left:45%;
   z-index:3;
-}
-
-.music {
-  color: red;
-  background-image: url('/categories/music.jpg');
-  background-size: 200px 100px;
 }
