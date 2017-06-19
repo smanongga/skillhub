@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import {sendMessage} from '../actions/messages'
 import ErrorMessage from './ErrorMessage'
@@ -27,15 +28,17 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-    const { profile_id, userId, subject, message, time, read } = this.state
-    const messageData = {
-      profile_id: profile_id,
-      userId: userId,
-      subject: subject,
-      message: message,
-      time: time,
-      read: read
+     const { profile_id, userId, subject, message, time, read } = this.state 
+     const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
+     const messageData = {
+         profile_id: profile_id, 
+         userId: userId, 
+         subject: subject, 
+         message: message, 
+         time: buildDate, 
+         read: read
     }
+    console.log(messageData)
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
   }
@@ -70,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
+  console.log(state.senderId.senderId)
   return {
     userId: state.auth.userid.sub,
     senderId: state.senderId.senderId

@@ -173,7 +173,15 @@ router.post('/contact', (req, res) => {
   })
 })
 
+router.get('/profile/edit/skills', (req, res) => {
+  db.getSkills(conn)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
 router.get('/profile/edit', (req, res) => {
+  db.getSkills(conn)
   db.getLocations(conn)
   .then((data) => {
     res.json({result: data})
@@ -187,12 +195,25 @@ router.put('/profile/edit', (req, res) => {
   })
 })
 
+router.post('/profile/skills-offered', (req, res) => {
+  db.insertSkillsToOffer(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
+router.post('/profile/skills-learn', (req, res) => {
+  db.insertSkillsToLearn(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
 router.get('/profile', (req, res) => {
   const connection = req.app.get('db')
   db.getUsersProfile(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
-    console.log(data)
   })
 })
 
