@@ -11,6 +11,7 @@
     "start": "node server",
     "test:watch": "ava --watch",
     "knex": "knex",
+  },
   "author": "EDA",
   "license": "ISC",
   "dependencies": {
