@@ -17,6 +17,7 @@ import Contact from './Contact'
 import Home from './Home'
 import About from './About'
 import Frontpage from './Frontpage'
+import Footer from './Footer'
 
 class App extends React.Component {
   constructor (props) {
@@ -48,6 +49,7 @@ class App extends React.Component {
             <Route path='/about' component={About} />
           </Switch>
         }
+          <Footer />
         </div>
       </Router>
     )

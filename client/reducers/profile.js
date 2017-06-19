@@ -1,6 +1,9 @@
 import { UPDATE_PROFILE, USERS_PROFILE, PUSHED_SENDER_ID, UPDATE_SKILLS } from '../actions/index'
-
-const profile = (state = [], action) => {
+const initialState = {
+  learn: [],
+  teach: []
+}
+const profile = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_PROFILE:
       return [
@@ -11,9 +14,8 @@ const profile = (state = [], action) => {
         action.data
       ]
     case USERS_PROFILE:
-      return [
-        action.data
-      ]
+      return action.data
+
     case UPDATE_SKILLS:
       return [
         action.data

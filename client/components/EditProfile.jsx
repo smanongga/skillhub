@@ -71,7 +71,6 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    console.log(this.state.skillsWanted)
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
@@ -161,6 +160,11 @@ class EditProfile extends React.Component {
                   onDrop={this.handleImageDrop}>
                   <p>Drop an image or click to select a file to upload.</p>
                 </Dropzone>}
+
+                {/* {this.state.profilePic === '' ? null :
+          <div>
+            <img src={this.props.profile.photoUrl} />
+          </div>} */}
                 {this.state.profilePic &&
                   <div>
                     <h4>Upload Successful</h4>
@@ -210,7 +214,7 @@ function mapStateToProps (state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
-    profile: state.profile[0],
+    profile: state.profile,
     location: state.location[0],
     skills: state.skills
   }

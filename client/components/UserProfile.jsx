@@ -9,22 +9,38 @@ class UserProfile extends Component {
   }
 
   render () {
+    console.log(this.props)
     return (
       <div className='container'>
         <div className='row spacing'>
-          <div className='col-md-4'><div className='profile-photo'><img src={this.props.photoUrl} /></div></div>
+          <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
-            <h2>{this.props.firstName} {this.props.lastName}</h2>
-            {this.props.locationCity}<br />
-            {this.props.bio}</div>
+            <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
+            {this.props.data.locationCity}<br />
+            {this.props.data.bio}</div>
           <Link to='/profile/edit'><button>Edit Profile</button></Link>
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
+          <ul className='tags'>
+            {this.props.data.learn.map((skill, i) => {
+              return (
+                <li key={i}>{skill.name}</li>
+              )
+            })}
+          </ul>
           </div>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
+          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
+          <ul className='tags'>
+            {this.props.data.teach.map((skill, i) => {
+              return (
+                <li key={i}>{skill.name}</li>
+              )
+            })}
+          </ul>
+        </div>
         </div>
       </div>
     )
@@ -32,7 +48,10 @@ class UserProfile extends Component {
 }
 
 function mapStateToProps (state) {
-    return state.profile[0]
+  console.log(state)
+  return {
+    data: state.profile
+  }
 }
 
 function mapDispatchToProps (dispatch) {

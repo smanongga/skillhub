@@ -3,7 +3,8 @@ module.exports = {
   getCategories,
   addUserToProfile,
   profileExists,
-  getProfileById,
+  getOtherProfileById,
+  getOwnProfile,
   updateProfile,
   getCategoriesAndSkills,
   getUsersProfile,
@@ -85,23 +86,13 @@ function getProfileIdByAuthId (conn, authId) {
   .select('id')
 }
 
-function getProfileById (id, connection) {
+function getOtherProfileById (id, connection) {
   return Promise.all([
     getProfile(id, connection),
     getSkillsToOffer(id, connection),
     getSkillsToLearn(id, connection)
   ])
 .then(([result1, result2, result3]) => {
-  // function getFields (input, field) {
-  //   var output = []
-  //   for (var i = 0; i < input.length; ++i)
-  //     output.push(input[i][field])z
-  //   return output
-  // }
-  //
-  // const teach = getFields(result2, 'name')
-  // const learn = getFields(result3, 'name')
-
   const data = {
     firstName: result1[0].firstName,
     lastName: result1[0].lastName,
@@ -118,12 +109,48 @@ function getProfileById (id, connection) {
   })
 }
 
+function getOwnProfile (id, connection) {
+  return Promise.all([
+    getUsersProfile(id, connection),
+    getSkillsToLearnByAuthId(id, connection),
+    getSkillsToOfferByAuthId(id, connection)
+  ])
+  .then(([result1, result2, result3]) => {
+    const data = {
+      firstName: result1[0].firstName,
+      lastName: result1[0].lastName,
+      bio: result1[0].bio,
+      locationCity: result1[0].locationCity,
+      photoUrl: result1[0].photoUrl,
+      teach: result2,
+      learn: result3
+    }
+    return data
+  })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 function getUsersProfile (id, connection) {
   return connection('profiles')
   .select('id', 'user_id as userId', 'user_name as userName', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
   .where('auth_id', id)
 }
-
+function getSkillsToLearnByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
+function getSkillsToOfferByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
 function getProfile (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)

@@ -1,3 +1,10 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
 .frontpage {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
@@ -49,6 +56,9 @@ nav.not-loggedin {
   font-size:30px;
   padding:30px;
   text-align:center;
+}
+.categories {
+  margin-bottom:60px;
 }
 .category-thumbnail {
   background: grey;
@@ -106,5 +116,9 @@ ul.tags li {
  margin: auto;
  margin-top: 20px;
 }
-
-
+footer {
+ background:#333;
+ width: 100%;
+ height: 60px;
+ padding-bottom:200px;
+}
