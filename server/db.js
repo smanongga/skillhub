@@ -53,16 +53,6 @@ function getProfileById (id, connection) {
     getSkillsToLearn(id, connection)
   ])
 .then(([result1, result2, result3]) => {
-  // function getFields (input, field) {
-  //   var output = []
-  //   for (var i = 0; i < input.length; ++i)
-  //     output.push(input[i][field])
-  //   return output
-  // }
-  //
-  // const teach = getFields(result2, 'name')
-  // const learn = getFields(result3, 'name')
-
   const data = {
     firstName: result1[0].firstName,
     lastName: result1[0].lastName,

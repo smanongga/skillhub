@@ -27,14 +27,14 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-     const { profile_id, userId, subject, message, time, read } = this.state 
-     const messageData = {
-         profile_id: profile_id, 
-         userId: userId, 
-         subject: subject, 
-         message: message, 
-         time: time, 
-         read: read
+    const { profile_id, userId, subject, message, time, read } = this.state
+    const messageData = {
+      profile_id: profile_id,
+      userId: userId,
+      subject: subject,
+      message: message,
+      time: time,
+      read: read
     }
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
@@ -43,7 +43,7 @@ class Contact extends Component {
   render () {
     const { profile_id, userId, subject, message, time, read } = this.state
     return (
-      <div>
+      <div className='container'>
         <p><input name='subject' placeholder='Subject'
           onChange={this.handleChange} value={subject} /></p>
 
@@ -69,10 +69,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
-	return {
-		userId: state.auth.userid.sub,
+  return {
+    userId: state.auth.userid.sub,
     senderId: state.senderId.senderId
-	}
+  }
 }
 // const meapDispatchToProps = (dispatch) => {
 //   return {
@@ -85,6 +85,4 @@ function mapStateToProps (state) {
 //   }
 // }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Contact)
-
