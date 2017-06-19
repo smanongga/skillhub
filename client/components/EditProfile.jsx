@@ -71,7 +71,7 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    console.log(this.state.skillsWanted)
+    console.log(this.props)
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
@@ -215,7 +215,7 @@ function mapStateToProps (state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
-    profile: state.profile[0],
+    profile: state.profile,
     location: state.location[0],
     skills: state.skills
   }
