@@ -200,7 +200,6 @@ function getCategories (connection) {
   .select()
 }
 
-
 function getSkills (connection) {
   return connection('skills')
   .select()

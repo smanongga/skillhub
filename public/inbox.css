@@ -49,9 +49,6 @@ body {
 
 #sidebar {
   background: #34393d;
-  float: left;
-  height: 500px;
-  width: 200px;
 }
 #sidebar .sidebar__inboxes {
   margin-top: 50px;
@@ -108,11 +105,9 @@ body {
 
 .message-list {
   background: #f5f5f5;
-  float: left;
   height: 500px;
   max-height: 100%;
   overflow-y: auto;
-  width: 35%;
 }
 .message-list.empty {
   color: #aaa;
@@ -166,10 +161,8 @@ body {
 .message-content {
   background: #fff;
   border-left: 1px solid #ddd;
-  float: left;
   height: 500px;
   position: relative;
-  width: 65%;
 }
 .message-content__header {
   background: #f5f5f5;

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 class ViewProfile extends Component {
 
-  componentDidMount () {
+  componentWillMount () {
     this.props.fetchProfileById(this.props.match.params.id)
   }
 
@@ -17,8 +17,8 @@ class ViewProfile extends Component {
   render () {
     console.log('This is props', this.props.data)
     return (
-       <div className='container'>
-         <div className='row spacing'>
+      <div className='container'>
+        <div className='row spacing'>
           <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
@@ -30,35 +30,34 @@ class ViewProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-          <ul className='tags'>
-
-          {/* {this.props.data.learn.map((skill, i) => {
-            return (
-              <li>{skill}</li>
-            )
-          })} */}
-        </ul>
-      </div>
+            <ul className='tags'>
+              {this.props.data.learn.map((skill, i) => {
+                return (
+                  <li key={i}>{skill.name}</li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2></div>
-          <ul className='tags'>
-          {/* {this.props.data.teach.map(skill => {
-            return (
-              <li>{skill}</li>
-            )
-          })} */}
-        </ul>
+          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
+            <ul className='tags'>
+              {this.props.data.teach.map((skill, i) => {
+                return (
+                  <li key={i}>{skill.name}</li>
+                )
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
-
-    </div>
     )
   }
   }
 
 function mapStateToProps (state) {
   return {
-    data: state.viewProfile[0]
+    data: state.viewProfile
 
   }
 }

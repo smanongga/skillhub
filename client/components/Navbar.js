@@ -24,6 +24,7 @@ const Navbar = ({ isAuthenticated }) => {
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><Link to='/messages'>My Messages </Link></li>
                 <li><Link to='/categories'>Teach & Learn</Link></li>
+                <li><Link to='/about'>About</Link></li>
                 <li>
                   <Logout />
                 </li>

@@ -17,7 +17,7 @@ class CategoriesList extends React.Component {
           <div className='row'>
             {this.props.categoriesList.map((category, i) => {
               return (
-                <Link to={`/skills/${category.id}`}key={i}>
+                <Link to={`/skills/${category.id}`} key={i}>
                   <div className='col-md-4'>
                     <div className='category-thumbnail'>
                       {category.name}

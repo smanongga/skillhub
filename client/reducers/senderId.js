@@ -17,16 +17,4 @@ export default function senderId (state = initialState, action) {
     default:
       return state
   }
-}    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
