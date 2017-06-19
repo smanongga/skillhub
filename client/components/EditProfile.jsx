@@ -71,7 +71,6 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className='edit-profile container'>
         {this.props.profile && this.props.location &&
