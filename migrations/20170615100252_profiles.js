@@ -4,7 +4,7 @@ exports.up = knex => knex.schema.createTable('profiles', table => {
   table.foreign('user_id').references('users.id')
   table.string('first_name')
   table.string('last_name')
-  table.string('bio')
+  table.text('bio')
   table.string('photo_url')
   table.string('location_city')
   table.string('email')
