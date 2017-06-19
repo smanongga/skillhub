@@ -5,7 +5,6 @@ import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkills
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 import {Typeahead} from 'react-bootstrap-typeahead'
-import Validation from 'react-validation'
 
 class EditProfile extends React.Component {
   componentDidMount () {
@@ -18,24 +17,33 @@ class EditProfile extends React.Component {
     this.state = {
       id: this.props.id,
       userName: '',
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
-      email: this.props.email,
-      locationCity: this.props.locationCity,
-      profilePic: '',
-      bio: this.props.bio,
+      firstName: this.props.profile.firstName,
+      lastName: this.props.profile.lastName,
+      email: this.props.profile.email,
+      locationCity: this.props.profile.locationCity,
+      profilePic: this.props.profile.profilePic,
+      bio: this.props.profile.bio,
       skillsOffered: [],
       skillsWanted: [],
       displayUpload: true,
       imageUploading: false,
-      location: this.props.location || [],
-      skills: this.props.skills || []
+      location: this.props.profile.location || [],
+      skills: this.props.profile.skills || []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleImageDrop = this.handleImageDrop.bind(this)
     this.handleWantedInput = this.handleWantedInput.bind(this)
     this.handleOfferedInput = this.handleOfferedInput.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.profile && this.props.profile.id !== nextProps.profile.id) {
+      this.setState({
+        ...this.state,
+        ...nextProps.profile
+      })
+    }
   }
 
   handleChange (e) {
@@ -80,112 +88,106 @@ class EditProfile extends React.Component {
   render () {
     return (
       <div className='edit-profile container'>
-        {this.props.profile && this.props.location &&
-          <div className='edit-profile-form'>
-            <h2>Edit Profile</h2>
-            <div className='row'>
-              <div className='col-md-9'>
-                <div className='row'>
-                  <div className='col-md-3'><p>Username</p></div>
-                  <div className='col-md-9'>
-                    <p><input className='form-control' name='userName' onChange={this.handleChange} value={this.props.profile.userName} /></p>
+        <form onSubmit={this.handleClick} >
+          {this.props.profile && this.props.location &&
+            <div className='edit-profile-form'>
+              <h2>Edit Profile</h2>
+              <div className='row'>
+                <div className='col-md-9'>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Email</p></div>
+                    <div className='col-md-9'>
+                      <p><input className='form-control' name='email' onChange={this.handleChange} value={this.state.email} required /></p>
+                    </div>
+                    <hr />
                   </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Email</p></div>
-                  <div className='col-md-9'>
-                    <p><input className='form-control' name='email' onChange={this.handleChange} value={this.props.profile.email} /></p>
+                  <div className='row'>
+                    <div className='col-md-3'><p>First Name</p></div>
+                    <div className='col-md-9'>
+                      <p><input name='firstName' className='form-control' onChange={this.handleChange} value={this.state.firstName} required /></p>
+                    </div>
                   </div>
-                  <hr />
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>First Name</p></div>
-                  <div className='col-md-9'>
-                    <p><input name='firstName' className='form-control' onChange={this.handleChange} placeholder={this.props.profile.firstName} /></p>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Last Name</p></div>
+                    <div className='col-md-9'>
+                      <p><input name='lastName' className='form-control' onChange={this.handleChange} value={this.state.lastName} required /></p>
+                    </div>
                   </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Last Name</p></div>
-                  <div className='col-md-9'>
-                    <p><input name='lastName' className='form-control' onChange={this.handleChange} placeholder={this.props.profile.lastName} /></p>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Bio</p></div>
+                    <div className='col-md-9'>
+                      <p><textarea name='bio' className='form-control' onChange={this.handleChange} value={this.state.bio} required ></textarea></p>
+                    </div>
                   </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Bio</p></div>
-                  <div className='col-md-9'>
-                    <p><textarea name='bio' className='form-control' onChange={this.handleChange} placeholder={this.props.profile.bio}></textarea></p>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Location</p></div>
+                    <div className='col-md-9'>
+                      <p><select name='locationCity' className='form-control' onChange={this.handleChange}>
+                        {this.props.location.map((data) => {
+                          return (
+                            <option value={data.location}> {data.location}</option>
+                          )
+                        })}
+                      </select></p>
+                    </div>
                   </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Location</p></div>
-                  <div className='col-md-9'>
-                    <p><select name='locationCity' className='form-control' onChange={this.handleChange}>
-                      {this.props.location.map((data) => {
-                        return (
-                          <option value={data.location}> {data.location}</option>
-                        )
-                      })}
-                    </select></p>
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Skills Offered</p></div>
-                  <div className='col-md-9'>
-                    <Typeahead
-                      labelKey='name'
-                      multiple
-                      maxHeight={100}
-                      onChange={this.handleOfferedInput}
-                      options={this.props.skills.map((data) => {
-                        return data
-                      })}
-                      placeholder='Choose your skills'
+                  <div className='row'>
+                    <div className='col-md-3'><p>Skills Offered</p></div>
+                    <div className='col-md-9'>
+                      <Typeahead
+                        labelKey='name'
+                        multiple
+                        maxHeight={100}
+                        onChange={this.handleOfferedInput}
+                        options={this.props.skills.map((data) => {
+                          return data
+                        })}
+                        placeholder='Choose your skills'
                         />
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Skills Wanted</p></div>
-                  <div className='col-md-9'>
-                    <Typeahead
-                      labelKey='name'
-                      maxHeight={100}
-                      multiple
-                      onChange={this.handleWantedInput}
-                      options={this.props.skills.map((data) => {
-                        return data
-                      })}
-                      placeholder='Choose your skills'
+                    </div>
+                  </div><br />
+                  <div className='row'>
+                    <div className='col-md-3'><p>Skills Wanted</p></div>
+                    <div className='col-md-9'>
+                      <Typeahead
+                        labelKey='name'
+                        maxHeight={100}
+                        multiple
+                        onChange={this.handleWantedInput}
+                        options={this.props.skills.map((data) => {
+                          return data
+                        })}
+                        placeholder='Choose your skills'
                         />
+                    </div>
                   </div>
                 </div>
-
-              </div>
-              <div className='col-md-3'>
-                {this.state.displayUpload && <Dropzone
-                  multiple={false}
-                  accept='image/*'
-                  onDrop={this.handleImageDrop}>
-                  <p>Drop an image or click to select a file to upload.</p>
-                </Dropzone>}
-
+                <div className='col-md-3'>
+                  {this.state.displayUpload && <Dropzone
+                    multiple={false}
+                    accept='image/*'
+                    onDrop={this.handleImageDrop}>
+                    <p>Drop an image or click to select a file to upload.</p>
+                  </Dropzone>}
                 {/* {this.state.profilePic === '' ? null :
           <div>
             <img src={this.props.profile.photoUrl} />
           </div>} */}
-                {this.state.profilePic &&
-                  <div>
-                    <h4>Upload Successful</h4>
-                    <img src={this.state.profilePic} />
-                  </div>}
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-md-2'></div>
-              <div className='col-md-7'><button className='btn btn-primary' onClick={this.handleClick}>Save</button></div>
-              <div className='col-md-3'></div>
-            </div>
+                  {this.state.profilePic &&
+                    <div>
+                      <h4>Upload Successful</h4>
+                      <img src={this.props.profilePic} />
+                    </div>}
+                </div>
+              </div><br />
+              <div className='row text-center'>
+                <div className='col-md-2'></div>
+                <div className='col-md-7'><button className='btn btn-primary btn-lg '>Save</button></div>
+                <div className='col-md-3'></div>
+              </div><br />
             </div>
           }
+        </form>
       </div>
     )
   }
