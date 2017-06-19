@@ -11,14 +11,14 @@ class CategoriesList extends React.Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container categories'>
         <div className='category-title'>
           <h2>Browse for teachers or students in these categories:</h2>
           <div className='row'>
             {this.props.categoriesList.map((category, i) => {
               return (
                 <Link to={`/skills/${category.id}`} key={i}>
-                  <div className='col-md-4'>
+                  <div className='col-md-3'>
                     <div className='category-thumbnail'>
                       {category.name}
                     </div>

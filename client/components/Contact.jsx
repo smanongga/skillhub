@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import {sendMessage} from '../actions/messages'
 import ErrorMessage from './ErrorMessage'
@@ -27,15 +28,17 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-    const { profile_id, userId, subject, message, time, read } = this.state
-    const messageData = {
-      profile_id: profile_id,
-      userId: userId,
-      subject: subject,
-      message: message,
-      time: time,
-      read: read
+     const { profile_id, userId, subject, message, time, read } = this.state 
+     const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
+     const messageData = {
+         profile_id: profile_id, 
+         userId: userId, 
+         subject: subject, 
+         message: message, 
+         time: buildDate, 
+         read: read
     }
+    console.log(messageData)
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
   }
@@ -44,13 +47,14 @@ class Contact extends Component {
     const { profile_id, userId, subject, message, time, read } = this.state
     return (
       <div className='container'>
-        <p><input name='subject' placeholder='Subject'
+        <h1>Send Message</h1>
+        <p><input className='form-control' name='subject' placeholder='Subject'
           onChange={this.handleChange} value={subject} /></p>
 
-        <p><input name='message' placeholder='Message'
-          onChange={this.handleChange} value={message} /></p>
+         <textarea className='form-control' name='message' placeholder='Message'
+          onChange={this.handleChange} value={message}> </textarea>
 
-        <button onClick={(e) => this.handleClick(e)}>
+        <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
           Send
         </button>
 
@@ -69,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
+  console.log(state.senderId.senderId)
   return {
     userId: state.auth.userid.sub,
     senderId: state.senderId.senderId

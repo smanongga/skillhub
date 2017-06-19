@@ -10,11 +10,13 @@
  export const RECEIVE_CATEGORY_USERS_OFFER = 'RECEIVE_CATEGORY_USERS_OFFER'
  export const GET_LOCATION = 'GET_LOCATIONS'
  export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
+ export const GET_SKILLS = 'GET_SKILLS'
 
  export function updateProfile (text) {
    return {
      type: UPDATE_PROFILE,
      updatedProfile: {
+       id: text.id,
        userName: '',
        firstName: text.firstName,
        lastName: text.lastName,
@@ -59,6 +61,7 @@
      data
    }
  }
+
  export function getProfileOfUser (data) {
    return {
      type: USERS_PROFILE,
@@ -74,9 +77,42 @@
    }
  }
 
+ export function skills (skills) {
+   return {
+     type: GET_SKILLS,
+     skills
+   }
+ }
+
  export function addProfileToDb (profile) {
    return dispatch => {
      return request('put', '/profile/edit', profile)
+    .then((response) => {
+      if (!response.ok) {
+        return response.body.message
+      } else {
+        return response.req
+      }
+    })
+   }
+ }
+
+ export function addProfileSkillsOffered (skills) {
+   return dispatch => {
+     return request('post', '/profile/skills-offered', skills)
+    .then((response) => {
+      if (!response.ok) {
+        return response.body.message
+      } else {
+        return response.req
+      }
+    })
+   }
+ }
+
+ export function addProfileSkillsWanted (skills) {
+   return dispatch => {
+     return request('post', '/profile/skills-learn', skills)
     .then((response) => {
       if (!response.ok) {
         return response.body.message
@@ -135,7 +171,7 @@
    return dispatch => {
      request('get', `/profile`)
      .then(res => {
-       dispatch(getProfileOfUser(res.body.result[0]))
+       dispatch(getProfileOfUser(res.body.result))
      })
    }
  }
@@ -163,6 +199,15 @@
      request('get', '/profile/edit')
     .then(res => {
       dispatch(locations(res.body.result))
+    })
+   }
+ }
+
+ export function getSkills () {
+   return dispatch => {
+     request('get', '/profile/edit/skills')
+    .then(res => {
+      dispatch(skills(res.body.result))
     })
    }
  }

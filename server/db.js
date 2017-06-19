@@ -3,7 +3,8 @@ module.exports = {
   getCategories,
   addUserToProfile,
   profileExists,
-  getProfileById,
+  getOtherProfileById,
+  getOwnProfile,
   updateProfile,
   getCategoriesAndSkills,
   getUsersProfile,
@@ -13,7 +14,10 @@ module.exports = {
   readMessage,
   getLocations,
   filterSkillsToOffer,
-  filterSkillsToLearn
+  filterSkillsToLearn,
+  getSkills,
+  insertSkillsToOffer,
+  insertSkillsToLearn
 }
 
 const _ = require('lodash')
@@ -46,7 +50,43 @@ function updateProfile (conn, profile, id) {
   })
 }
 
-function getProfileById (id, connection) {
+function insertSkillsToOffer (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result[0].id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_offer')
+      .insert(skillsWithProfileId)
+  })
+}
+
+function insertSkillsToLearn (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result[0].id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_learn')
+      .insert(skillsWithProfileId)
+  })
+}
+
+function getProfileIdByAuthId (conn, authId) {
+  return conn('profiles')
+  .where('auth_id', authId)
+  .select('id')
+}
+
+function getOtherProfileById (id, connection) {
   return Promise.all([
     getProfile(id, connection),
     getSkillsToOffer(id, connection),
@@ -69,12 +109,48 @@ function getProfileById (id, connection) {
   })
 }
 
+function getOwnProfile (id, connection) {
+  return Promise.all([
+    getUsersProfile(id, connection),
+    getSkillsToLearnByAuthId(id, connection),
+    getSkillsToOfferByAuthId(id, connection)
+  ])
+  .then(([result1, result2, result3]) => {
+    const data = {
+      firstName: result1[0].firstName,
+      lastName: result1[0].lastName,
+      bio: result1[0].bio,
+      locationCity: result1[0].locationCity,
+      photoUrl: result1[0].photoUrl,
+      teach: result2,
+      learn: result3
+    }
+    return data
+  })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 function getUsersProfile (id, connection) {
   return connection('profiles')
   .select('id', 'user_id as userId', 'user_name as userName', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
   .where('auth_id', id)
 }
-
+function getSkillsToLearnByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
+function getSkillsToOfferByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
 function getProfile (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
@@ -148,6 +224,11 @@ function readMessage (conn, readId) {
 
 function getCategories (connection) {
   return connection('categories')
+  .select()
+}
+
+function getSkills (connection) {
+  return connection('skills')
   .select()
 }
 
