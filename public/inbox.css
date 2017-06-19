@@ -24,7 +24,7 @@ body {
   width: 400px;
 }
 
-.btn {
+.inbox-container .btn {
   border: none;
   cursor: pointer;
   display: block;
