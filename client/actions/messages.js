@@ -57,7 +57,7 @@ export function fetchSentMessages (userId) {
       dispatch(receiveMessages(res.body.result))
     })
     .catch(err => {
-      dispatch(messageError(err.response.body.message))
+      dispatch(messageSentError(err.response.body.message))
     })
   }
 }

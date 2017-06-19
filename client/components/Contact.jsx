@@ -38,6 +38,7 @@ class Contact extends Component {
          time: buildDate, 
          read: read
     }
+    console.log(messageData)
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
   }
@@ -71,6 +72,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
+  console.log(state.senderId.senderId)
   return {
     userId: state.auth.userid.sub,
     senderId: state.senderId.senderId
