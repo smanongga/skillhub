@@ -134,6 +134,20 @@ router.get('/categories', (req, res) => {
   })
 })
 
+router.post('/categories/skills-offered', (req, res) => {
+  db.insertSkillsToOffer(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
+router.post('/categories/skills-learn', (req, res) => {
+  db.insertSkillsToLearn(conn, req.body, req.user.sub)
+   .then((data) => {
+     res.json({result: data})
+   })
+})
+
 // Protect all routes beneath this point
 router.use(
   verifyJwt({
@@ -153,6 +167,14 @@ router.get('/secret', (req, res) => {
 router.get('/messages', (req, res) => {
   const connection = req.app.get('db')
   db.getMessages(req.user.sub, connection)
+  .then((data) => {
+    res.json({result: data})
+  })
+})
+
+router.get('/feedback/', (req, res) => {
+  const connection = req.app.get('db')
+  db.getFeedback(Object.keys(req.query)[0], connection)
   .then((data) => {
     res.json({result: data})
   })

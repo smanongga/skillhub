@@ -12,12 +12,14 @@ import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
+import CategoryPageTest from './CategoryPageTest'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Home from './Home'
 import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
+import Feedback from './Feedback'
 import Footer from './Footer'
 
 class App extends React.Component {
@@ -34,9 +36,14 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
           {this.props.waiting && <WaitingIndicator />}
+          {!this.props.isAuthenticated &&
+            <Switch>
+              <Route exact path='/' component={Frontpage} />
+              <Route path='/skills/:id' component={CategoryPageTest} />
+            </Switch>
+            }
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
@@ -45,6 +52,7 @@ class App extends React.Component {
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
+            <Route exact path='/feedback/:id' component={Feedback} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />

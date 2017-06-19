@@ -13,6 +13,48 @@
  export const GET_SKILLS = 'GET_SKILLS'
  export const WAITING_INDICATOR = 'WAITING_INDICATOR'
  export const NOT_WAITING = 'NOT_WAITING'
+ export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
+ export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
+ export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
+
+ export function fetchFeedback (id) {
+   return function (dispatch) {
+     dispatch(waitingIndicator())
+     dispatch(requestFeedback(id))
+     return request('get', '/feedback', id)
+     .then(res => {
+       dispatch(notWaiting())
+       dispatch(receiveFeedback(res.body.result))
+       console.log(res.body.result)
+     })
+     .catch(err => {
+       dispatch(feedbackError(err.response.body.message))
+     })
+   }
+ }
+
+ export function receiveFeedback (feedback) {
+   return {
+     type: FEEDBACK_SUCCESS,
+     isFetching: false,
+     response: feedback
+   }
+ }
+
+ function requestFeedback () {
+   return {
+     type: FEEDBACK_REQUEST,
+     isFetching: true
+   }
+ }
+
+ function feedbackError (feedback) {
+   return {
+     type: FEEDBACK_FAILURE,
+     isFetching: false,
+     feedback
+   }
+ }
 
  export function updateProfile (text) {
    return {
@@ -32,16 +74,16 @@
  }
 
  export const waitingIndicator = () => {
-  return {
-    type: WAITING_INDICATOR
-  }
-}
-
-export const notWaiting = () => {
-  return {
-    type: NOT_WAITING
+   return {
+     type: WAITING_INDICATOR
+   }
  }
-}
+
+ export const notWaiting = () => {
+   return {
+     type: NOT_WAITING
+   }
+ }
  export const requestCategories = () => {
    return {
      type: REQUEST_CATEGORIES

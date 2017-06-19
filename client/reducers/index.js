@@ -11,6 +11,7 @@ import categories from './categories'
 import waiting from './waiting'
 import categoryUsersLearn from './categoryUsersLearn'
 import categoryUsersOffer from './categoryUsersOffer'
+import feedback from './feedback'
 
 const reducers = combineReducers({
   auth,
@@ -23,7 +24,8 @@ const reducers = combineReducers({
   location,
   senderId,
   skills,
-  waiting
+  waiting,
+  feedback
 })
 
 export default reducers
