@@ -12,13 +12,16 @@ import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
+import CategoryPageTest from './CategoryPageTest'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import Home from './Home'
+import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
 import Feedback from './Feedback'
 import Footer from './Footer'
+import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {
   constructor (props) {
@@ -34,8 +37,15 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
+          <ErrorMessage />
+          {this.props.waiting && <WaitingIndicator />}
+          {!this.props.isAuthenticated &&
+            <Switch>
+              <Route exact path='/' component={Frontpage} />
+              <Route path='/skills/:id' component={CategoryPageTest} />
+            </Switch>
+            }
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
@@ -71,7 +81,8 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    waiting: state.waiting
   }
 }
 

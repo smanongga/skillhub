@@ -1,6 +1,7 @@
 import {getProfileById, mapSenderId} from '../actions/index'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import WaitingIndicator from './WaitingIndicator'
 
 import Feedback from './Feedback'
 
@@ -20,6 +21,7 @@ class ViewProfile extends Component {
     console.log('This is props', this.props.data)
     return (
       <div className='container'>
+         {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'>
             <div className='profile-photo'><img src={this.props.data.photoUrl} />
@@ -64,7 +66,8 @@ class ViewProfile extends Component {
 
 function mapStateToProps (state) {
   return {
-    data: state.viewProfile
+    data: state.viewProfile,
+    waiting: state.waiting
 
   }
 }
