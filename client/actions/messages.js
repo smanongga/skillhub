@@ -55,11 +55,11 @@ function messageError (messages) {
 export function fetchSentMessages (userId) {
   return function (dispatch) {
     dispatch(waitingIndicator())
-    dispatch(requestMessages())
+    dispatch(requestSentMessages())
     return request('get', `/sent`)
     .then(res => {
-      dispatch(notWaiting())
       dispatch(receiveMessages(res.body.result))
+      dispatch(notWaiting())
     })
     .catch(err => {
       dispatch(messageSentError(err.response.body.message))

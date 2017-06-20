@@ -1,12 +1,12 @@
-import {getProfileById, mapSenderId} from '../actions/index'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+
+import {getProfileById, mapSenderId} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
 
 import Feedback from './Feedback'
 
 class ViewProfile extends Component {
-
   componentWillMount () {
     this.props.fetchProfileById(this.props.match.params.id)
   }
@@ -28,7 +28,7 @@ class ViewProfile extends Component {
   render () {
     return (
       <div className='container'>
-         {this.props.waiting && <WaitingIndicator />}
+        {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'>
             <div className='profile-photo'><img src={this.props.data.photoUrl} />

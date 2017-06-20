@@ -13,9 +13,10 @@ function logoutSuccess (history) {
   }
 }
 
-export function logout () {
+export function logout (history) {
   return dispatch => {
     authService.logout()
-    return dispatch(logoutSuccess())
+    history.push('/')
+    return dispatch(logoutSuccess(history))
   }
 }

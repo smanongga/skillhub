@@ -2,29 +2,32 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getUsersProfile} from '../actions/index'
 import {Link} from 'react-router-dom'
+import WaitingIndicator from './WaitingIndicator'
 
 class UserProfile extends Component {
-  componentDidMount () {
+  componentWillMount () {
     this.props.getUsersProfile()
   }
 
   render () {
     return (
       <div className='container'>
+        {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
-            {this.props.data.locationCity}<br />
-            {this.props.data.bio}</div>
+            {this.props.data.email}<br />
+            Location:{this.props.data.locationCity}<br />
+            About me: {this.props.data.bio}</div>
           <Link to='/profile/edit'><button>Edit Profile</button></Link>
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-            <ul className='tags'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.learn.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>
@@ -32,10 +35,10 @@ class UserProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
-            <ul className='tags'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.teach.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>
@@ -48,7 +51,8 @@ class UserProfile extends Component {
 
 function mapStateToProps (state) {
   return {
-    data: state.profile
+    data: state.profile,
+    waiting: state.waiting
   }
 }
 
