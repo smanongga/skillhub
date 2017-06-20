@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 import {Link} from 'react-router-dom'
+
+import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 
 class CategoryPage extends Component {
   componentDidMount () {
