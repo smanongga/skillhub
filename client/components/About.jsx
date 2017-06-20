@@ -4,34 +4,32 @@ import Login from './Login'
 class About extends React.Component {
   render () {
     return (
+      <div>
       <div className='container'>
-        <p>This app was created by the following students at EDA.</p>
-        <ul>
-          <li>Rory Macdonald </li>
-          <li>Sam Manongga</li>
-          <li>Julie Crutchley</li>
-          <li>Robert Fisher</li>
-          <li>Sam Houlahan</li>
-        </ul>
-        <p>You can contact us by......</p>
-        <div class='row'>
-          <div class='col-md-4'>
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class='btn btn-default' href='#' role='button'>View details »</a></p>
+        <div className='row'>
+          <div className='col-md-4'>
+            <h2>Sam Houlahan</h2>
+            <p><a className='btn btn-primary btn-sm' href='https://github.com/Sam-Houlahan' role='button'>View on GitHub »</a></p>
           </div>
-          <div class='col-md-4'>
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class='btn btn-default' href='#' role='button'>View details »</a></p>
+          <div className='col-md-4'>
+            <h2>Julie Crutchley</h2>
+            <p><a className='btn btn-primary btn-sm' href='https://github.com/juliecrutchley' role='button'>View on GitHub »</a></p>
           </div>
-          <div class='col-md-4'>
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class='btn btn-default' href='#' role='button'>View details »</a></p>
+          <div className='col-md-4'>
+            <h2>Sam Manongga</h2>
+            <p><a className='btn btn-primary btn-sm' href='https://github.com/smanongga' role='button'>View on GitHub »</a></p>
+          </div>
+          <div className='col-md-4'>
+            <h2>Rory Macdonald</h2>
+            <p><a className='btn btn-primary btn-sm' href='https://github.com/rory-macdonald' role='button'>View on GitHub »</a></p>
+          </div>
+          <div className='col-md-4'>
+            <h2>Robert Fisher</h2>
+            <p><a className='btn btn-primary btn-sm' href='https://github.com/rob-dev-builder' role='button'>View on GitHub »</a></p>
           </div>
         </div>
       </div>
+    </div>
     )
   }
 }
