@@ -229,8 +229,8 @@ function addMessage (messageData, conn) {
       })
     })
     .catch((err) => {
-    console.log(err)
-  })
+      console.log(err)
+    })
 }
 
 function addFeedback (feedbackData, conn) {

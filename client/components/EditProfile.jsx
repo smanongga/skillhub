@@ -17,7 +17,6 @@ class EditProfile extends React.Component {
     super(props)
     this.state = {
       id: this.props.id,
-      userName: '',
       firstName: this.props.profile.firstName,
       lastName: this.props.profile.lastName,
       email: this.props.profile.email,
