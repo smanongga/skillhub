@@ -1,5 +1,4 @@
 import request from '../utils/api'
-
 export const USERS_PROFILE = 'USERS_PROFILE'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const GET_PROFILE = 'GET_PROFILE'
@@ -16,6 +15,7 @@ export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
 export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
 export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
 export const ERROR_MESSAGE = 'ERROR_MESSAGE'
+
 
 export function fetchFeedback (id) {
   return function (dispatch) {
