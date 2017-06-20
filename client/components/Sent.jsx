@@ -32,28 +32,7 @@ class Sent extends React.Component {
     })
   }
 
-// deleteMessage(id) {
-// // Mark the message as 'deleted'
-//   const messages = this.state.messages
-//   const index = messages.findIndex(x => x.id === id)
-//   messages[index].tag = 'deleted'
-
-//  // Select the next message in the list
-//   let selectedMessageId = ''
-//  for (const message of messages) {
-//   if (message.tag === this.state.currentSection) {
-//    selectedMessageId = message.id
-//    break
-//   }
-//  }
-
-//  this.setState({
-//   messages,
-//   selectedMessageId
-//  })
-// }
-
-  ender () {
+  render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
       <div className='container'>
@@ -88,10 +67,10 @@ const Sidebar = () => {
   return (
     <div id='sidebar'>
       <div className='sidebar__compose'>
-        <p className='btn compose'>My Sent Items <span className='fa fa-pencil'></span></p>
+        <p className='btn compose'>My Sent Items</p>
       </div>
       <ul className='sidebar__inboxes'>
-        <li><Link to ='/messages'><span className='fa fa-inbox'></span> Inbox</Link></li>
+        <li><Link to='/messages'>Inbox</Link></li>
         <li><a><span className='fa fa-trash-o'></span> Trash</a></li>
       </ul>
     </div>
@@ -105,7 +84,6 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
   }
   return (
     <div onClick={() => { onMessageClicked(message.id) }} className={classes}>
-      <div className='message-item__unread-dot' data-read={message.read}></div>
       <div className='message-item__subject truncate'>{message.subject}</div>
       <div className='message-item__details'>
         <span className='message-item__from truncate'>{message.firstName} {message.lastName}</span>
@@ -124,18 +102,10 @@ const MessageDetails = ({ message, onDelete }) => {
 
   const date = `${getPrettyDate(message.time)} · ${getPrettyTime(message.time)}`
 
-  const getDeleteButton = () => {
-    if (message.tag !== 'deleted') {
-      return <span onClick={() => { onDelete(message.id) }} className='delete-btn fa fa-trash-o'></span>
-    }
-    return undefined
-  }
-
   return (
     <div className='message-content'>
       <div className='message-content__header'>
         <h3 className='message-content__subject'>{message.subject}</h3>
-        {getDeleteButton()}
         <div className='message-content__time'>{date}</div>
         <div className='message-content__from'>{message.firstName} {message.lastName}</div>
       </div>
@@ -171,14 +141,6 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   )
 }
 
-// Render
-// $.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
-// type: 'GET',
-// success: function(result) {
-//   React.render(<App emails={result} />, document.getElementById('inbox'))
-//  }
-// })
-
 // Helper methods
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
@@ -203,7 +165,6 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
-    mapSenderId: (id) => dispatch(mapSenderId(id)),
     readMessage: (id) => dispatch(readMessage(id))
   }
 }
