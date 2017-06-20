@@ -25,7 +25,7 @@ class UserProfile extends Component {
           <Link to='/profile/edit'><button>Edit Profile</button></Link>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
+          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
             <ul className='bootstrap-tokenizer'>
               {this.props.data.learn.map((skill, i) => {
                 return (
@@ -36,7 +36,7 @@ class UserProfile extends Component {
           </div>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
+          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
             <ul className='bootstrap-tokenizer'>
               {this.props.data.teach.map((skill, i) => {
                 return (
