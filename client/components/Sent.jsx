@@ -32,7 +32,7 @@ class Sent extends React.Component {
       messages
     })
   }
-
+  
   render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
