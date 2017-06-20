@@ -153,6 +153,13 @@ router.post('/contact', (req, res) => {
   })
 })
 
+router.post('/feedback', (req, res) => {
+  db.addFeedback(req.body, conn)
+  .then((result) => {
+    res.send(result)
+  })
+})
+
 router.get('/profile/edit/skills', (req, res) => {
   db.getSkills(conn)
   .then((data) => {
