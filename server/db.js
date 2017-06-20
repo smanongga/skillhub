@@ -55,7 +55,7 @@ function updateProfile (conn, profile, id) {
 function insertSkillsToOffer (conn, skills, authId) {
   return getProfileIdByAuthId(conn, authId)
   .then((result) => {
-    const profileId = result[0].id
+    const profileId = result.id
     const skillsWithProfileId = skills.map((skill) => {
       return {
         profile_id: profileId,
