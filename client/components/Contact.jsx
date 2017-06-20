@@ -28,15 +28,15 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-     const { profile_id, userId, subject, message, time, read } = this.state
-     const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
-     const messageData = {
-            profile_id: profile_id,
-            userId: userId,
-            subject: subject,
-            message: message,
-            time: buildDate,
-            read: read
+    const { profile_id, userId, subject, message, time, read } = this.state
+    const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
+    const messageData = {
+      profile_id: profile_id,
+      userId: userId,
+      subject: subject,
+      message: message,
+      time: buildDate,
+      read: read
     }
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
@@ -49,14 +49,11 @@ class Contact extends Component {
         <h1>Send Message</h1>
         <p><input className='form-control' name='subject' placeholder='Subject'
           onChange={this.handleChange} value={subject} /></p>
-
          <textarea className='form-control' name='message' placeholder='Message'
           onChange={this.handleChange} value={message}> </textarea>
-
         <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
           Send
         </button>
-
         <ErrorMessage reducer='auth' />
       </div>
     )
