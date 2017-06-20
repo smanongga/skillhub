@@ -4,9 +4,19 @@ import {connect} from 'react-redux'
 import {getProfileById, mapSenderId} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
 
+import Feedback from './Feedback'
+
 class ViewProfile extends Component {
   componentWillMount () {
     this.props.fetchProfileById(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const oldId = this.props.match.params.id
+    const newId = nextProps.match.params.id
+    if (newId !== oldId) {
+      this.props.fetchProfileById(newId)
+    }
   }
 
   handleContactClick (event) {
@@ -51,6 +61,10 @@ class ViewProfile extends Component {
               })}
             </ul>
           </div>
+        </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Feedback</h2></div>
+          <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
         </div>
       </div>
     )

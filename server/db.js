@@ -18,7 +18,8 @@ module.exports = {
   getSkills,
   insertSkillsToOffer,
   insertSkillsToLearn,
-  getFeedback
+  getFeedback,
+  addFeedback
 }
 
 const _ = require('lodash')
@@ -213,6 +214,21 @@ function addMessage (messageData, conn) {
         message: messageData.message,
         time: messageData.time,
         read: messageData.read
+      })
+    })
+}
+
+function addFeedback (feedbackData, conn) {
+  return conn('profiles')
+    .where('profiles.auth_id', '=', feedbackData.userId)
+    .select('profiles.id as userId')
+    .then(result => {
+      return conn('feedbacks')
+      .insert({
+        commenter_id: result[0].userId,
+        profile_id: feedbackData.profile_id,
+        message: feedbackData.message,
+        time: feedbackData.time
       })
     })
 }

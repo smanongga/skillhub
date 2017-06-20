@@ -1,4 +1,5 @@
 import request from '../utils/api'
+
 export const USERS_PROFILE = 'USERS_PROFILE'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const GET_PROFILE = 'GET_PROFILE'
@@ -11,9 +12,6 @@ export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
 export const GET_SKILLS = 'GET_SKILLS'
 export const WAITING_INDICATOR = 'WAITING_INDICATOR'
 export const NOT_WAITING = 'NOT_WAITING'
-export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
-export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
-export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
 export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 
 export function getProfileOfUser (data) {
