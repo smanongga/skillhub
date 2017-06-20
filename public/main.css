@@ -9,6 +9,9 @@ body {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
 }
+.error p {
+  margin-bottom:0px;
+}
 .jumbotron {
   background:none;
   margin-bottom:0px;
@@ -105,6 +108,9 @@ nav.not-loggedin {
 .language {
   background-image: url('/categories/language.jpg');
 }
+.film {
+  background-image: url('/categories/film.jpg');
+}
 .clear-box {
   clear: both;
 }
@@ -113,6 +119,9 @@ nav.not-loggedin {
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.photo-size img {
+  width: 100%;
 }
 .profile-photo {
   background-color:grey;

@@ -21,7 +21,7 @@ import Frontpage from './Frontpage'
 import Footer from './Footer'
 import Login from './Login'
 import ErrorMessage from './ErrorMessage'
-import PostFeedback from './postFeedback'
+import PostFeedback from './PostFeedback'
 
 class App extends React.Component {
   constructor (props) {
