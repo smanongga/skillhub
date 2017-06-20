@@ -1,11 +1,11 @@
 
 module.exports = {
-  getCategories,
   addUserToProfile,
   profileExists,
+  updateProfile,
+  getCategories,
   getOtherProfileById,
   getOwnProfile,
-  updateProfile,
   getCategoriesAndSkills,
   getUsersProfile,
   getMessages,
