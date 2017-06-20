@@ -140,7 +140,9 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   if (messages.length === 0) {
     return (
       <div className='message-list empty'>
-        Nothing to see here!
+        <p>Welcome to skillHub!</p>
+        <p>You have nothing currently in your inbox.</p>
+        <p>Browse to user profiles to start connecting!</p>
       </div>
     )
   }
