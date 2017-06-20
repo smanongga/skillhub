@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 
 import {getUsersProfile} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
+import Feedback from './Feedback'
 
 class UserProfile extends Component {
   componentWillMount () {
@@ -48,6 +49,10 @@ class UserProfile extends Component {
               })}
             </ul>
           </div>
+        </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Feedback</h2></div>
+          <Feedback pageId={this.props.data.id} userId={this.props.data.id} />
         </div>
       </div>
     )

@@ -37,27 +37,30 @@ class Feedback extends React.Component {
   render () {
     return (
       <div className='col-md-4'>
-        <FeedbackList feedback={this.props.feedback} feedbackClick={this.handleFeedbackClick} />
+        <FeedbackList feedback={this.props.feedback} feedbackClick={this.handleFeedbackClick} pageId={this.props.pageId} userId={this.props.userId} />
       </div>
     )
   }
 }
 
-const FeedbackList = ({ feedback, feedbackClick }) => {
-  if (feedback.length === 0) {
+const FeedbackList = ({ feedback, feedbackClick, userId }) => {
+  if (feedback.length === 0)
     return (
       <div>
-        <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>
+      {!userId &&
+        <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
         <div className='message-list empty'>
           Nothing to see here, great job!
         </div>
+      
       </div>
     )
-  }
+  
 
   return (
     <div>
-      <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>
+      {!userId &&
+        <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
       <div>
         {feedback.map((feedbackDetails, key) => {
           return (
