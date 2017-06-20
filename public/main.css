@@ -67,7 +67,7 @@ nav.not-loggedin {
   color: white;
   padding:50px;
   margin-bottom: 20px;
-  background-size: 262px 121px
+  background-size: cover;
 }
 .music {
   background-image: url('/categories/music.jpg');
