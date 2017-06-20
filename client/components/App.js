@@ -50,7 +50,7 @@ class App extends React.Component {
           <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
-            <Route exact path='/' component={CategoryPage} />
+            <Route exact path='/' component={CategoriesList} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
