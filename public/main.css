@@ -9,6 +9,9 @@ body {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
 }
+.error p {
+  margin-bottom:0px;
+}
 .jumbotron {
   background:none;
   margin-bottom:0px;

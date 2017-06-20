@@ -37,7 +37,7 @@ class App extends React.Component {
       <Router history={BrowserHistory}>
         <div className='app'>
           <Navbar />
-
+          <ErrorMessage />
           {this.props.waiting && <WaitingIndicator />}
           {!this.props.isAuthenticated &&
             <Switch>
@@ -47,7 +47,6 @@ class App extends React.Component {
             }
           {this.props.isAuthenticated &&
           <Switch>
-            <ErrorMessage />
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
             <Route exact path='/' component={CategoriesList} />
