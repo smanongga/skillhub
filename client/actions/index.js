@@ -105,29 +105,6 @@ export const notWaiting = () => {
   }
 }
 
-function requestFeedback () {
-  return {
-    type: FEEDBACK_REQUEST,
-    isFetching: true
-  }
-}
-
-export function receiveFeedback (feedback) {
-  return {
-    type: FEEDBACK_SUCCESS,
-    isFetching: false,
-    response: feedback
-  }
-}
-
-function feedbackError (feedback) {
-  return {
-    type: FEEDBACK_FAILURE,
-    isFetching: false,
-    feedback
-  }
-}
-
 export function error (message) {
   return {
     type: ERROR_MESSAGE,
@@ -140,10 +117,10 @@ export function addProfileToDb (profile) {
     dispatch(waitingIndicator())
     return request('put', '/profile/edit', profile)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -158,10 +135,10 @@ export function addProfileSkillsOffered (skills) {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-offered', skills)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -177,9 +154,9 @@ export function addProfileSkillsWanted (skills) {
     return request('post', '/profile/skills-learn', skills)
    .then((response) => {
      if (!response.ok) {
+       dispatch(notWaiting())
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -205,8 +182,10 @@ export const fetchCategories = () => {
 
 export function getProfileById (id, callback) {
   return dispatch => {
+    dispatch(waitingIndicator())
     request('get', `/profiles/${id}`)
    .then(res => {
+     dispatch(notWaiting())
      dispatch(saveProfileById(res.body.result))
    })
    .catch((err) => {
@@ -303,20 +282,5 @@ export function getSkills () {
 export function mapSenderId (senderId) {
   return dispatch => {
     dispatch(pushedSenderId(senderId))
-  }
-}
-
-export function fetchFeedback (id) {
-  return function (dispatch) {
-    dispatch(waitingIndicator())
-    dispatch(requestFeedback(id))
-    return request('get', '/feedback', id)
-      .then(res => {
-        dispatch(notWaiting())
-        dispatch(receiveFeedback(res.body.result))
-      })
-      .catch(err => {
-        dispatch(feedbackError(err.message))
-      })
   }
 }

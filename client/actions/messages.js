@@ -100,14 +100,6 @@ export function sendComplete (messageData) {
     response: messageData
   }
 }
-// Duplicate function - see line 33
-function messageError (messageData) {
-  return {
-    type: SEND_FAILURE,
-    isFetching: false,
-    messageData
-  }
-}
 
 export function fetchMessages () {
   return function (dispatch) {
@@ -124,13 +116,13 @@ export function fetchMessages () {
   }
 }
 
-export function fetchSentMessages (userId) {
+export function fetchSentMessages () {
   return function (dispatch) {
     dispatch(waitingIndicator())
     dispatch(requestSentMessages())
     return request('get', `/sent`)
     .then(res => {
-      dispatch(receiveMessages(res.body.result))
+      dispatch(receiveSentMessages(res.body.result))
       dispatch(notWaiting())
     })
     .catch(err => {
