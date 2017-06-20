@@ -114,8 +114,8 @@ nav.not-loggedin {
   flex-direction: row;
   flex-wrap: wrap;
 }
-.photo-size {
-  width:
+.photo-size img {
+  width: 100%;
 }
 .profile-photo {
   background-color:grey;
