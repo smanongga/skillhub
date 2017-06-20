@@ -27,7 +27,7 @@ class EditProfile extends React.Component {
       skillsWanted: [],
       displayUpload: true,
       imageUploading: false,
-      location: this.props.profile.location || [],
+      location: this.props.location || [],
       skills: this.props.profile.skills || []
     }
     this.handleChange = this.handleChange.bind(this)

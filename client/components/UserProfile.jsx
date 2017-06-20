@@ -10,7 +10,6 @@ class UserProfile extends Component {
   }
 
   render () {
-    console.log(this.props.data.learn)
     return (
       <div className='container'>
         {this.props.waiting && <WaitingIndicator />}
