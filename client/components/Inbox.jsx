@@ -50,7 +50,7 @@ class Inbox extends React.Component {
             <Sidebar
               messages={this.props.messages} />
           </div>
-          <div className="inbox-container">
+          <div className='inbox-container'>
             <div className='col-md-4'>
               <MessageList
                 messages={this.props.messages}
@@ -88,16 +88,16 @@ const Sidebar = ({messages}) => {
         </p>
       </div>
       <ul className='sidebar__inboxes'>
-        {/*<span className="item-count">{unreadCount}</span></a></li>*/}
+        {/*<span className='item-count'>{unreadCount}</span></a></li>*/}
         <li>
-          <Link to ='/sent'><span className="fa fa-inbox"></span>
+          <Link to ='/sent'><span className='fa fa-inbox'></span>
             Sent
           </Link>
         </li>
 
         <li>
           <a>
-            <span className="fa fa-trash-o"></span> Trash
+            <span className='fa fa-trash-o'></span> Trash
           </a>
         </li>
       </ul>
