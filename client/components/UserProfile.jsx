@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getUsersProfile} from '../actions/index'
 import {Link} from 'react-router-dom'
+
+import {getUsersProfile} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
 
 class UserProfile extends Component {

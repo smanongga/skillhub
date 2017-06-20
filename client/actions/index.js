@@ -1,4 +1,5 @@
 import request from '../utils/api'
+
 export const USERS_PROFILE = 'USERS_PROFILE'
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 export const GET_PROFILE = 'GET_PROFILE'
@@ -11,53 +12,13 @@ export const PUSHED_SENDER_ID = 'PUSHED_SENDER_ID'
 export const GET_SKILLS = 'GET_SKILLS'
 export const WAITING_INDICATOR = 'WAITING_INDICATOR'
 export const NOT_WAITING = 'NOT_WAITING'
-export const FEEDBACK_REQUEST = 'FEEDBACK_REQUEST'
-export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
-export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
 export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 
-export function fetchFeedback (id) {
-  return function (dispatch) {
-    dispatch(waitingIndicator())
-    dispatch(requestFeedback(id))
-    return request('get', '/feedback', id)
-      .then(res => {
-        dispatch(receiveFeedback(res.body.result))
-        dispatch(notWaiting())
-      })
-      .catch(err => {
-        dispatch(feedbackError(err.message))
-      })
-  }
-}
-
-export function receiveFeedback (feedback) {
+export function getProfileOfUser (data) {
   return {
-    type: FEEDBACK_SUCCESS,
+    type: USERS_PROFILE,
     isFetching: false,
-    response: feedback
-  }
-}
-
-function requestFeedback () {
-  return {
-    type: FEEDBACK_REQUEST,
-    isFetching: true
-  }
-}
-
-function feedbackError (feedback) {
-  return {
-    type: FEEDBACK_FAILURE,
-    isFetching: false,
-    feedback
-  }
-}
-
-export function error (message) {
-  return {
-    type: ERROR_MESSAGE,
-    errorMessage: message
+    data
   }
 }
 
@@ -78,17 +39,13 @@ export function updateProfile (text) {
   }
 }
 
-export const waitingIndicator = () => {
+export function saveProfileById (data) {
   return {
-    type: WAITING_INDICATOR
+    type: GET_PROFILE,
+    data
   }
 }
 
-export const notWaiting = () => {
-  return {
-    type: NOT_WAITING
-  }
-}
 export const requestCategories = () => {
   return {
     type: REQUEST_CATEGORIES
@@ -115,21 +72,6 @@ export const receiveCategoryUsersOffer = (categoryUsersOffer) => {
   }
 }
 
-export function saveProfileById (data) {
-  return {
-    type: GET_PROFILE,
-    data
-  }
-}
-
-export function getProfileOfUser (data) {
-  return {
-    type: USERS_PROFILE,
-    isFetching: false,
-    data
-  }
-}
-
 export function locations (location) {
   return {
     type: GET_LOCATION,
@@ -137,10 +79,59 @@ export function locations (location) {
   }
 }
 
+export function pushedSenderId (senderId) {
+  return {
+    type: PUSHED_SENDER_ID,
+    senderId
+  }
+}
+
 export function skills (skills) {
   return {
     type: GET_SKILLS,
     skills
+  }
+}
+
+export const waitingIndicator = () => {
+  return {
+    type: WAITING_INDICATOR
+  }
+}
+
+export const notWaiting = () => {
+  return {
+    type: NOT_WAITING
+  }
+}
+
+function requestFeedback () {
+  return {
+    type: FEEDBACK_REQUEST,
+    isFetching: true
+  }
+}
+
+export function receiveFeedback (feedback) {
+  return {
+    type: FEEDBACK_SUCCESS,
+    isFetching: false,
+    response: feedback
+  }
+}
+
+function feedbackError (feedback) {
+  return {
+    type: FEEDBACK_FAILURE,
+    isFetching: false,
+    feedback
+  }
+}
+
+export function error (message) {
+  return {
+    type: ERROR_MESSAGE,
+    errorMessage: message
   }
 }
 
@@ -198,19 +189,6 @@ export function addProfileSkillsWanted (skills) {
   }
 }
 
-export function mapSenderId (senderId) {
-  return dispatch => {
-    dispatch(pushedSenderId(senderId))
-  }
-}
-
-function pushedSenderId (senderId) {
-  return {
-    type: PUSHED_SENDER_ID,
-    senderId
-  }
-}
-
 export const fetchCategories = () => {
   return (dispatch, getState) => {
     const state = getState()
@@ -239,6 +217,20 @@ export function getProfileById (id, callback) {
   }
 }
 
+export function getUsersProfile (callback) {
+  return dispatch => {
+    dispatch(waitingIndicator())
+    request('get', `/profile`)
+    .then((res) => {
+      dispatch(getProfileOfUser(res.body.result))
+      dispatch(notWaiting())
+    })
+    .catch((err) => {
+      dispatch(error(err.message))
+    })
+  }
+}
+
 export function getAllCategories (callback) {
   return dispatch => {
     dispatch(waitingIndicator())
@@ -250,20 +242,6 @@ export function getAllCategories (callback) {
     })
     .catch((err) => {
       return dispatch(error(err.message))
-    })
-  }
-}
-
-export function getUsersProfile (callback) {
-  return dispatch => {
-    dispatch(waitingIndicator())
-    request('get', `/profile`)
-    .then((res) => {
-      dispatch(notWaiting())
-      dispatch(getProfileOfUser(res.body.result))
-    })
-    .catch((err) => {
-      dispatch(error(err.message))
     })
   }
 }
@@ -321,5 +299,26 @@ export function getSkills () {
    .catch((err) => {
      return dispatch(error(err.message))
    })
+  }
+}
+
+export function mapSenderId (senderId) {
+  return dispatch => {
+    dispatch(pushedSenderId(senderId))
+  }
+}
+
+export function fetchFeedback (id) {
+  return function (dispatch) {
+    dispatch(waitingIndicator())
+    dispatch(requestFeedback(id))
+    return request('get', '/feedback', id)
+      .then(res => {
+        dispatch(notWaiting())
+        dispatch(receiveFeedback(res.body.result))
+      })
+      .catch(err => {
+        dispatch(feedbackError(err.message))
+      })
   }
 }

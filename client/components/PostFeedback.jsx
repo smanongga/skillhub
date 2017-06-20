@@ -2,19 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import {sendMessage} from '../actions/messages'
+import {postFeedback} from '../actions/feedback'
 import ErrorMessage from './ErrorMessage'
 
-class Contact extends Component {
+class PostFeedback extends Component {
 
   constructor (props) {
     super(props)
     this.state = {
       userId: this.props.userId,
       profile_id: this.props.senderId,
-      subject: '',
       message: '',
-      read: 'false'
+      time: '2000-02-02 12:12:12'
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -27,28 +26,25 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-    const { profile_id, userId, subject, message, read } = this.state
+    const {profile_id, userId, message} = this.state
     const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
-    const messageData = {
+    const feedbackData = {
       profile_id: profile_id,
       userId: userId,
-      subject: subject,
       message: message,
-      time: buildDate,
-      read: read
+      time: buildDate
     }
-    this.props.sendMessage(messageData)
-    this.props.history.push('/messages')
+    this.props.postFeedback(feedbackData)
+    console.log('PROFILE ID FROM STATE:', this.state.profile_id)
+    this.props.history.push(`/profiles/${this.state.profile_id}`)
   }
 
   render () {
-    const { subject, message } = this.state
+    const {message} = this.state
     return (
       <div className='container'>
-        <h1>Send Message</h1>
-        <p><input className='form-control' name='subject' placeholder='Subject'
-          onChange={this.handleChange} value={subject} /></p>
-        <textarea className='form-control' name='message' placeholder='Message'
+        <h1>Post Feedback</h1>
+        <textarea className='form-control' name='message' placeholder='Feedback here'
           onChange={this.handleChange} value={message} />
         <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
           Send
@@ -61,8 +57,8 @@ class Contact extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMessage: (messageData) => {
-      return dispatch(sendMessage(messageData))
+    postFeedback: (feedbackData) => {
+      return dispatch(postFeedback(feedbackData))
     }
   }
 }
@@ -74,4 +70,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Contact)
+export default connect(mapStateToProps, mapDispatchToProps)(PostFeedback)

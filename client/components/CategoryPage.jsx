@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCategoryUsersLearn, getCategoryUsersOffer, getLocations} from '../actions/index'
 import {Link} from 'react-router-dom'
+
+import {getCategoryUsersLearn, getCategoryUsersOffer, getLocations} from '../actions/index'
 
 class CategoryPage extends Component {
   componentDidMount () {
@@ -50,7 +51,7 @@ class CategoryPage extends Component {
               <div className='profile-thumbnail'>
                 <Link to={`/profiles/${user.id}`} key={i}>
                   <div>
-                    <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                    <div className='photo'><img src={user.photoUrl} /></div>
                     <div className='user-details'>
                       {user.firstName} in {user.locationCity}
                       <ul className='bootstrap-tokenizer'>
@@ -72,9 +73,9 @@ class CategoryPage extends Component {
         <div className='flex-container'>{filterOfferByLocation.map((user, i) => {
           return (
             <div className='profile-thumbnail'>
-              <Link to={`/profiles/${user.id}`}key={i}>
+              <Link to={`/profiles/${user.id}`} key={i}>
                 <div>
-                  <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                  <div className='photo'><img src={user.photoUrl} /></div>
                   <div className='user-details'>
                     <ul className='bootstrap-tokenizer'>
                       <li>{user.firstName}</li>

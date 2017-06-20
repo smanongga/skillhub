@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {BrowserHistory} from 'react-router'
+import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom'
+//import {BrowserHistory} from 'react-router'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -15,13 +15,13 @@ import CategoryPage from './CategoryPage'
 import CategoryPageTest from './CategoryPageTest'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
-import Home from './Home'
 import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
 import Feedback from './Feedback'
 import Footer from './Footer'
 import ErrorMessage from './ErrorMessage'
+import PostFeedback from './postFeedback'
 
 class App extends React.Component {
   constructor (props) {
@@ -35,7 +35,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router history={BrowserHistory}>
+      <Router>
         <div className='app'>
           <Navbar />
           <ErrorMessage />
@@ -50,14 +50,14 @@ class App extends React.Component {
           <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={CategoriesList} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
-            <Route exact path='/feedback/:id' component={Feedback} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
+            <Route path='/postfeedback' component={PostFeedback} />
             <Route path='/about' component={About} />
           </Switch>
         }
@@ -86,4 +86,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
