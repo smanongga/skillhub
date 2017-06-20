@@ -46,31 +46,3 @@ class Frontpage extends React.Component {
 }
 
 export default Frontpage
-
-{/* <div className='row'>
-  <div className='col-xs-6'>
-    <div className='row-item'>
-      <p className='about'>skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise</p>
-    </div>
-    <div className='test col-md-6'>
-      <p>1</p>
-    </div>
-    <div className='test col-md-6'>
-      <p>2</p>
-    </div>
-    <div className='about icon col-md-6'>
-      <i className="fa fa-address-card-o fa-5x"></i>
-      <p className='about'>Sign up and let us know what skills you would like to learn and teach</p>
-    </div>
-    <div className='about icon col-md-6'>
-      <i className="fa fa-users fa-5x"></i>
-      <p className='about'>Connect with others in your area with similar interests</p>
-    </div>
-  </div>
-  <div className='col-md-6'><div className='row'>
-    <div className='row-item row-item--shrink text--red'>
-    <span className='svg svg--plus '></span>
-    </div>
-  </div>
-  </div>
-</div> */}
