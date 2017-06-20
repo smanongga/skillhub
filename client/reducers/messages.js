@@ -14,8 +14,6 @@ import {
 } from '../actions/messages'
 
 const initialState = {
-  isFetching: false,
-  errorMessage: '',
   messages: []
 }
 

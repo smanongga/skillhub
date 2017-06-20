@@ -117,10 +117,10 @@ export function addProfileToDb (profile) {
     dispatch(waitingIndicator())
     return request('put', '/profile/edit', profile)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -135,10 +135,10 @@ export function addProfileSkillsOffered (skills) {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-offered', skills)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -154,9 +154,9 @@ export function addProfileSkillsWanted (skills) {
     return request('post', '/profile/skills-learn', skills)
    .then((response) => {
      if (!response.ok) {
+       dispatch(notWaiting())
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -182,8 +182,10 @@ export const fetchCategories = () => {
 
 export function getProfileById (id, callback) {
   return dispatch => {
+    dispatch(waitingIndicator())
     request('get', `/profiles/${id}`)
    .then(res => {
+     dispatch(notWaiting())
      dispatch(saveProfileById(res.body.result))
    })
    .catch((err) => {
