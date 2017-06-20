@@ -14,8 +14,8 @@ export function fetchFeedback (id) {
     dispatch(requestFeedback(id))
     return request('get', '/feedback', id)
      .then(res => {
-       dispatch(notWaiting())
        dispatch(receiveFeedback(res.body.result))
+       dispatch(notWaiting())
      })
      .catch(err => {
        dispatch(feedbackError(err.message))
