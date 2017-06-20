@@ -14,7 +14,7 @@ exports.seed = function (knex, Promise) {
         {id: 7, profile_id: 7, commenter_id: 2, message: 'Feedback to Frank from Anton', time: '2002-12-12 19:02:54',},
         {id: 8, profile_id: 8, commenter_id: 5, message: 'Feedback to Emily from Nicole', time: '2002-12-12 19:02:54',},
         {id: 9, profile_id: 9, commenter_id: 2, message: 'Feedback to Olivia from Anton', time: '2002-12-12 19:02:54',},
-        {id: 10, profile_id: 10, commenter_id: 5, time: '2002-12-12 19:02:54',}
+        {id: 10, profile_id: 10, commenter_id: 5, message: 'Feedback to Olivia from Anton', time: '2002-12-12 19:02:54',}
       ])
     })
 }
