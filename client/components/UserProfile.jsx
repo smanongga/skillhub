@@ -10,7 +10,6 @@ class UserProfile extends Component {
   }
 
   render () {
-    console.log(this.props.data.learn)
     return (
       <div className='container'>
         {this.props.waiting && <WaitingIndicator />}
@@ -25,10 +24,10 @@ class UserProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-            <ul className='tags'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.learn.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>
@@ -36,10 +35,10 @@ class UserProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
-            <ul className='tags'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.teach.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>

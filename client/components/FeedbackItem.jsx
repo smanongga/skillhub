@@ -2,7 +2,6 @@ import {connect} from 'react-redux'
 import React from 'react'
 
 function FeedbackItem (props) {
-  console.log(this.props)
   return (
     <div>
       <p>{props.feedbackItem}</p>
