@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {mapSenderId} from '../actions/index'
 
-// import FeedbackItem from './FeedbackItem'
 import {fetchFeedback} from '../actions/feedback'
+
+const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Feedback extends React.Component {
   constructor (props) {
@@ -77,10 +78,20 @@ const FeedbackItem = ({feedbackDetails}) => {
         <Link to={`/profiles/${feedbackDetails.commenterId}`}>{feedbackDetails.firstName} {feedbackDetails.lastName}</Link>
       </div>
       <div>
+        <p>{getPrettyDate(feedbackDetails.time)}</p>
         <p>{feedbackDetails.message}</p>
       </div>
     </div>
   )
+}
+
+// Helper methods
+const getPrettyDate = (date) => {
+  date = date.split(' ')[0]
+  const newDate = date.split('-')
+  const monthFix = Number(newDate[1])
+  const month = months[monthFix]
+  return `${month} ${newDate[2]}, ${newDate[0]}`
 }
 
 function mapStateToProps (state) {
@@ -90,7 +101,6 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  console.log('Calling the map dispatch to props...')
   return {
     fetchFeedback: (id) => dispatch(fetchFeedback(id)),
     mapSenderId: (senderId) => dispatch(mapSenderId(senderId))
