@@ -1,25 +1,57 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 import {Link} from 'react-router-dom'
+
+import {getCategoryUsersLearn, getCategoryUsersOffer, getLocations} from '../actions/index'
 
 class CategoryPage extends Component {
   componentDidMount () {
+    this.props.getLocations()
     this.props.getUsersLearn(this.props.match.params.id)
     this.props.getUsersOffer(this.props.match.params.id)
   }
+  constructor (props) {
+    super(props)
+    this.state = {
+      location: 'Auckland'
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange (e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
   render () {
+    const filterLearnByLocation = this.props.UsersLearn.filter((user) => {
+      return user.locationCity === this.state.location
+    })
+    const filterOfferByLocation = this.props.UsersOffer.filter((user) => {
+      return user.locationCity === this.state.location
+    })
     return (
       <div className='container'>
         <h1>{this.props.match.params.id}</h1>
+        <form>
+          {this.props.location &&
+            <p><select name='location' className='form-control' onChange={this.handleChange}>
+              {this.props.location.map((data) => {
+                return (
+                  <option value={data.location}> {data.location}</option>
+                )
+              })}
+            </select></p>
+          }
+        </form>
         <div><h2>To Learn</h2>
-          <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
+          <div className='flex-container'>{filterLearnByLocation.map((user, i) => {
             return (
               <div className='profile-thumbnail'>
                 <Link to={`/profiles/${user.id}`} key={i}>
                   <div>
-                    <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                    <div className='photo'><img src={user.photoUrl} /></div>
                     <div className='user-details'>
                       {user.firstName} in {user.locationCity}
                       <ul className='bootstrap-tokenizer'>
@@ -38,12 +70,12 @@ class CategoryPage extends Component {
           </div>
         </div>
         <div className='clear-box'><h2>To Offer</h2></div>
-        <div className='flex-container'>{this.props.UsersOffer.map((user, i) => {
+        <div className='flex-container'>{filterOfferByLocation.map((user, i) => {
           return (
             <div className='profile-thumbnail'>
-              <Link to={`/profiles/${user.id}`}key={i}>
+              <Link to={`/profiles/${user.id}`} key={i}>
                 <div>
-                  <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                  <div className='photo'><img src={user.photoUrl} /></div>
                   <div className='user-details'>
                     <ul className='bootstrap-tokenizer'>
                       <li>{user.firstName}</li>
@@ -68,7 +100,8 @@ class CategoryPage extends Component {
 function mapStateToProps (state) {
   return {
     UsersLearn: state.categoryUsersLearn,
-    UsersOffer: state.categoryUsersOffer
+    UsersOffer: state.categoryUsersOffer,
+    location: state.location[0]
   }
 }
 
@@ -79,6 +112,9 @@ function mapDispatchToProps (dispatch) {
     },
     getUsersOffer: (cb) => {
       dispatch(getCategoryUsersOffer(cb))
+    },
+    getLocations: () => {
+      dispatch(getLocations())
     }
   }
 }

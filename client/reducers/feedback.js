@@ -2,7 +2,7 @@ import {
   FEEDBACK_REQUEST,
   FEEDBACK_SUCCESS,
   FEEDBACK_FAILURE
-} from '../actions'
+} from '../actions/feedback'
 
 const initialState = {
   isFetching: false,

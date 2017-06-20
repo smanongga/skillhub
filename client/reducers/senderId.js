@@ -1,6 +1,4 @@
-import {
-    PUSHED_SENDER_ID
-} from '../actions'
+import {PUSHED_SENDER_ID} from '../actions'
 
 const initialState = {
   errorMessage: '',

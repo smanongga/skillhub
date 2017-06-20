@@ -27,21 +27,21 @@ class Inbox extends React.Component {
     })
   }
 
-	openMessage(id) {
-		const messages = this.props.messages
-		const index = messages.findIndex(x => x.id === id)
-		messages[index].read = 'true'
-		const senderId = messages[index].senderId
-		const readId = {id}
-		this.props.readMessage(readId)
-		this.props.mapSenderId(senderId)
-		this.setState({
-			selectedMessageId: id,
-			messages
-		})
-	}
+  openMessage (id) {
+    const messages = this.props.messages
+    const index = messages.findIndex(x => x.id === id)
+    messages[index].read = 'true'
+    const senderId = messages[index].senderId
+    const readId = {id}
+    this.props.readMessage(readId)
+    this.props.mapSenderId(senderId)
+    this.setState({
+      selectedMessageId: id,
+      messages
+    })
+  }
 
-  render() {
+  render () {
   const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
       <div className='container'>
@@ -70,7 +70,7 @@ class Inbox extends React.Component {
 }
 
 /* Sidebar */
-const Sidebar = ({ messages}) => {
+const Sidebar = ({messages}) => {
   var unreadCount = messages.reduce(
     function (previous, msg) {
       if (msg.read !== 'true') {
@@ -79,7 +79,6 @@ const Sidebar = ({ messages}) => {
         return previous
       }
     }.bind(this), 0)
-
 
   return (
     <div id='sidebar'>
