@@ -53,7 +53,7 @@ class Sent extends React.Component {
 //  })
 // }
 
-  ender () {
+  render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
       <div className='container'>
