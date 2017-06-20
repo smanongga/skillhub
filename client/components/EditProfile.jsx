@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
+import {Typeahead} from 'react-bootstrap-typeahead'
+
 import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
-import {Typeahead} from 'react-bootstrap-typeahead'
 
 class EditProfile extends React.Component {
   componentDidMount () {
@@ -169,10 +170,6 @@ class EditProfile extends React.Component {
                     onDrop={this.handleImageDrop}>
                     <p>Drop an image or click to select a file to upload.</p>
                   </Dropzone>}
-                {/* {this.state.profilePic === '' ? null :
-          <div>
-            <img src={this.props.profile.photoUrl} />
-          </div>} */}
                   {this.state.profilePic &&
                     <div>
                       <h4>Upload Successful</h4>
