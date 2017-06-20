@@ -13,17 +13,22 @@ class CategoryPage extends Component {
     console.log(this.props.UsersLearn)
     return (
       <div className='container'>
+        <h1>{this.props.match.params.id}</h1>
         <div><h2>To Learn</h2>
           <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
             return (
               <div className='profile-thumbnail'>
-                <Link to={`/profiles/${user.id}`}key={i}>
+                <Link to={`/profiles/${user.id}`} key={i}>
                   <div>
                     <div className='photo'><img src='/defaultProfile.jpg' /></div>
                     <div className='user-details'>
                       <ul>
                         <li>{user.firstName}</li>
-                        <li>{user.categories[0].skills}</li>
+                        {user.categories[0].skills.map(skill => {
+                          return (
+                            <li>{skill}</li>
+                          )
+                        })}
                       </ul>
                     </div>
                   </div>
@@ -43,7 +48,11 @@ class CategoryPage extends Component {
                   <div className='user-details'>
                     <ul>
                       <li>{user.firstName}</li>
-                      <li>{user.categories[0].skills}</li>
+                      {user.categories[0].skills.map(skill => {
+                        return (
+                          <li>{skill}</li>
+                        )
+                      })}
                     </ul>
                   </div>
                 </div>

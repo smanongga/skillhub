@@ -118,8 +118,10 @@ function getOwnProfile (id, connection) {
   ])
   .then(([result1, result2, result3]) => {
     const data = {
+      id:result1[0].id,
       firstName: result1[0].firstName,
       lastName: result1[0].lastName,
+      email: result1[0].email,
       bio: result1[0].bio,
       locationCity: result1[0].locationCity,
       photoUrl: result1[0].photoUrl,
@@ -253,7 +255,7 @@ function filterSkillsToOffer (conn, id) {
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
-  .where('skills.category_id', id)
+  .where('categories.name', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
   .then(formatProfiles)
 }
@@ -263,7 +265,8 @@ function filterSkillsToLearn (connection, id) {
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
-  .where('skills.category_id', id)
+  .where('categories.name', id)
+  // .where('skills.category_id', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
   .then(formatProfiles)
 }

@@ -1,5 +1,4 @@
-// import {getAllCategories} from '../utils/api'
- import request from '../utils/api'
+import request from '../utils/api'
 
  export const USERS_PROFILE = 'USERS_PROFILE'
  export const UPDATE_PROFILE = 'UPDATE_PROFILE'
@@ -71,7 +70,7 @@
        userName: '',
        firstName: text.firstName,
        lastName: text.lastName,
-       email: '',
+       email: text.email,
        photoUrl: text.profilePic,
        locationCity: text.locationCity,
        bio: text.bio,
@@ -80,7 +79,7 @@
      }
    }
  }
-
+ 
  export const waitingIndicator = () => {
    return {
      type: WAITING_INDICATOR
