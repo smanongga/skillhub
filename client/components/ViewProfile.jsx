@@ -26,7 +26,6 @@ class ViewProfile extends Component {
   }
 
   render () {
-    console.log('Rendering ViewProfile', this.props.data)
     return (
       <div className='container'>
          {this.props.waiting && <WaitingIndicator />}
@@ -65,7 +64,7 @@ class ViewProfile extends Component {
         </div>
         <div className='row spacing'>
           <div className='col-md-12 white-box'><h2>Feedback</h2></div>
-          <Feedback pageId={this.props.match.params.id} />
+          <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
         </div>
       </div>
     )

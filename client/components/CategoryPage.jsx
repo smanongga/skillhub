@@ -10,7 +10,6 @@ class CategoryPage extends Component {
   }
 
   render () {
-    console.log(this.props.UsersLearn)
     return (
       <div className='container'>
         <div><h2>To Learn</h2>
