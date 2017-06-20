@@ -108,6 +108,9 @@ nav.not-loggedin {
 .language {
   background-image: url('/categories/language.jpg');
 }
+.film {
+  background-image: url('/categories/film.jpg');
+}
 .clear-box {
   clear: both;
 }
