@@ -171,9 +171,9 @@ class EditProfile extends React.Component {
                     <p>Drop an image or click to select a file to upload.</p>
                   </Dropzone>}
                   {this.state.profilePic &&
-                    <div>
+                    <div className='photo-size'>
                       <h4>Upload Successful</h4>
-                      <img src={this.props.profilePic} />
+                      <img src={this.state.profilePic} />
                     </div>}
                 </div>
               </div><br />
