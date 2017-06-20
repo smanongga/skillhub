@@ -22,11 +22,11 @@ class CategoryPage extends Component {
                   <div>
                     <div className='photo'><img src='/defaultProfile.jpg' /></div>
                     <div className='user-details'>
-                      <ul>
-                        <li>{user.firstName}</li>
+                      {user.firstName} in {user.locationCity}
+                      <ul className='bootstrap-tokenizer'>
                         {user.categories[0].skills.map(skill => {
                           return (
-                            <li>{skill}</li>
+                            <li className='token'>{skill}</li>
                           )
                         })}
                       </ul>
@@ -46,11 +46,11 @@ class CategoryPage extends Component {
                 <div>
                   <div className='photo'><img src='/defaultProfile.jpg' /></div>
                   <div className='user-details'>
-                    <ul>
+                    <ul className='bootstrap-tokenizer'>
                       <li>{user.firstName}</li>
                       {user.categories[0].skills.map(skill => {
                         return (
-                          <li>{skill}</li>
+                          <li className='token'>{skill}</li>
                         )
                       })}
                     </ul>

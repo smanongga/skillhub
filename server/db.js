@@ -174,14 +174,6 @@ function getSkillsToOffer (id, connection) {
   .select('skills.name')
 }
 
-// function getFeedbacks (id, connection) {
-//   return connection('profiles')
-//   .where('profiles.id', '=', id)
-//   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
-//   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-//   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
-// }
-
 function getMessages (id, connection) {
   return connection('profiles')
   .where('profiles.auth_id', '=', id)
@@ -264,7 +256,6 @@ function filterSkillsToLearn (connection, id) {
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
   .where('categories.name', id)
-  // .where('skills.category_id', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
   .then(formatProfiles)
 }
