@@ -10,7 +10,6 @@ class CategoryPage extends Component {
   }
 
   render () {
-    console.log(this.props.UsersLearn)
     return (
       <div className='container'>
         <h1>{this.props.match.params.id}</h1>

@@ -28,17 +28,16 @@ class Contact extends Component {
   }
 
   handleClick (event) {
-     const { profile_id, userId, subject, message, time, read } = this.state 
+     const { profile_id, userId, subject, message, time, read } = this.state
      const buildDate = moment().format('YYYY-MM-DD h:mm:ss')
      const messageData = {
-            profile_id: profile_id, 
-            userId: userId, 
-            subject: subject, 
-            message: message, 
-            time: buildDate, 
+            profile_id: profile_id,
+            userId: userId,
+            subject: subject,
+            message: message,
+            time: buildDate,
             read: read
     }
-    console.log(messageData)
     this.props.sendMessage(messageData)
     this.props.history.push('/messages')
   }
@@ -73,21 +72,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function mapStateToProps (state) {
-  console.log(state.senderId.senderId)
   return {
     userId: state.auth.userid.sub,
     senderId: state.senderId.senderId
   }
 }
-// const meapDispatchToProps = (dispatch) => {
-//   return {
-//     registerUser: (creds) => {
-//       return dispatch(registerUser(creds))
-//     },
-//     registerError: (message) => {
-//       dispatch(registerError(message))
-//     }
-//   }
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact)
