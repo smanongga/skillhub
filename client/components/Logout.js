@@ -2,18 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../actions/logout'
 
-const Logout = (props) => {
-  return (
-    <a href='#' onClick={props.logoutUser}>
+class Logout extends React.Component {
+  handleClick (e) {
+    this.props.logoutUser(this.props.history.push('/'))
+  }
+
+  render () {
+    return (
+      <a href='' onClick={(e) => this.handleClick(e)}>
       Logout
     </a>
-  )
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logoutUser: () => {
-      dispatch(logout())
+    logoutUser: (history) => {
+      dispatch(logout(history))
     }
   }
 }
