@@ -48,7 +48,7 @@ const Navbar = ({ isAuthenticated }) => {
             </div>
             <div id='navbar' className='navbar-collapse collapse'>
               <ul className='nav navbar-nav navbar-right'>
-                <li><Login /></li>
+                <li><Route path='/' component={Login} /></li>
               </ul>
             </div>
           </div>
