@@ -43,19 +43,19 @@ export default function messages (state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        errorMessage: ''
+        errorMessage: '',
       }
     case SEND_SUCCESS:
       return {
         isFetching: false,
-        messageData: action.response,
-        errorMessage: ''
+        errorMessage: '',
+        messages: []
       }
     case SEND_FAILURE:
       return {
         isFetching: false,
         errorMessage: action.message,
-        messageData: []
+        messages:[]
       }
     case SENT_REQUEST:
       return {
