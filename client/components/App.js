@@ -20,7 +20,7 @@ import About from './About'
 import Frontpage from './Frontpage'
 import Footer from './Footer'
 import ErrorMessage from './ErrorMessage'
-import PostFeedback from './postFeedback'
+import PostFeedback from './PostFeedback'
 
 class App extends React.Component {
   constructor (props) {
