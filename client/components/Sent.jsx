@@ -2,56 +2,36 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchSentMessages, readMessage} from '../actions/messages'
+import {fetchSentMessages} from '../actions/messages'
 
 const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Sent extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
       selectedMessageId: 0
     }
   }
 
   componentWillMount () {
-    const userId = Number(this.props.match.params.id)
-    this.props.fetchSentMessages(userId)
+    this.props.fetchSentMessages()
+    .then(() => {
+      if (this.props.messages.length > 0) {
+        this.setState({
+          selectMessageId: this.props.messages[0].id
+        })
+      }
+    })
   }
 
   openMessage (id) {
     const messages = this.props.messages
-    const index = messages.findIndex(x => x.id === id)
-    messages[index].read = 'true'
-    const readId = {id}
-    this.props.readMessage(readId)
     this.setState({
       selectedMessageId: id,
       messages
     })
   }
-
-// deleteMessage(id) {
-// // Mark the message as 'deleted'
-//   const messages = this.state.messages
-//   const index = messages.findIndex(x => x.id === id)
-//   messages[index].tag = 'deleted'
-
-//  // Select the next message in the list
-//   let selectedMessageId = ''
-//  for (const message of messages) {
-//   if (message.tag === this.state.currentSection) {
-//    selectedMessageId = message.id
-//    break
-//   }
-//  }
-
-//  this.setState({
-//   messages,
-//   selectedMessageId
-//  })
-// }
 
   render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
@@ -69,9 +49,7 @@ class Sent extends React.Component {
                 selectedMessageId={this.state.selectedMessageId} />
             </div>
             <div className='col-md-6'>
-              <MessageDetails
-                message={currentMessage}
-                onDelete={(id) => { this.deleteMessage(id) }} />
+              <MessageDetails message={currentMessage} />
             </div>
           </div>
         </div>
@@ -79,20 +57,15 @@ class Sent extends React.Component {
     )
   }
 }
-
 /* Sidebar */
 const Sidebar = () => {
-  // var unreadCount = unreadCount
-  // <span className='item-count'>{unreadCount}</span>
-
   return (
     <div id='sidebar'>
       <div className='sidebar__compose'>
-        <p className='btn compose'>My Sent Items <span className='fa fa-pencil'></span></p>
+        <p className='btn compose'>My Sent Items</p>
       </div>
       <ul className='sidebar__inboxes'>
-        <li><Link to ='/messages'><span className='fa fa-inbox'></span> Inbox</Link></li>
-        <li><a><span className='fa fa-trash-o'></span> Trash</a></li>
+        <li><Link to='/messages'>Inbox</Link></li>
       </ul>
     </div>
   )
@@ -105,7 +78,6 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
   }
   return (
     <div onClick={() => { onMessageClicked(message.id) }} className={classes}>
-      <div className='message-item__unread-dot' data-read={message.read}></div>
       <div className='message-item__subject truncate'>{message.subject}</div>
       <div className='message-item__details'>
         <span className='message-item__from truncate'>{message.firstName} {message.lastName}</span>
@@ -118,24 +90,16 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
 const MessageDetails = ({ message, onDelete }) => {
   if (!message) {
     return (
-      <div className='message-content empty'></div>
+      <div className='message-content empty' />
     )
   }
 
   const date = `${getPrettyDate(message.time)} · ${getPrettyTime(message.time)}`
 
-  const getDeleteButton = () => {
-    if (message.tag !== 'deleted') {
-      return <span onClick={() => { onDelete(message.id) }} className='delete-btn fa fa-trash-o'></span>
-    }
-    return undefined
-  }
-
   return (
     <div className='message-content'>
       <div className='message-content__header'>
         <h3 className='message-content__subject'>{message.subject}</h3>
-        {getDeleteButton()}
         <div className='message-content__time'>{date}</div>
         <div className='message-content__from'>{message.firstName} {message.lastName}</div>
       </div>
@@ -171,14 +135,6 @@ const MessageList = ({ messages, onMessageSelected, selectedMessageId }) => {
   )
 }
 
-// Render
-// $.ajax({url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/311743/dummy-emails.json',
-// type: 'GET',
-// success: function(result) {
-//   React.render(<App emails={result} />, document.getElementById('inbox'))
-//  }
-// })
-
 // Helper methods
 const getPrettyDate = (date) => {
   date = date.split(' ')[0]
@@ -202,9 +158,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
-    mapSenderId: (id) => dispatch(mapSenderId(id)),
-    readMessage: (id) => dispatch(readMessage(id))
+    fetchSentMessages: () => dispatch(fetchSentMessages())
   }
 }
 
