@@ -27,7 +27,9 @@ exports.seed = function (knex, Promise) {
         {id: 20, category_id: 10, name: 'CV Writing'},
         {id: 21, category_id: 10, name: 'Interview Training'},
         {id: 22, category_id: 11, name: 'Running Coach'},
-        {id: 23, category_id: 11, name: 'Crossfit'}
+        {id: 23, category_id: 11, name: 'Crossfit'},
+        {id: 24, category_id: 12, name: 'Short Films'},
+        {id: 25, category_id: 12, name: 'Drone Filming'}
       ])
     })
 }

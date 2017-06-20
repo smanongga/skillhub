@@ -59,6 +59,7 @@ nav.not-loggedin {
 }
 .categories {
   margin-bottom:60px;
+  text-decoration: none;
 }
 .category-thumbnail {
   background: grey;
@@ -68,6 +69,8 @@ nav.not-loggedin {
   padding:50px;
   margin-bottom: 20px;
   background-size: cover;
+  border-radius: 8px;
+  text-decoration: none;
 }
 .music {
   background-image: url('/categories/music.jpg');
