@@ -18,8 +18,9 @@ class UserProfile extends Component {
           <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
           <div className='col-md-8'>
             <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
-            {this.props.data.locationCity}<br />
-            {this.props.data.bio}</div>
+            {this.props.data.email}<br />
+            Location:{this.props.data.locationCity}<br />
+            About me: {this.props.data.bio}</div>
           <Link to='/profile/edit'><button>Edit Profile</button></Link>
         </div>
         <div className='row spacing'>

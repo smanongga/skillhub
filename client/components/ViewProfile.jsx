@@ -5,7 +5,6 @@ import {getProfileById, mapSenderId} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
 
 class ViewProfile extends Component {
-
   componentWillMount () {
     this.props.fetchProfileById(this.props.match.params.id)
   }
