@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 import {Link} from 'react-router-dom'
+
+import {getCategoryUsersLearn, getCategoryUsersOffer} from '../actions/index'
 
 class CategoryPage extends Component {
   componentDidMount () {
@@ -18,7 +19,7 @@ class CategoryPage extends Component {
               <div className='profile-thumbnail'>
                 <Link to='/login' key={i}>
                   <div>
-                    <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                    <div className='photo'><img src={user.photoUrl} /></div>
                     <div className='user-details'>
                       <ul>
                         <li>{user.firstName}</li>
@@ -38,7 +39,7 @@ class CategoryPage extends Component {
             <div className='profile-thumbnail'>
               <Link to='/login' key={i}>
                 <div>
-                  <div className='photo'><img src='/defaultProfile.jpg' /></div>
+                  <div className='photo'><img src={user.photoUrl} /></div>
                   <div className='user-details'>
                     <ul>
                       <li>{user.firstName}</li>
