@@ -2,7 +2,6 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const verifyJwt = require('express-jwt')
 
-
 const auth = require('../lib/auth.js')
 const jwt = require('jsonwebtoken')
 const db = require('../db')

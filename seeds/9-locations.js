@@ -6,7 +6,7 @@ exports.seed = function (knex, Promise) {
       return knex('locations').insert([
         {id: 1, location: 'Northland'},
         {id: 2, location: 'Auckland'},
-        {id: 3, location: 'Waikata'},
+        {id: 3, location: 'Waikato'},
         {id: 4, location: 'Bay of Plenty'},
         {id: 5, location: 'Gisborne'},
         {id: 6, location: 'Hawkes Bay'},

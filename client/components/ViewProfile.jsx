@@ -16,7 +16,6 @@ class ViewProfile extends Component {
   }
 
   render () {
-    console.log('This is props', this.props.data)
     return (
       <div className='container'>
         {this.props.waiting && <WaitingIndicator />}
