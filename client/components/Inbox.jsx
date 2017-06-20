@@ -79,14 +79,8 @@ const Sidebar = ({messages}) => {
         </p>
       </div>
       <ul className='sidebar__inboxes'>
-<<<<<<< HEAD
-        {/*<span className='item-count'>{unreadCount}</span></a></li>*/}
-        <li>
-          <Link to ='/sent'><span className='fa fa-inbox'></span>
-=======
         <li>
           <Link to='/sent'><span className='fa fa-inbox'></span>
->>>>>>> 7504861b32cbbc2353e8ac64cdecbcdbfb7471cd
             Sent
           </Link>
         </li>
