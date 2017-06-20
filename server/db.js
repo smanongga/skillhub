@@ -118,7 +118,7 @@ function getOwnProfile (id, connection) {
   ])
   .then(([result1, result2, result3]) => {
     const data = {
-      id:result1[0].id,
+      id: result1[0].id,
       firstName: result1[0].firstName,
       lastName: result1[0].lastName,
       email: result1[0].email,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { Route, withRouter, Link } from 'react-router-dom'
 
 import Logout from './Logout'
 import Login from './Login'
@@ -27,7 +27,7 @@ const Navbar = ({ isAuthenticated }) => {
                 <li><Link to='/categories'>Teach & Learn</Link></li>
                 <li><Link to='/about'>About</Link></li>
                 <li>
-                  <Logout />
+                  <Route path='/' component={Logout} />
                 </li>
               </ul>
             </div>
