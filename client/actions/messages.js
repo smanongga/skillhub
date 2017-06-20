@@ -49,7 +49,8 @@ export function receiveSentMessages (sentMessages) {
 function requestSentMessages () {
   return {
     type: SENT_REQUEST,
-    isFetching: true
+    isFetching: true,
+    messages: []
   }
 }
 
@@ -57,7 +58,7 @@ function messageSentError (sentMessages) {
   return {
     type: SENT_FAILURE,
     isFetching: false,
-    sentMessages
+    messages: []
   }
 }
 
@@ -85,11 +86,11 @@ function readError (readId) {
   }
 }
 
-function requestSendMessage (messageData) {
+function requestSendMessage () {
   return {
     type: SEND_REQUEST,
     isFetching: true,
-    messageData
+    messages: []
   }
 }
 
@@ -125,9 +126,6 @@ export function fetchSentMessages () {
       dispatch(receiveSentMessages(res.body.result))
       dispatch(notWaiting())
     })
-    .catch(err => {
-      dispatch(messageSentError(err.response.body.message))
-    })
   }
 }
 
@@ -153,8 +151,5 @@ export function sendMessage (messageData) {
         dispatch(notWaiting())
         dispatch(sendComplete(res.body.result))
       })
-    .catch(err => {
-      dispatch(messageError(err.response.body.message))
-    })
   }
 }

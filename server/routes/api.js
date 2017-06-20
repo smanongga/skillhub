@@ -130,7 +130,7 @@ router.get('/messages', (req, res) => {
   })
 })
 
-router.get('/feedback/', (req, res) => {
+router.get('/feedback', (req, res) => {
   const connection = req.app.get('db')
   db.getFeedback(Object.keys(req.query)[0], connection)
   .then((data) => {
@@ -138,19 +138,23 @@ router.get('/feedback/', (req, res) => {
   })
 })
 
-router.get('/sent/', (req, res) => {
+router.get('/sent', (req, res) => {
   const connection = req.app.get('db')
   db.getSentMessages(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
-  })
+  }).catch(err => {
+      dispatch(messageSentError(err.response.body.message))
+    })
 })
 
 router.post('/contact', (req, res) => {
   db.addMessage(req.body, conn)
   .then((result) => {
     res.send(result)
-  })
+  }).catch(err => {
+      dispatch(messageError(err.response.body.message))
+    })
 })
 
 router.post('/feedback', (req, res) => {
