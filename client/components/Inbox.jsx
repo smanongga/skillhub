@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchMessages, readMessage} from '../actions/messages'
+import {fetchMessages} from '../actions/messages'
 import {mapSenderId} from '../actions'
 
 const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -30,10 +30,7 @@ class Inbox extends React.Component {
   openMessage (id) {
     const messages = this.props.messages
     const index = messages.findIndex(x => x.id === id)
-    messages[index].read = 'true'
     const senderId = messages[index].senderId
-    const readId = {id}
-    this.props.readMessage(readId)
     this.props.mapSenderId(senderId)
     this.setState({
       selectedMessageId: id,
