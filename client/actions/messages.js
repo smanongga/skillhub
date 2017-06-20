@@ -38,6 +38,21 @@ function messageError (messages) {
   }
 }
 
+export function fetchSentMessages (userId) {
+  return function (dispatch) {
+    dispatch(waitingIndicator())
+    dispatch(requestSentMessages())
+    return request('get', `/sent`)
+    .then(res => {
+      dispatch(notWaiting())
+      dispatch(receiveMessages(res.body.result))
+    })
+    .catch(err => {
+      dispatch(messageSentError(err.response.body.message))
+    })
+  }
+}
+
 export function receiveSentMessages (sentMessages) {
   return {
     type: SENT_SUCCESS,
@@ -120,21 +135,6 @@ export function fetchMessages () {
     })
     .catch(err => {
       dispatch(messageError(err.response.body.message))
-    })
-  }
-}
-
-export function fetchSentMessages (userId) {
-  return function (dispatch) {
-    dispatch(waitingIndicator())
-    dispatch(requestSentMessages())
-    return request('get', `/sent`)
-    .then(res => {
-      dispatch(receiveMessages(res.body.result))
-      dispatch(notWaiting())
-    })
-    .catch(err => {
-      dispatch(messageSentError(err.response.body.message))
     })
   }
 }
