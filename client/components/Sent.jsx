@@ -54,7 +54,7 @@ class Sent extends React.Component {
 	// }
 
 	render() {
-		const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
+		const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId) 
 		return (
 			<div className='container'>
         <div className='row'>

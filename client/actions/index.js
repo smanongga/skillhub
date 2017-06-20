@@ -16,15 +16,14 @@ export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS'
 export const FEEDBACK_FAILURE = 'FEEDBACK_FAILURE'
 export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 
-
 export function fetchFeedback (id) {
   return function (dispatch) {
     dispatch(waitingIndicator())
     dispatch(requestFeedback(id))
     return request('get', '/feedback', id)
       .then(res => {
-        dispatch(notWaiting())
         dispatch(receiveFeedback(res.body.result))
+        dispatch(notWaiting())
       })
       .catch(err => {
         dispatch(feedbackError(err.message))
@@ -150,10 +149,10 @@ export function addProfileToDb (profile) {
     dispatch(waitingIndicator())
     return request('put', '/profile/edit', profile)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -168,10 +167,10 @@ export function addProfileSkillsOffered (skills) {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-offered', skills)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -187,9 +186,9 @@ export function addProfileSkillsWanted (skills) {
     return request('post', '/profile/skills-learn', skills)
    .then((response) => {
      if (!response.ok) {
+       dispatch(notWaiting())
        return response.body.message
      } else {
-       dispatch(notWaiting())
        return response.req
      }
    })
@@ -228,8 +227,10 @@ export const fetchCategories = () => {
 
 export function getProfileById (id, callback) {
   return dispatch => {
+    dispatch(waitingIndicator())
     request('get', `/profiles/${id}`)
    .then(res => {
+     dispatch(notWaiting())
      dispatch(saveProfileById(res.body.result))
    })
    .catch((err) => {
@@ -258,8 +259,8 @@ export function getUsersProfile (callback) {
     dispatch(waitingIndicator())
     request('get', `/profile`)
     .then((res) => {
-      dispatch(getProfileOfUser(res.body.result))
       dispatch(notWaiting())
+      dispatch(getProfileOfUser(res.body.result))
     })
     .catch((err) => {
       dispatch(error(err.message))

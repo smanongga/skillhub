@@ -58,8 +58,8 @@ export function fetchSentMessages (userId) {
     dispatch(requestSentMessages())
     return request('get', `/sent`)
     .then(res => {
-      dispatch(receiveMessages(res.body.result))
       dispatch(notWaiting())
+      dispatch(receiveMessages(res.body.result))
     })
     .catch(err => {
       dispatch(messageSentError(err.response.body.message))
