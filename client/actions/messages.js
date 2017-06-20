@@ -11,9 +11,6 @@ export const SENT_FAILURE    = 'SENT_FAILURE'
 export const SEND_REQUEST    = 'SEND_REQUEST'
 export const SEND_SUCCESS    = 'SEND_SUCCESS'
 export const SEND_FAILURE    = 'SEND_FAILURE'
-export const READ_REQUEST    = 'READ_REQUEST'
-export const READ_SUCCESS    = 'READ_SUCCESS'
-export const READ_FAILURE    = 'READ_FAILURE'
 
 export function receiveMessages (messages) {
   return {
@@ -34,7 +31,7 @@ function messageError (messages) {
   return {
     type: MESSAGE_FAILURE,
     isFetching: false,
-    messages
+    messages: []
   }
 }
 
@@ -49,55 +46,32 @@ export function receiveSentMessages (sentMessages) {
 function requestSentMessages () {
   return {
     type: SENT_REQUEST,
-    isFetching: true
+    isFetching: true,
+    messages: []
   }
 }
 
-function messageSentError (sentMessages) {
+function messageSentError () {
   return {
     type: SENT_FAILURE,
     isFetching: false,
-    sentMessages
+    messages: []
   }
 }
 
-function requestReadMessage (readId) {
-  return {
-    type: READ_REQUEST,
-    isFetching: true,
-    readId
-  }
-}
-
-export function readComplete (readId) {
-  return {
-    type: READ_SUCCESS,
-    isFetching: false,
-    response: readId
-  }
-}
-
-function readError (readId) {
-  return {
-    type: READ_FAILURE,
-    isFetching: false,
-    readId
-  }
-}
-
-function requestSendMessage (messageData) {
+function requestSendMessage () {
   return {
     type: SEND_REQUEST,
     isFetching: true,
-    messageData
+    messages: []
   }
 }
 
-export function sendComplete (messageData) {
+export function sendComplete () {
   return {
     type: SEND_SUCCESS,
     isFetching: false,
-    response: messageData
+    messages: []
   }
 }
 
@@ -125,9 +99,6 @@ export function fetchSentMessages () {
       dispatch(receiveSentMessages(res.body.result))
       dispatch(notWaiting())
     })
-    .catch(err => {
-      dispatch(messageSentError(err.response.body.message))
-    })
   }
 }
 
@@ -153,8 +124,5 @@ export function sendMessage (messageData) {
         dispatch(notWaiting())
         dispatch(sendComplete(res.body.result))
       })
-    .catch(err => {
-      dispatch(messageError(err.response.body.message))
-    })
   }
 }

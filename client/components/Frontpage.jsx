@@ -17,18 +17,22 @@ class Frontpage extends React.Component {
           </div>
         </div>
         <div className='you-can-learn'>
-          <div className='container'> <h2>About skillHub</h2>
-            <div className='row'>
-              <div className='col-md-6'><div className='row-item'>
-                  <p className='chunk'>skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise</p>
-                  <p className='chunk'>Sign up and search for like minded people in your area to teach or to learn from </p>
-              </div>
-              </div>
-              <div className='col-md-6'><div className='row'>
-                <div className='row-item row-item--shrink text--red'>
-                <span className='svg svg--plus '></span>
+          <div className='container front-about'><h2>About skillHub</h2>
+            <div className='row about-text'>
+              <p className='about'>skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise</p>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <div className='row'>
+                <i className="fa fa-address-card-o fa-5x"></i>
+                <p className='about'>Sign up and let us know what skills you would like to learn and teach</p>
                 </div>
               </div>
+              <div className="col-md-6">
+                <div className='row'>
+                  <i className="fa fa-users fa-5x"></i>
+                  <p className='about'>Connect with others in your area with similar interests</p>
+                </div>
               </div>
             </div>
           </div>

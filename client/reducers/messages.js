@@ -14,6 +14,8 @@ import {
 } from '../actions/messages'
 
 const initialState = {
+  isFetching: false,
+  errorMessage: '',
   messages: []
 }
 
@@ -28,8 +30,8 @@ export default function messages (state = initialState, action) {
     case MESSAGE_SUCCESS:
       return {
         isFetching: false,
+        errorMessage: '',
         messages: action.response,
-        errorMessage: ''
       }
     case MESSAGE_FAILURE:
       return {
@@ -41,25 +43,25 @@ export default function messages (state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        errorMessage: ''
+        errorMessage: '',
       }
     case SEND_SUCCESS:
       return {
         isFetching: false,
-        messageData: action.response,
-        errorMessage: ''
+        errorMessage: '',
+        messages: []
       }
     case SEND_FAILURE:
       return {
         isFetching: false,
         errorMessage: action.message,
-        messageData: []
+        messages:[]
       }
     case SENT_REQUEST:
       return {
         isFetching: true,
         errorMessage: '',
-        sentMessages: []
+        messages: []
       }
     case SENT_SUCCESS:
       return {
@@ -71,25 +73,7 @@ export default function messages (state = initialState, action) {
       return {
         isFetching: false,
         errorMessage: action.message,
-        sentMessages: []
-      }
-    case READ_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-        errorMessage: ''
-      }
-    case READ_SUCCESS:
-      return {
-        isFetching: false,
-        readId: action.response,
-        errorMessage: ''
-      }
-    case READ_FAILURE:
-      return {
-        isFetching: false,
-        errorMessage: action.message,
-        readId: []
+        messagesMessages: []
       }
 
     default:
