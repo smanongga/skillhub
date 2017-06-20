@@ -32,6 +32,7 @@ class CategoriesList extends React.Component {
     )
   }
 }
+
 function mapDispatchToProps (dispatch) {
   return {
     fetchCategories: () => {

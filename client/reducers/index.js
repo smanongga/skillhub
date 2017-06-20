@@ -8,22 +8,22 @@ import location from './locations'
 import skills from './skills'
 import senderId from './senderId'
 import categories from './categories'
-import waiting from './waiting'
 import categoryUsersLearn from './categoryUsersLearn'
 import categoryUsersOffer from './categoryUsersOffer'
+import waiting from './waiting'
 import feedback from './feedback'
 
 const reducers = combineReducers({
   auth,
+  messages,
   profile,
   viewProfile,
+  location,
+  skills,
+  senderId,
   categories,
   categoryUsersLearn,
   categoryUsersOffer,
-  messages,
-  location,
-  senderId,
-  skills,
   waiting,
   feedback
 })
