@@ -105,29 +105,6 @@ export const notWaiting = () => {
   }
 }
 
-function requestFeedback () {
-  return {
-    type: FEEDBACK_REQUEST,
-    isFetching: true
-  }
-}
-
-export function receiveFeedback (feedback) {
-  return {
-    type: FEEDBACK_SUCCESS,
-    isFetching: false,
-    response: feedback
-  }
-}
-
-function feedbackError (feedback) {
-  return {
-    type: FEEDBACK_FAILURE,
-    isFetching: false,
-    feedback
-  }
-}
-
 export function error (message) {
   return {
     type: ERROR_MESSAGE,
@@ -305,20 +282,5 @@ export function getSkills () {
 export function mapSenderId (senderId) {
   return dispatch => {
     dispatch(pushedSenderId(senderId))
-  }
-}
-
-export function fetchFeedback (id) {
-  return function (dispatch) {
-    dispatch(waitingIndicator())
-    dispatch(requestFeedback(id))
-    return request('get', '/feedback', id)
-      .then(res => {
-        dispatch(notWaiting())
-        dispatch(receiveFeedback(res.body.result))
-      })
-      .catch(err => {
-        dispatch(feedbackError(err.message))
-      })
   }
 }
