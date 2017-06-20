@@ -2,30 +2,31 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {fetchSentMessages, readMessage} from '../actions/messages'
+import {fetchSentMessages} from '../actions/messages'
 
 const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Sent extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
       selectedMessageId: 0
     }
   }
 
   componentWillMount () {
-    const userId = Number(this.props.match.params.id)
-    this.props.fetchSentMessages(userId)
+    this.props.fetchSentMessages()
+    .then(() => {
+      if (this.props.messages.length > 0) {
+        this.setState({
+          selectMessageId: this.props.messages[0].id
+        })
+      }
+    })
   }
 
   openMessage (id) {
     const messages = this.props.messages
-    const index = messages.findIndex(x => x.id === id)
-    messages[index].read = 'true'
-    const readId = {id}
-    this.props.readMessage(readId)
     this.setState({
       selectedMessageId: id,
       messages
@@ -48,9 +49,7 @@ class Sent extends React.Component {
                 selectedMessageId={this.state.selectedMessageId} />
             </div>
             <div className='col-md-6'>
-              <MessageDetails
-                message={currentMessage}
-                onDelete={(id) => { this.deleteMessage(id) }} />
+              <MessageDetails message={currentMessage} />
             </div>
           </div>
         </div>
@@ -58,12 +57,8 @@ class Sent extends React.Component {
     )
   }
 }
-
 /* Sidebar */
 const Sidebar = () => {
-  // var unreadCount = unreadCount
-  // <span className='item-count'>{unreadCount}</span>
-
   return (
     <div id='sidebar'>
       <div className='sidebar__compose'>
@@ -71,7 +66,6 @@ const Sidebar = () => {
       </div>
       <ul className='sidebar__inboxes'>
         <li><Link to='/messages'>Inbox</Link></li>
-        <li><a><span className='fa fa-trash-o'></span> Trash</a></li>
       </ul>
     </div>
   )
@@ -96,7 +90,7 @@ const MessageListItem = ({ message, onMessageClicked, selected }) => {
 const MessageDetails = ({ message, onDelete }) => {
   if (!message) {
     return (
-      <div className='message-content empty'></div>
+      <div className='message-content empty' />
     )
   }
 
@@ -164,8 +158,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchSentMessages: (userId) => dispatch(fetchSentMessages(userId)),
-    readMessage: (id) => dispatch(readMessage(id))
+    fetchSentMessages: () => dispatch(fetchSentMessages())
   }
 }
 

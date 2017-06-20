@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom'
-// import {BrowserHistory} from 'react-router'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserHistory} from 'react-router'
 
 import {login, requestLogin} from '../actions/loginauth0'
 
@@ -34,7 +34,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router>
+      <Router history={BrowserHistory}>
         <div className='app'>
           <Navbar />
           <ErrorMessage />
@@ -85,4 +85,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default connect(mapStateToProps, mapDispatchToProps)(App)
