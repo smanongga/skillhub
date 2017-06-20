@@ -37,7 +37,7 @@ class CategoryPage extends Component {
         <form>
           {this.props.location &&
             <p><select name='location' className='form-control' onChange={this.handleChange}>
-              {this.props.location.map((data) => {
+              {this.props.location.map((data, i) => {
                 return (
                   <option value={data.location}> {data.location}</option>
                 )

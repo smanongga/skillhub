@@ -117,7 +117,7 @@ class EditProfile extends React.Component {
                   <div className='row'>
                     <div className='col-md-3'><p>Bio</p></div>
                     <div className='col-md-9'>
-                      <p><textarea name='bio' className='form-control' onChange={this.handleChange} value={this.state.bio} required ></textarea></p>
+                      <p><textarea name='bio' className='form-control' onChange={this.handleChange} placeholder='Tell us more about yourself' value={this.state.bio} required ></textarea></p>
                     </div>
                   </div>
                   <div className='row'>

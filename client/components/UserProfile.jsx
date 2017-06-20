@@ -17,7 +17,7 @@ class UserProfile extends Component {
         <div className='row spacing'>
           <div className='col-md-4'>
             <div className='profile-photo'>
-              <img className='profile-photo' src={this.props.data.photoUrl} />
+              <img className='profile-photo' src={this.props.data.photoUrl || '/default_profile.jpg'} />
             </div>
           </div>
           <div className='col-md-8'>

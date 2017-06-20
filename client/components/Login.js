@@ -10,7 +10,7 @@ class Login extends React.Component {
   }
 
   componentDidMount () {
-    this.props.loginCreds((err, firstTimeLogin) => {
+    this.props.loginCreds((err, firstTimeLogin, history) => {
       if (err) {
         return err
       }
