@@ -1,4 +1,5 @@
 import React from 'react'
+// Don't need these
 import {Link} from 'react-router-dom'
 import Login from './Login'
 import CategoriesList from './CategoriesList'

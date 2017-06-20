@@ -1,5 +1,5 @@
 import React from 'react'
-
+// change class to className
 class About extends React.Component {
   render () {
     return (

@@ -1,16 +1,27 @@
  import request from '../utils/api'
- import AuthService from '../utils/auth0'
+ import AuthService, { authService } from '../utils/auth0'
 
  export const LOGIN_REQUEST = 'LOGIN_REQUEST'
  export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
  export const LOGIN_ERROR = 'LOGIN_ERROR'
  export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
- const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
-  'meal-mate.au.auth0.com')
+// INDENTATION OF WHOLE FILE
+// put keys as environment variables
+// see: https://webpack.js.org/plugins/environment-plugin/
 
- export function requestLogin (cb) {
-   authService.login(cb)
+
+// remove cb not needed
+// this should be converted into a thunk
+// export function sendLoginRequest() {
+//   return (dispatch) => {
+//     authService.login()
+//     dispatch(requestLogin())
+//   }
+// }
+
+ export function requestLogin () {
+   authService.login()
    return {
      type: LOGIN_REQUEST,
      isAuthenticated: false

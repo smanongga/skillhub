@@ -1,3 +1,4 @@
+// App.js should be App.jsx
 import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom'

@@ -22,20 +22,11 @@ export function getProfileOfUser (data) {
   }
 }
 
+// can be refactored
 export function updateProfile (text) {
   return {
     type: UPDATE_PROFILE,
-    updatedProfile: {
-      userName: '',
-      firstName: text.firstName,
-      lastName: text.lastName,
-      email: text.email,
-      photoUrl: text.profilePic,
-      locationCity: text.locationCity,
-      bio: text.bio,
-      skillsOffered: text.skillsOffered,
-      skillsWanted: text.skillsWanted
-    }
+    updatedProfile: text
   }
 }
 
@@ -105,29 +96,6 @@ export const notWaiting = () => {
   }
 }
 
-function requestFeedback () {
-  return {
-    type: FEEDBACK_REQUEST,
-    isFetching: true
-  }
-}
-
-export function receiveFeedback (feedback) {
-  return {
-    type: FEEDBACK_SUCCESS,
-    isFetching: false,
-    response: feedback
-  }
-}
-
-function feedbackError (feedback) {
-  return {
-    type: FEEDBACK_FAILURE,
-    isFetching: false,
-    feedback
-  }
-}
-
 export function error (message) {
   return {
     type: ERROR_MESSAGE,
@@ -135,21 +103,23 @@ export function error (message) {
   }
 }
 
+// move noWaiting indicator out of if statement
+// indentation
 export function addProfileToDb (profile) {
   return dispatch => {
     dispatch(waitingIndicator())
     return request('put', '/profile/edit', profile)
-   .then((response) => {
-     if (!response.ok) {
-       return response.body.message
-     } else {
-       dispatch(notWaiting())
-       return response.req
-     }
-   })
-   .catch((err) => {
-     return dispatch(error(err.message))
-   })
+      .then((response) => {
+        dispatch(notWaiting())
+        if (!response.ok) {
+          return response.body.message
+        } else {
+          return response.req
+        }
+      })
+      .catch((err) => {
+        return dispatch(error(err.message))
+      })
   }
 }
 
@@ -306,6 +276,7 @@ export function mapSenderId (senderId) {
   }
 }
 
+// dead functions.... remove
 export function fetchFeedback (id) {
   return function (dispatch) {
     dispatch(waitingIndicator())

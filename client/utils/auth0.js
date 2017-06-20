@@ -72,3 +72,8 @@ export default class AuthService {
     return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)))
   }
 }
+
+// this might be better as opposed to importing this separately -- keep environment variables in one place
+export const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
+  'meal-mate.au.auth0.com')
+

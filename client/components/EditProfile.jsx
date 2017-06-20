@@ -65,13 +65,27 @@ class EditProfile extends React.Component {
     })
   }
 
+  //above two can be refactored
+  handleInputChange (field) {
+    this.setState(field)
+  }
+
   handleClick (e) {
     e.preventDefault()
-    this.props.history.push('/profile')
-    this.props.updateProfileInStore(this.state)
-    this.props.addProfileToDb(this.state)
-    this.props.updateSkillsOffered(this.state.skillsOffered)
-    this.props.updateSkillsWanted(this.state.skillsWanted)
+    // you probably want to wait for the async actions before pushing.. incase the user needs to try again
+
+    Promise.all([
+      this.props.updateProfileInStore(this.state),
+      this.props.addProfileToDb(this.state),
+      this.props.updateSkillsOffered(this.state.skillsOffered),
+      this.props.updateSkillsWanted(this.state.skillsWanted)
+    ])
+    .then(() => {
+      this.props.history.push('/profile')
+    })
+    .catch((err) => {
+      //dispatch error
+    })
   }
 
   handleImageDrop (files) {
@@ -139,7 +153,7 @@ class EditProfile extends React.Component {
                         labelKey='name'
                         multiple
                         maxHeight={100}
-                        onChange={this.handleOfferedInput}
+                        onChange={(value) => this.handleInputChange({ skillsOffered: value })}
                         options={this.props.skills.map((data) => {
                           return data
                         })}
@@ -154,7 +168,7 @@ class EditProfile extends React.Component {
                         labelKey='name'
                         maxHeight={100}
                         multiple
-                        onChange={this.handleWantedInput}
+                        onChange={(value) => this.handleInputChange({ skillsWanted: value })}
                         options={this.props.skills.map((data) => {
                           return data
                         })}
@@ -221,7 +235,8 @@ function mapStateToProps (state) {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     profile: state.profile,
-    location: state.location[0],
+    // maybe this reducer needs fixing as you're doing an array lookup.. maybe you don't need an array
+    location: state.location,
     skills: state.skills
   }
 }

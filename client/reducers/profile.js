@@ -11,9 +11,15 @@ const profile = (state = initialState, action) => {
         ...action.updatedProfile
       }
     case USERS_PROFILE:
-      return action.data
+      return {
+        ...state,
+        ...action.data
+      }
     case UPDATE_SKILLS:
-      return action.data
+      return {
+        ...state,
+        ...action.data
+      }
     default:
       return state
   }

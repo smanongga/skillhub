@@ -1,6 +1,7 @@
 import React from 'react'
 
 class Footer extends React.Component {
+  // anchor tags need to change to Links
   render () {
     return (
       <footer>
