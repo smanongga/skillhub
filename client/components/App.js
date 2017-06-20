@@ -19,6 +19,7 @@ import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
 import Footer from './Footer'
+import Login from './Login'
 import ErrorMessage from './ErrorMessage'
 import PostFeedback from './PostFeedback'
 
