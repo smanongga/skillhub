@@ -1,6 +1,23 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
+
+.dev-profile {
+  border-radius: 30px;
+  height: 140px;
+  width: 140px;
+}
+
 .frontpage {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
+}
+.error p {
+  margin-bottom:0px;
 }
 .jumbotron {
   background:none;
@@ -23,12 +40,10 @@ h2.slogan .first {
 h2.slogan .second {
   color:#FF7F00;
 }
-
 nav.not-loggedin {
-  background:none;
   border:none;
   box-shadow: none;
-  padding-top:40px;
+  margin-bottom:1px;
 }
 .frontpage nav.not-loggedin .navbar-nav>li>div>a {
   color:#fff;
@@ -48,30 +63,80 @@ nav.not-loggedin {
   color:#000;
   font-size:30px;
   padding:30px;
-  text-align:center;
+}
+.category-title {
+  text-align: center;
+}
+.categories {
+  margin-bottom:60px;
+  text-decoration: none;
 }
 .category-thumbnail {
   background: grey;
   text-align: center;
   font-size: 30px;
-  color: black;
+  color: white;
   padding:50px;
+  margin-bottom: 20px;
+  background-size: cover;
+  border-radius: 8px;
+  text-decoration: none;
 }
-
+.music {
+  background-image: url('/categories/music.jpg');
+}
+.tech {
+  background-image: url('/categories/tech.jpg');
+}
+.arts {
+  background-image: url('/categories/art.jpg');
+}
+.craft {
+  background-image: url('/categories/craft.jpg');
+}
+.business {
+  background-image: url('/categories/business.jpg');
+}
+.culinary {
+  background-image: url('/categories/culinary.jpg');
+}
+.science {
+  background-image: url('/categories/science.jpg');
+}
+.writing {
+  background-image: url('/categories/writing.jpg');
+}
+.sports {
+  background-image: url('/categories/sport.jpg');
+}
+.career {
+  background-image: url('/categories/career.jpg');
+}
+.language {
+  background-image: url('/categories/language.jpg');
+}
+.film {
+  background-image: url('/categories/film.jpg');
+}
 .clear-box {
   clear: both;
 }
-
 .flex-container{
   display: flex;
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
 }
+.photo-size img {
+  width: 100%;
+}
 .profile-photo {
   background-color:grey;
   width:100%;
   text-align:center;
+}
+.user-profile-photo {
+  width:30%
 }
 .profile-thumbnail {
   width: 23%;
@@ -82,7 +147,6 @@ nav.not-loggedin {
 .profile-thumbnail .photo img{
   width: 100%;
 }
-
 .profile-thumbnail .user-details{
   color: white;
 }
@@ -100,9 +164,22 @@ ul.tags li {
   padding:5px;
   border-radius: 10px 10px 10px 10px;
 }
-
 .sign-up {
   width: 100px;
  margin: auto;
  margin-top: 20px;
+ float: none;
+}
+footer {
+ background:#333;
+ width: 100%;
+ height: 60px;
+ padding-bottom:200px;
+}
+
+.waiting-indicator {
+  width:5%;
+  height:5%;
+  margin-left:45%;
+  z-index:3;
 }

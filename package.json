@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-local-jwt-auth",
+  "name": "skill-hub",
   "version": "0.1.1",
   "description": "A peer to peer skill trading app",
   "main": "server/index.js",
@@ -47,6 +47,7 @@
     "passport-local": "^1.0.0",
     "pg": "^6.2.4",
     "react": "^15.3.0",
+    "react-bootstrap-typeahead": "^1.4.0",
     "react-dom": "^15.3.0",
     "react-dropzone": "^3.13.2",
     "react-redux": "^4.4.5",

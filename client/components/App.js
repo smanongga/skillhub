@@ -12,11 +12,16 @@ import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
+import CategoryPageTest from './CategoryPageTest'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
-import Home from './Home'
+import WaitingIndicator from './WaitingIndicator'
 import About from './About'
 import Frontpage from './Frontpage'
+import Footer from './Footer'
+import Login from './Login'
+import ErrorMessage from './ErrorMessage'
+import PostFeedback from './PostFeedback'
 
 class App extends React.Component {
   constructor (props) {
@@ -32,22 +37,31 @@ class App extends React.Component {
     return (
       <Router history={BrowserHistory}>
         <div className='app'>
-          {!this.props.isAuthenticated && <Route path='/' component={Frontpage} />}
           <Navbar />
+          <ErrorMessage />
+          {this.props.waiting && <WaitingIndicator />}
+          {!this.props.isAuthenticated &&
+            <Switch>
+              <Route exact path='/' component={Frontpage} />
+              <Route path='/skills/:id' component={CategoryPageTest} />
+            </Switch>
+            }
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={CategoriesList} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
+            <Route path='/postfeedback' component={PostFeedback} />
             <Route path='/about' component={About} />
           </Switch>
         }
+          <Footer />
         </div>
       </Router>
     )
@@ -67,7 +81,8 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    waiting: state.waiting
   }
 }
 

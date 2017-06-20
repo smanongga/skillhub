@@ -1,11 +1,22 @@
-import {getProfileById, mapSenderId} from '../actions/index'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-class ViewProfile extends Component {
+import {getProfileById, mapSenderId} from '../actions/index'
+import WaitingIndicator from './WaitingIndicator'
 
+import Feedback from './Feedback'
+
+class ViewProfile extends Component {
   componentWillMount () {
     this.props.fetchProfileById(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const oldId = this.props.match.params.id
+    const newId = nextProps.match.params.id
+    if (newId !== oldId) {
+      this.props.fetchProfileById(newId)
+    }
   }
 
   handleContactClick (event) {
@@ -15,21 +26,22 @@ class ViewProfile extends Component {
   }
 
   render () {
-    console.log('This is props', this.props.data)
     return (
       <div className='container'>
+        {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
-          <div className='col-md-4'><div className='profile-photo'><img src={this.props.data.photoUrl} /></div></div>
+          <div className='col-md-4'>
+            <div className='profile-photo'><img src={this.props.data.photoUrl} />
+            </div>
+
+          </div>
           <div className='col-md-8'>
-            <h2>{this.props.data.firstName} {this.props.data.lastName}</h2>
-            <button onClick={(e) => this.handleContactClick(e)}>
-              Contact me
-            </button>
+            <h2>{this.props.data.firstName} {this.props.data.lastName} <button className='btn btn-primary btn-sm' onClick={(e) => this.handleContactClick(e)}>Contact me</button></h2>
             {this.props.data.locationCity}<br />
             {this.props.data.bio}</div>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
+          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
             <ul className='tags'>
               {this.props.data.learn.map((skill, i) => {
                 return (
@@ -40,7 +52,7 @@ class ViewProfile extends Component {
           </div>
         </div>
         <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
+          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
             <ul className='tags'>
               {this.props.data.teach.map((skill, i) => {
                 return (
@@ -50,6 +62,10 @@ class ViewProfile extends Component {
             </ul>
           </div>
         </div>
+        <div className='row spacing'>
+          <div className='col-md-12 white-box'><h2>Feedback</h2></div>
+          <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
+        </div>
       </div>
     )
   }
@@ -57,7 +73,8 @@ class ViewProfile extends Component {
 
 function mapStateToProps (state) {
   return {
-    data: state.viewProfile
+    data: state.viewProfile,
+    waiting: state.waiting
 
   }
 }

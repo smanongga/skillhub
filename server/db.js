@@ -1,10 +1,11 @@
 
 module.exports = {
-  getCategories,
   addUserToProfile,
   profileExists,
-  getProfileById,
   updateProfile,
+  getCategories,
+  getOtherProfileById,
+  getOwnProfile,
   getCategoriesAndSkills,
   getUsersProfile,
   getMessages,
@@ -13,7 +14,12 @@ module.exports = {
   readMessage,
   getLocations,
   filterSkillsToOffer,
-  filterSkillsToLearn
+  filterSkillsToLearn,
+  getSkills,
+  insertSkillsToOffer,
+  insertSkillsToLearn,
+  getFeedback,
+  addFeedback
 }
 
 const _ = require('lodash')
@@ -25,6 +31,9 @@ function addUserToProfile (conn, id, username, email) {
     auth_id: id,
     user_name: username,
     email: email
+  })
+  .catch((err) => {
+    console.log(err)
   })
 }
 
@@ -44,9 +53,54 @@ function updateProfile (conn, profile, id) {
     photo_url: profile.profilePic,
     location_city: profile.locationCity
   })
+  .catch((err) => {
+    console.log(err)
+  })
 }
 
-function getProfileById (id, connection) {
+function insertSkillsToOffer (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result.id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_offer')
+      .insert(skillsWithProfileId)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+function insertSkillsToLearn (conn, skills, authId) {
+  return getProfileIdByAuthId(conn, authId)
+  .then((result) => {
+    const profileId = result[0].id
+    const skillsWithProfileId = skills.map((skill) => {
+      return {
+        profile_id: profileId,
+        skills_id: skill.id
+      }
+    })
+    return conn('skills_to_learn')
+      .insert(skillsWithProfileId)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+function getProfileIdByAuthId (conn, authId) {
+  return conn('profiles')
+  .where('auth_id', authId)
+  .select('id')
+}
+
+function getOtherProfileById (id, connection) {
   return Promise.all([
     getProfile(id, connection),
     getSkillsToOffer(id, connection),
@@ -69,12 +123,50 @@ function getProfileById (id, connection) {
   })
 }
 
+function getOwnProfile (id, connection) {
+  return Promise.all([
+    getUsersProfile(id, connection),
+    getSkillsToLearnByAuthId(id, connection),
+    getSkillsToOfferByAuthId(id, connection)
+  ])
+  .then(([result1, result2, result3]) => {
+    const data = {
+      id: result1[0].id,
+      firstName: result1[0].firstName,
+      lastName: result1[0].lastName,
+      email: result1[0].email,
+      bio: result1[0].bio,
+      locationCity: result1[0].locationCity,
+      photoUrl: result1[0].photoUrl,
+      teach: result2,
+      learn: result3
+    }
+    return data
+  })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 function getUsersProfile (id, connection) {
   return connection('profiles')
   .select('id', 'user_id as userId', 'user_name as userName', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email')
   .where('auth_id', id)
 }
-
+function getSkillsToLearnByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
+function getSkillsToOfferByAuthId (id, connection) {
+  return connection('profiles')
+  .where('auth_id', id)
+  .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
+  .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
+  .select('skills.name')
+}
 function getProfile (id, connection) {
   return connection('profiles')
   .where('profiles.id', '=', id)
@@ -97,20 +189,20 @@ function getSkillsToOffer (id, connection) {
   .select('skills.name')
 }
 
-// function getFeedbacks (id, connection) {
-//   return connection('profiles')
-//   .where('profiles.id', '=', id)
-//   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
-//   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-//   .select('commenter.first_name as firstName', 'feedbacks.message', 'commenter.photo_url as photoUrl')
-// }
-
 function getMessages (id, connection) {
   return connection('profiles')
   .where('profiles.auth_id', '=', id)
   .join('messages', 'messages.profile_id', '=', 'profiles.id')
   .join('profiles as sender', 'messages.sender_id', '=', 'sender.id')
   .select('sender.first_name as firstName', 'sender.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id', 'messages.read', 'sender.id as senderId', 'messages.profile_id as receiverId')
+}
+
+function getFeedback (id, connection) {
+  return connection('profiles')
+  .where('profiles.id', '=', id)
+  .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
+  .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
+  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId', 'feedbacks.time')
 }
 
 function getSentMessages (id, connection) {
@@ -136,6 +228,24 @@ function addMessage (messageData, conn) {
         read: messageData.read
       })
     })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+function addFeedback (feedbackData, conn) {
+  return conn('profiles')
+    .where('profiles.auth_id', '=', feedbackData.userId)
+    .select('profiles.id as userId')
+    .then(result => {
+      return conn('feedbacks')
+      .insert({
+        commenter_id: result[0].userId,
+        profile_id: feedbackData.profile_id,
+        message: feedbackData.message,
+        time: feedbackData.time
+      })
+    })
 }
 
 function readMessage (conn, readId) {
@@ -144,10 +254,18 @@ function readMessage (conn, readId) {
   .update({
     read: 'true'
   })
+  .catch((err) => {
+    console.log(err)
+  })
 }
 
 function getCategories (connection) {
   return connection('categories')
+  .select()
+}
+
+function getSkills (connection) {
+  return connection('skills')
   .select()
 }
 
@@ -163,7 +281,7 @@ function filterSkillsToOffer (conn, id) {
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
-  .where('skills.category_id', id)
+  .where('categories.name', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
   .then(formatProfiles)
 }
@@ -173,7 +291,7 @@ function filterSkillsToLearn (connection, id) {
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
-  .where('skills.category_id', id)
+  .where('categories.name', id)
   .select('profiles.id', 'user_id as userId', 'first_name as firstName', 'last_name as lastName', 'bio', 'photo_url as photoUrl', 'location_city as locationCity', 'email', 'skills.name as skills_name', 'categories.name as cat_name', 'skills.category_id as skills_cat_id', 'categories.id as cat_id')
   .then(formatProfiles)
 }

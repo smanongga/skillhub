@@ -3,10 +3,9 @@ exports.up = knex => knex.schema.createTable('messages', table => {
   table.integer('profile_id').unsigned()
   table.foreign('profile_id').references('profiles.id')
   table.integer('sender_id').unsigned()
-  table.foreign('sender_id').references('profiles.id')
-  table.text('message', 'mediumtext')
+  table.text('message')
   table.string('subject')
-  table.dateTime('time')
+  table.text('time')
   table.boolean('read')
 })
 

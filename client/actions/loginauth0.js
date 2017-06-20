@@ -9,8 +9,8 @@
  const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
   'meal-mate.au.auth0.com')
 
- export function requestLogin (cb) {
-   authService.login(cb)
+ export function requestLogin (history) {
+   authService.login()
    return {
      type: LOGIN_REQUEST,
      isAuthenticated: false
