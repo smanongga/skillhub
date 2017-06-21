@@ -200,14 +200,3 @@ body {
 .message-content .delete-btn:hover {
   color: #E23E57;
 }
-
-.footer {
-  background: #f5f5f5;
-  border-top: 1px solid #ddd;
-  color: #999;
-  clear: both;
-  font-size: 14px;
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-}

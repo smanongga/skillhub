@@ -1,10 +1,10 @@
 html {
   position: relative;
   min-height: 100%;
-
+  background-color: #333;
 }
+
 body {
-  margin-bottom: 60px;
   font-family:'proxima-nova',sans-serif;
   font-size:16px;
 }
@@ -206,12 +206,8 @@ ul.tags li {
  margin-top: 20px;
  float: none;
 }
-footer {
- background:#333;
- width: 100%;
- height: 60px;
- padding-bottom:200px;
-}
+
+
 
 .waiting-indicator {
   width:5%;
@@ -288,8 +284,20 @@ footer {
   margin:10px;
 }
 
-.footer {
+.about {
   text-align: center;
-  background-color: #333333;
-  color: white;
+}
+
+.about-title {
+  color: black;
+
+
+footer div.footer {
+ background:#333;
+ width: 100%;
+ height: 100px;
+ /*padding-bottom:100px;*/
+ color: white;
+ text-align: center;
+ padding-top: 10px;
 }
