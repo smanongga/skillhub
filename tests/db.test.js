@@ -1,25 +1,25 @@
-const test = require('ava')
-const knex = require('knex')
+// const test = require('ava')
+// // const knex = require('knex')
 
-const config = require('../knexfile').test
-// const users = require('../server/lib/users')
+// // const config = require('../knexfile').test
+// // // const users = require('../server/lib/users')
 
-const dbFunc = require('../server/db.js') // I wrote this line
+// // const dbFunc = require('../server/db.js') // I wrote this line
 
-test.beforeEach(t => {
-  t.context.db = knex(config)
-  return t.context.db
-    .migrate.latest()
-    .then(() => t.context.db.seed.run())
-})
+// // // test.beforeEach(t => {
+// // //   t.context.db = knex(config)
+// // //   return t.context.db
+// // //     .migrate.latest()
+// // //     .then(() => t.context.db.seed.run())
+// // // })
 
-test.afterEach(t => t.context.db.destroy())
+// // // test.afterEach(t => t.context.db.destroy())
 
-test('getProfileById obtains correct profile', t => {
-  return dbFunc
-    .getProfileById(2, t.context.db)
-    .then((result) => t.is(result.profile[0].firstName, 'capy'))
-})
+// // test('getProfileById obtains correct profile', t => {
+// //   return dbFunc
+// //     .getProfileById('auth0|59499018ebde7e497236635f', t.context.db)
+//     .then((result) => t.is(result.profile[0].firstName, 'capy'))
+// })
 
 // test('Get skill to learn "Guitar" from Arrdvark', t => {
 //   return dbFunc
