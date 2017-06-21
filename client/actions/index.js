@@ -20,7 +20,6 @@ export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 export function getProfileOfUser (data) {
   return {
     type: USERS_PROFILE,
-    isFetching: false,
     data
   }
 }
