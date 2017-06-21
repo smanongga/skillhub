@@ -1,6 +1,7 @@
 import React from 'react'
 import SignUp from './SignUp'
 import CategoriesList from './CategoriesList'
+import {Route} from 'react-router'
 
 class Frontpage extends React.Component {
   render () {
@@ -10,7 +11,7 @@ class Frontpage extends React.Component {
           <div className='jumbotron'>
             <div className='container'>
               <h2 className='slogan'><span className='first'>Teach</span>. Learn. <span className='second'>Connect</span>.<br />
-                <SignUp />
+                <Route path='/' component={SignUp} />
               </h2>
             </div>
           </div>

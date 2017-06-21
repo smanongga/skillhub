@@ -23,6 +23,7 @@ body {
  margin: 10px;
  padding: 10px;
  border-radius: 5px;
+ text-align: center;
 }
 .social-media-links a {
   margin-right: 5px;
@@ -91,6 +92,17 @@ nav.not-loggedin {
   background: grey;
   text-align: center;
   font-size: 30px;
+  color: white;
+  padding:50px;
+  margin-bottom: 20px;
+  background-size: cover;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.category-thumbnail:hover {
+  background: grey;
+  text-align: center;
+  font-size: 40px;
   color: white;
   padding:50px;
   margin-bottom: 20px;
@@ -259,4 +271,7 @@ footer {
 .user-profile .skills li.Arts {
   background:#FD7B00;
   color:#fff;
+}
+.post-feedback {
+  margin-bottom:20px;
 }

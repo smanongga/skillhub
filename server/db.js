@@ -106,6 +106,7 @@ function getOtherProfileById (id, connection) {
   ])
 .then(([result1, result2, result3]) => {
   const data = {
+    id: result1[0].id,
     firstName: result1[0].firstName,
     lastName: result1[0].lastName,
     bio: result1[0].bio,
@@ -133,8 +134,8 @@ function getOwnProfile (id, connection) {
       bio: result1[0].bio,
       locationCity: result1[0].locationCity,
       photoUrl: result1[0].photoUrl,
-      teach: result2,
-      learn: result3
+      teach: result3,
+      learn: result2
     }
     return data
   })

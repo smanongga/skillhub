@@ -12,7 +12,7 @@ import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 import CategoriesList from './CategoriesList'
 import CategoryPage from './CategoryPage'
-import CategoryPageTest from './CategoryPageTest'
+import CategoryPagePublic from './CategoryPagePublic'
 import UserProfile from './UserProfile'
 import Contact from './Contact'
 import WaitingIndicator from './WaitingIndicator'
@@ -42,7 +42,9 @@ class App extends React.Component {
           {!this.props.isAuthenticated &&
             <Switch>
               <Route exact path='/' component={Frontpage} />
-              <Route path='/skills/:id' component={CategoryPageTest} />
+              <Route path='/skills/:id' component={CategoryPagePublic} />
+              <Route exact path='/profiles/:id' component={ViewProfile} />
+              <Route path='/about' component={About} />
             </Switch>
             }
           {this.props.isAuthenticated &&
@@ -57,7 +59,6 @@ class App extends React.Component {
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
             <Route path='/postfeedback' component={PostFeedback} />
-            <Route path='/about' component={About} />
           </Switch>
         }
           <Footer />

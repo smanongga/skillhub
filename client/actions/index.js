@@ -20,7 +20,6 @@ export const ERROR_MESSAGE = 'ERROR_MESSAGE'
 export function getProfileOfUser (data) {
   return {
     type: USERS_PROFILE,
-    isFetching: false,
     data
   }
 }
@@ -211,6 +210,7 @@ export function getProfileById (id, callback) {
      dispatch(saveProfileById(res.body.result))
    })
    .catch((err) => {
+     dispatch(notWaiting())
      return dispatch(error(err.message))
    })
   }

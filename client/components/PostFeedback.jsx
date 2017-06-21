@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import {postFeedback} from '../actions/feedback'
+import {postFeedback, fetchFeedback} from '../actions/feedback'
 import ErrorMessage from './ErrorMessage'
 
 class PostFeedback extends Component {
@@ -11,7 +11,7 @@ class PostFeedback extends Component {
     super(props)
     this.state = {
       userId: this.props.userId,
-      profile_id: this.props.senderId,
+      profile_id: this.props.pageId,
       message: '',
       time: '2000-02-02 12:12:12'
     }
@@ -35,21 +35,23 @@ class PostFeedback extends Component {
       time: buildDate
     }
     this.props.postFeedback(feedbackData)
-    console.log('PROFILE ID FROM STATE:', this.state.profile_id)
-    this.props.history.push(`/profiles/${this.state.profile_id}`)
   }
 
   render () {
     const {message} = this.state
     return (
-      <div className='container'>
-        <h1>Post Feedback</h1>
-        <textarea className='form-control' name='message' placeholder='Feedback here'
-          onChange={this.handleChange} value={message} />
-        <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
-          Send
-        </button>
-        <ErrorMessage reducer='auth' />
+      <div className='post-feedback'>
+        <h3>Post Feedback</h3>
+        <div className='row'>
+          <div className='col-md-10'>
+            <textarea className='form-control' name='message' placeholder='Feedback here' onChange={this.handleChange} value={message} /></div>
+          <div className='col-md-2'>
+            <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
+              Add Feedback
+            </button></div>
+          <ErrorMessage reducer='auth' />
+        </div>
+
       </div>
     )
   }
@@ -65,8 +67,7 @@ const mapDispatchToProps = (dispatch) => {
 
 function mapStateToProps (state) {
   return {
-    userId: state.auth.userid.sub,
-    senderId: state.senderId.senderId
+    userId: state.auth.userid.sub
   }
 }
 
