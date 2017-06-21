@@ -4,9 +4,10 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <div className='container'>
+        <div className='container page'>
           <div className='row'>
             <div className='col-md-12'>
+              <h1 className='title'>The SkillHub Team</h1>
               <p>
                 Created in Auckland, New Zealand, SkillHub is a community for people to share, discover, and book training sessions — online or from a mobile phone or tablet. SkillHub was built by the following <a href='https://www.devacademy.co.nz/'> EDA </a> students in June 2017:
               </p>

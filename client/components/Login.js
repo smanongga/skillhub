@@ -15,7 +15,7 @@ class Login extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='nav-link'>
         <a href='#' onClick={this.handleLogin}>Login</a>
       </div>
     )

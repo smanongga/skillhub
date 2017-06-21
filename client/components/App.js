@@ -48,6 +48,7 @@ class App extends React.Component {
             <Route exact path='/profiles/:id' component={ViewProfile} />
             <Route exact path='/skills/:id' component={CategoryPage} />
             <Route path='/categories' component={CategoriesList} />
+            <Route path='/about' component={About} />
             <Route path='/contact' component={Contact} />
             <Route path='/postfeedback' component={PostFeedback} />
           </Switch>

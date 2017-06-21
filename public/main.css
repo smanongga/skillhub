@@ -8,9 +8,10 @@ body {
   font-family:'proxima-nova',sans-serif;
   font-size:16px;
 }
-.category-page h1.title {
+.page h1.title {
   font-size:48px;
   font-weight:bold;
+  text-align: center;
 }
 .dev-profile-image {
   border-radius: 10px;
@@ -68,7 +69,7 @@ nav.not-loggedin {
   font-size:20px;
 }
 #navbar ul {
-  margin-top:10px;
+  margin-top:20px;
 }
 .you-can-learn {
   background:#E96241;
@@ -273,5 +274,16 @@ footer {
   color:#fff;
 }
 .post-feedback {
-  margin-bottom:20px;
+  margin-bottom:40px;
+}
+.nav-link a {
+  margin:10px;
+}
+
+.about {
+  text-align: center;
+}
+
+.about-title {
+  color: black;
 }
