@@ -178,7 +178,7 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
   return {
-    messages: state.messages.messages
+    messages: state.messages
   }
 }
 

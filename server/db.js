@@ -153,14 +153,16 @@ function getSkillsToLearnByAuthId (id, connection) {
   .where('auth_id', id)
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 function getSkillsToOfferByAuthId (id, connection) {
   return connection('profiles')
   .where('auth_id', id)
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 function getProfile (id, connection) {
   return connection('profiles')
@@ -173,7 +175,8 @@ function getSkillsToLearn (id, connection) {
   .where('profiles.id', '=', id)
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 
 function getSkillsToOffer (id, connection) {
@@ -181,7 +184,8 @@ function getSkillsToOffer (id, connection) {
   .where('profiles.id', '=', id)
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 
 function getMessages (id, connection) {
@@ -197,7 +201,7 @@ function getFeedback (id, connection) {
   .where('profiles.id', '=', id)
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId', 'feedbacks.time')
+  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'commenter.photo_url as photoUrl', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId', 'feedbacks.time')
 }
 
 function getSentMessages (id, connection) {

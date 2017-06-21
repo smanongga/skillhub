@@ -36,7 +36,7 @@ class Feedback extends React.Component {
 
   render () {
     return (
-      <div className='col-md-4'>
+      <div className='col-md-12'>
         <FeedbackList feedback={this.props.feedback} feedbackClick={this.handleFeedbackClick} pageId={this.props.pageId} userId={this.props.userId} />
       </div>
     )
@@ -47,20 +47,21 @@ const FeedbackList = ({ feedback, feedbackClick, userId }) => {
   if (feedback.length === 0)
     return (
       <div>
+        <h2 className='title'>Feedback</h2>
       {!userId &&
         <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
         <div className='message-list empty'>
-          Nothing to see here, great job!
+          Feedback from other users will show here
         </div>
-      
+
       </div>
     )
-  
+
 
   return (
     <div>
-      {!userId &&
-        <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
+      <h2 className='title'>Feedback</h2> {!userId &&
+        <a onClick={() => feedbackClick()}>+ Add Feedback</a>}
       <div>
         {feedback.map((feedbackDetails, key) => {
           return (
@@ -76,12 +77,17 @@ const FeedbackList = ({ feedback, feedbackClick, userId }) => {
 
 const FeedbackItem = ({feedbackDetails}) => {
   return (
-    <div>
-      <div className='message-item__details'>
-        <Link to={`/profiles/${feedbackDetails.commenterId}`}>{feedbackDetails.firstName} {feedbackDetails.lastName}</Link>
+    <div className='row'>
+      <div className='col-md-2'>
+        <div className='feedback-profile'>
+        <Link to={`/profiles/${feedbackDetails.commenterId}`}><img src={feedbackDetails.photoUrl} /></Link>
+        <div className='feedback-date'>{getPrettyDate(feedbackDetails.time)}</div>
       </div>
-      <div>
-        <p>{getPrettyDate(feedbackDetails.time)}</p>
+      </div>
+      <div className='col-md-10'>
+        <Link to={`/profiles/${feedbackDetails.commenterId}`}>
+        <span className='feedback-name'>
+        {feedbackDetails.firstName} {feedbackDetails.lastName} </span></Link> said:
         <p>{feedbackDetails.message}</p>
       </div>
     </div>
@@ -99,7 +105,7 @@ const getPrettyDate = (date) => {
 
 function mapStateToProps (state) {
   return {
-    feedback: state.feedback.feedback
+    feedback: state.feedback
   }
 }
 

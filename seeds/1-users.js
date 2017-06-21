@@ -14,7 +14,27 @@ exports.seed = function (knex, Promise) {
         {id: 7, username: 'frankrice'},
         {id: 8, username: 'emilyriley'},
         {id: 9, username: 'oliviarodgers'},
-        {id: 10, username: 'dereknolan'}
+        {id: 10, username: 'dereknolan'},
+        {id: 11, username: 'shannonprice'},
+        {id: 12, username: 'amywilliams'},
+        {id: 13, username: 'katiemarshall'},
+        {id: 14, username: 'laurenjefferies'},
+        {id: 15, username: 'saragoodwin'},
+        {id: 16, username: 'madisonyoung'},
+        {id: 17, username: 'tiffanybaker'},
+        {id: 18, username: 'emmaharris'},
+        {id: 19, username: 'michellebanks'},
+        {id: 20, username: 'claracollins'},
+        {id: 21, username: 'jeremystewart'},
+        {id: 22, username: 'joelking'},
+        {id: 23, username: 'tommcoy'},
+        {id: 24, username: 'evancooper'},
+        {id: 25, username: 'davidjames'},
+        {id: 26, username: 'gabrielriley'},
+        {id: 27, username: 'finnparker'},
+        {id: 28, username: 'lucasmurray'},
+        {id: 29, username: 'aaronhart'},
+        {id: 30, username: 'johnnypeterson'}
       ])
     })
 }
