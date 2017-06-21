@@ -45,7 +45,7 @@ class PostFeedback extends Component {
         <textarea className='form-control' name='message' placeholder='Feedback here'
           onChange={this.handleChange} value={message} />
         <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
-          Send
+          + Add Feedback
         </button>
         <ErrorMessage reducer='auth' />
       </div>

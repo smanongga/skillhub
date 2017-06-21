@@ -32,7 +32,7 @@ class Feedback extends React.Component {
 
   render () {
     return (
-      <div className='col-md-4'>
+      <div className='col-md-12'>
         <FeedbackList feedback={this.props.feedback} pageId={this.props.pageId} userId={this.props.userId} />
         {!this.props.userId && <PostFeedback pageId={this.props.pageId} />}
       </div>
@@ -44,16 +44,17 @@ const FeedbackList = ({ feedback, userId }) => {
   if (feedback.length === 0)
     return (
       <div>
+        <h2 className='title'>Feedback</h2>
         <div className='message-list empty'>
-          Nothing to see here, great job!
+          Feedback from other users will show here
         </div>
-      
       </div>
     )
-  
+
 
   return (
     <div>
+      <h2 className='title'>Feedback</h2>
       <div>
         {feedback.map((feedbackDetails, key) => {
           return (
@@ -69,12 +70,17 @@ const FeedbackList = ({ feedback, userId }) => {
 
 const FeedbackItem = ({feedbackDetails}) => {
   return (
-    <div>
-      <div className='message-item__details'>
-        <Link to={`/profiles/${feedbackDetails.commenterId}`}>{feedbackDetails.firstName} {feedbackDetails.lastName}</Link>
+    <div className='row'>
+      <div className='col-md-2'>
+        <div className='feedback-profile'>
+        <Link to={`/profiles/${feedbackDetails.commenterId}`}><img src={feedbackDetails.photoUrl} /></Link>
+        <div className='feedback-date'>{getPrettyDate(feedbackDetails.time)}</div>
       </div>
-      <div>
-        <p>{getPrettyDate(feedbackDetails.time)}</p>
+      </div>
+      <div className='col-md-10'>
+        <Link to={`/profiles/${feedbackDetails.commenterId}`}>
+        <span className='feedback-name'>
+        {feedbackDetails.firstName} {feedbackDetails.lastName} </span></Link> said:
         <p>{feedbackDetails.message}</p>
       </div>
     </div>

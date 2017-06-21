@@ -40,7 +40,7 @@
        authService.lock.getUserInfo(authResult.accessToken, function (error, user) {
          if (error) {
       // Handle error
-           return error
+           dispatch(loginError(error))
          }
          AuthService.setUser(user)
          AuthService.setToken(authResult.idToken)
