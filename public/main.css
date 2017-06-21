@@ -245,3 +245,19 @@ footer {
 .user-profile .content-right ul {
   padding-bottom:30px;
 }
+.user-profile .skills li.Music {
+  background:#30006C;
+  color:#fff;
+}
+.user-profile .skills li.Language {
+  background:#A4B740;
+  color:#fff;
+}
+.user-profile .skills li.Tech {
+  background:#2F60A6;
+  color:#fff;
+}
+.user-profile .skills li.Arts {
+  background:#FD7B00;
+  color:#fff;
+}

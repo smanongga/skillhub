@@ -31,7 +31,7 @@ class UserProfile extends Component {
                 <div className='bio'>
                   {this.props.data.bio}
                 </div>
-                  <Link to='/profile/edit'><button>Edit Profile</button></Link>
+                <Link to='/profile/edit'><button>Edit Profile</button></Link>
               </div>
             </div>
           </div>
@@ -42,7 +42,7 @@ class UserProfile extends Component {
               <ul className='bootstrap-tokenizer'>
                 {this.props.data.learn.map((skill, i) => {
                   return (
-                    <li className='token' key={i}>{skill.name}</li>
+                    <li className={`token ${skill.categoryName}`} key={i}>{skill.name} </li>
                   )
                 })}
               </ul>
@@ -53,7 +53,7 @@ class UserProfile extends Component {
               <ul className='bootstrap-tokenizer'>
                 {this.props.data.teach.map((skill, i) => {
                   return (
-                    <li className='token' key={i}>{skill.name}</li>
+                    <li className={`token ${skill.categoryName}`} key={i}>{skill.name} </li>
                   )
                 })}
               </ul>

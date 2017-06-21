@@ -13,7 +13,7 @@ class CategoriesList extends React.Component {
     return (
       <div className='container categories'>
         <div className='category-title'>
-          <h2>Browse for teachers or students in these categories:</h2>
+          <h1 className='title'>Discover</h1>
           <div className='row'>
             {this.props.categoriesList.map((category, i) => {
               return (
