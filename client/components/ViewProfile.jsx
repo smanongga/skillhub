@@ -27,44 +27,57 @@ class ViewProfile extends Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container user-profile'>
         {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'>
             <div className='profile-photo'><img src={this.props.data.photoUrl} />
             </div>
-
           </div>
           <div className='col-md-8'>
-            <h2>{this.props.data.firstName} {this.props.data.lastName} <button className='btn btn-primary btn-sm' onClick={(e) => this.handleContactClick(e)}>Contact me</button></h2>
-            {this.props.data.locationCity}<br />
-            {this.props.data.bio}</div>
+            <div className='row'>
+              <div className='col-md-1'></div>
+              <div className='col-md-11'>
+                <h2 className='title'>{this.props.data.firstName} {this.props.data.lastName} </h2>
+                  <div className='location'>
+                    {this.props.data.locationCity}
+                  </div>
+                  <div className='bio'>
+                    {this.props.data.bio}
+                  </div>
+                  <button className='btn btn-primary btn-sm' onClick={(e) => this.handleContactClick(e)}>Contact me</button>
+                </div>
+            </div>
+          </div>
         </div>
-        <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to learn</h2>
-            <ul className='tags'>
+        <div className='row skills spacing'>
+          <div className='col-md-5'><h2 className='title'>Skills I want to learn</h2>
+          <div className='content-right'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.learn.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>
           </div>
-        </div>
-        <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Skills I want to teach</h2>
-            <ul className='tags'>
+          </div>
+          <div className='col-md-5'><h2 className='title'>Skills I want to teach</h2>
+          <div className='content'>
+            <ul className='bootstrap-tokenizer'>
               {this.props.data.teach.map((skill, i) => {
                 return (
-                  <li key={i}>{skill.name}</li>
+                  <li className='token' key={i}>{skill.name}</li>
                 )
               })}
             </ul>
           </div>
+          </div>
         </div>
-        <div className='row spacing'>
-          <div className='col-md-12 white-box'><h2>Feedback</h2></div>
-          <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
+        <div className='row feedbacks spacing'>
+          <div className='col-md-12'>
+            <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
+          </div>
         </div>
       </div>
     )
