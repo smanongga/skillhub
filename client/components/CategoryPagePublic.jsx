@@ -12,7 +12,7 @@ class CategoryPage extends Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container category-page'>
         <h1 className='title'>{this.props.match.params.id}</h1>
         <div><h2>To Learn</h2>
           <div className='flex-container'>{this.props.UsersLearn.map((user, i) => {
