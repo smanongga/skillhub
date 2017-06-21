@@ -152,9 +152,7 @@ class EditProfile extends React.Component {
                         multiple
                         onChange={this.handleWantedInput}
                         defaultSelected={this.props.profile.learn.map((skills) => { return skills })}
-                        options={this.props.skills.map((data) => {
-                          return data
-                        })}
+                        options={this.props.skills}
                         placeholder='Choose your skills'
                         />
                     </div>
