@@ -8,7 +8,7 @@ class About extends React.Component {
           <div className='row'>
             <div className='col-md-12'>
               <p>
-                SkillHub was created by the following <a href='https://www.devacademy.co.nz/'> EDA </a> students in June 2017:
+                Created in Auckland, New Zealand, SkillHub is a community for people to share, discover, and book training sessions — online or from a mobile phone or tablet. SkillHub was built by the following <a href='https://www.devacademy.co.nz/'> EDA </a> students in June 2017:
               </p>
             </div>
           </div>
