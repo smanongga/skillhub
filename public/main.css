@@ -279,11 +279,14 @@ footer {
 .nav-link a {
   margin:10px;
 }
-
 .about {
   text-align: center;
 }
-
 .about-title {
-  color: black;
+  color: #353535;
+}
+
+.about-blurb {
+  font-size: 2rem;
+  color: #353535;
 }
