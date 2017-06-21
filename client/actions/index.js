@@ -33,7 +33,6 @@ export function updateProfile (text) {
       firstName: text.firstName,
       lastName: text.lastName,
       email: text.email,
-
       photoUrl: text.profilePic,
       locationCity: text.locationCity,
       bio: text.bio,
