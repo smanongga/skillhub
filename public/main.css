@@ -1,10 +1,10 @@
 html {
   position: relative;
   min-height: 100%;
-
+  background-color: #333;
 }
+
 body {
-  margin-bottom: 60px;
   font-family:'proxima-nova',sans-serif;
   font-size:16px;
 }
@@ -100,7 +100,15 @@ nav.not-loggedin {
   border-radius: 8px;
   text-decoration: none;
 }
+
 .category-thumbnail:hover {
+opacity: 0.8;
+color: black;
+font-size: 40px;
+text-decoration: none;
+}
+
+/*.category-thumbnail:hover {
   background: grey;
   text-align: center;
   font-size: 40px;
@@ -110,7 +118,7 @@ nav.not-loggedin {
   background-size: cover;
   border-radius: 8px;
   text-decoration: none;
-}
+}*/
 .music {
   background-image: url('/categories/music.jpg');
 }
@@ -202,7 +210,10 @@ footer {
  background:#333;
  width: 100%;
  height: 60px;
- padding-bottom:200px;
+ color:#fff;
+ text-align:center;
+ padding:20px;
+ margin-top:40px;
 }
 
 .waiting-indicator {
