@@ -51,7 +51,7 @@ const FeedbackList = ({ feedback, feedbackClick, userId }) => {
       {!userId &&
         <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
         <div className='message-list empty'>
-          Nothing to see here, great job!
+          Feedback from other users will show here
         </div>
 
       </div>
