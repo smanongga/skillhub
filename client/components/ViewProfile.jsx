@@ -56,7 +56,7 @@ class ViewProfile extends Component {
               <ul className='bootstrap-tokenizer'>
                 {this.props.data.learn.map((skill, i) => {
                   return (
-                    <li className='token' key={i}>{skill.name}</li>
+                    <li className={`token ${skill.categoryName}`} key={i}>{skill.name} </li>
                   )
                 })}
               </ul>
@@ -67,7 +67,7 @@ class ViewProfile extends Component {
               <ul className='bootstrap-tokenizer'>
                 {this.props.data.teach.map((skill, i) => {
                   return (
-                    <li className='token' key={i}>{skill.name}</li>
+                    <li className={`token ${skill.categoryName}`} key={i}>{skill.name} </li>
                   )
                 })}
               </ul>
