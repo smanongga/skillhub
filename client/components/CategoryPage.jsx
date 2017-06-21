@@ -32,7 +32,7 @@ class CategoryPage extends Component {
       return user.locationCity === this.state.location
     })
     return (
-      <div className='container category-page'>
+      <div className='container page'>
         <h1 className='title'>{this.props.match.params.id}</h1>
         <form>
           {this.props.location &&
