@@ -6,10 +6,9 @@
  export const LOGIN_ERROR = 'LOGIN_ERROR'
  export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
- const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
-  'meal-mate.au.auth0.com')
-
  export function requestLogin (history) {
+   const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
+  'meal-mate.au.auth0.com')
    authService.login()
    return {
      type: LOGIN_REQUEST,
@@ -17,7 +16,7 @@
    }
  }
 
- function receiveLogin (user) {
+ export function receiveLogin (user) {
    return {
      type: LOGIN_SUCCESS,
      isAuthenticated: true,
@@ -25,7 +24,7 @@
    }
  }
 
- function loginError (err) {
+ export function loginError (err) {
    return {
      type: LOGIN_ERROR,
      isFetching: false,
@@ -35,6 +34,8 @@
  }
 
  export function login (cb) {
+   const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
+    'meal-mate.au.auth0.com')
    return dispatch => {
      authService.lock.on('authenticated', (authResult) => {
        authService.lock.getUserInfo(authResult.accessToken, function (error, user) {
