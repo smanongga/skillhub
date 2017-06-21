@@ -41,7 +41,6 @@ class PostFeedback extends Component {
     const {message} = this.state
     return (
       <div className='post-feedback'>
-        <h3>Post Feedback</h3>
         <div className='row'>
           <div className='col-md-10'>
             <textarea className='form-control' name='message' placeholder='Feedback here' onChange={this.handleChange} value={message} /></div>
