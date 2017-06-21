@@ -285,5 +285,10 @@ footer {
 }
 
 .about-title {
-  color: black;
+  color: #353535;
+}
+
+.about-blurb {
+  font-size: 2rem;
+  color: #353535;
 }

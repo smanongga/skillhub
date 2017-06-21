@@ -20,7 +20,7 @@ class Frontpage extends React.Component {
           <div className='col-md-12'>
             <div className='about'>
               <h2 className="about-title">About skillHub</h2>
-              <p className="about-title">skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise
+              <p className="about-blurb">skillHub provides a social space to connect people looking to learn new skills with those willing to offer their expertise
               </p>
             </div>
           </div>
