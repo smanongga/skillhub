@@ -146,9 +146,9 @@ nav.not-loggedin {
   width:30%
 }
 .profile-thumbnail {
-  width: 23%;
+  width: 20%;
   margin: 10px;
-  background-color: grey;
+  background-color: #fff;
   color: white;
 }
 .profile-thumbnail .photo img{
