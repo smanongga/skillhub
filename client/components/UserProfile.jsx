@@ -62,7 +62,7 @@ class UserProfile extends Component {
         </div>
         <div className='row feedbacks spacing'>
           <div className='col-md-12'>
-            <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
+            <Feedback pageId={this.props.data.id} redirect={this.props.history.push} userId={this.props.data.id} />
           </div>
         </div>
       </div>
