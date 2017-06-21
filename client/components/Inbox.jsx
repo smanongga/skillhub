@@ -81,12 +81,6 @@ const Sidebar = ({messages}) => {
             Sent
           </Link>
         </li>
-
-        <li>
-          <a>
-            <span className='fa fa-trash-o'></span> Trash
-          </a>
-        </li>
       </ul>
     </div>
   )
