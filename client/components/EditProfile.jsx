@@ -52,10 +52,8 @@ class EditProfile extends React.Component {
     })
   }
 
-  handleOfferedInput (e) {
-    this.setState({
-      skillsOffered: e || this.props.profile.teach.map((skills) => { return skills })
-    })
+  handleOfferedInput (skillsOffered) {
+    this.setState({skillsOffered})
   }
 
   handleWantedInput (e) {
@@ -69,13 +67,8 @@ class EditProfile extends React.Component {
     this.props.history.push('/profile')
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
-
-    if (this.state.skillsOffered.length > 0) {
-      this.props.updateSkillsOffered(this.state.skillsOffered)
-    }
-    if (this.state.skillsWanted.length > 0) {
-      this.props.updateSkillsWanted(this.state.skillsWanted)
-    }
+    this.props.updateSkillsOffered(this.state.skillsOffered)
+    this.props.updateSkillsWanted(this.state.skillsWanted)
   }
 
   handleImageDrop (files) {
@@ -143,11 +136,9 @@ class EditProfile extends React.Component {
                         labelKey='name'
                         multiple
                         maxHeight={100}
-                        defaultSelected={this.props.profile.learn.map((skills) => { return skills })}
+                        defaultSelected={this.props.profile.teach}
                         onChange={this.handleOfferedInput}
-                        options={this.props.skills.map((data) => {
-                          return data
-                        })}
+                        options={this.props.skills}
                         placeholder='Choose your skills'
                         />
                     </div>
@@ -160,7 +151,7 @@ class EditProfile extends React.Component {
                         maxHeight={100}
                         multiple
                         onChange={this.handleWantedInput}
-                        defaultSelected={this.props.profile.teach.map((skills) => { return skills })}
+                        defaultSelected={this.props.profile.learn.map((skills) => { return skills })}
                         options={this.props.skills.map((data) => {
                           return data
                         })}

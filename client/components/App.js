@@ -1,9 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {BrowserHistory} from 'react-router'
-
-import {login, requestLogin} from '../actions/loginauth0'
+import {BrowserHistory, Redirect} from 'react-router'
 
 import Navbar from './Navbar'
 import Inbox from './Inbox'
@@ -23,15 +21,6 @@ import ErrorMessage from './ErrorMessage'
 import PostFeedback from './PostFeedback'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleLogin = this.handleLogin.bind(this)
-  }
-
-  handleLogin () {
-    this.props.createLogin()
-  }
-
   render () {
     return (
       <Router history={BrowserHistory}>
@@ -46,12 +35,14 @@ class App extends React.Component {
               <Route exact path='/profiles/:id' component={ViewProfile} />
               <Route path='/about' component={About} />
             </Switch>
-            }
+          }
           {this.props.isAuthenticated &&
           <Switch>
             <Route path='/messages' component={Inbox} />
             <Route path='/sent' component={Sent} />
-            <Route exact path='/' component={CategoriesList} />
+            <Route exact path='/' render={() => (
+              <FirstTimer firstLogin={this.props.firstLogin} />
+            )} />
             <Route exact path='/profile' component={UserProfile} />
             <Route exact path='/profile/edit' component={EditProfile} />
             <Route exact path='/profiles/:id' component={ViewProfile} />
@@ -70,22 +61,20 @@ class App extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    loginCreds: (cb) => {
-      return dispatch(login(cb))
-    },
-    createLogin: (cb) => {
-      return dispatch(requestLogin(cb))
-    }
+function FirstTimer (props) {
+  if (props.firstLogin) {
+    return (<Redirect to='/profile/edit' />)
+  } else {
+    return (<CategoriesList />)
   }
 }
 
 function mapStateToProps (state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
+    firstLogin: state.auth.firstLogin,
     waiting: state.waiting
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

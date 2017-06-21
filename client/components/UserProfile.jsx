@@ -17,7 +17,7 @@ class UserProfile extends Component {
         {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'>
-            <div className='profile-photo'><img src={this.props.data.photoUrl} />
+            <div className='profile-photo'><img src={this.props.data.photoUrl || '/default_profile.jpg'} />
             </div>
           </div>
           <div className='col-md-8'>

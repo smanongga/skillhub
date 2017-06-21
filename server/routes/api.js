@@ -225,16 +225,16 @@ router.post('/profile/skills-offered', (req, res) => {
    })
 })
 
-// router.delete('/profile/skills-offered', (req, res) => {
-//   db.deleteSkillsToOffer(conn, req.user.sub)
-//      .then((data) => {
-//        res.json({result: data})
-//      })
-//    .catch((err) => {
-//      console.log('/profile/skills-offered', err)
-//      res.send(err.message).status(500)
-//    })
-// })
+router.delete('/profile/skills-offered', (req, res) => {
+  db.deleteSkillsToOffer(conn, req.user.sub)
+      .then((data) => {
+        res.json({result: data})
+      })
+    .catch((err) => {
+      console.log('/profile/skills-offered', err)
+      res.send(err.message).status(500)
+    })
+})
 
 router.post('/profile/skills-learn', (req, res) => {
   db.insertSkillsToLearn(conn, req.body, req.user.sub)
