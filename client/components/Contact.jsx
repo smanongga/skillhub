@@ -64,7 +64,7 @@ class Contact extends Component {
             <div className='message-form'>
               To: <Link to={`/profiles/${this.props.data.id}`}><span className='feedback-name'>
                 {this.props.data.firstName} {this.props.data.lastName} 
-              </span></Link>a
+              </span></Link>
               <input className='form-control' name='subject' placeholder='Subject'
                 onChange={this.handleChange} value={subject} />
               <textarea className='form-control' name='message' placeholder='Message'
