@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import {Link} from 'react-router-dom'
+
+import {getProfileById} from '../actions/index'
 
 import {sendMessage} from '../actions/messages'
 import ErrorMessage from './ErrorMessage'
@@ -17,6 +20,10 @@ class Contact extends Component {
       read: 'false'
     }
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentWillMount () {
+  this.props.fetchProfileById(this.props.senderId)
   }
 
   handleChange (e) {
@@ -46,14 +53,36 @@ class Contact extends Component {
     return (
       <div className='container'>
         <h1>Send Message</h1>
-        <p><input className='form-control' name='subject' placeholder='Subject'
-          onChange={this.handleChange} value={subject} /></p>
-        <textarea className='form-control' name='message' placeholder='Message'
-          onChange={this.handleChange} value={message} />
-        <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
-          Send
-        </button>
-        <ErrorMessage reducer='auth' />
+        <div className='row'>
+          <div className='col-md-2'>
+            <div className='feedback-profile'>
+              <Link to={`/profiles/${this.props.data.id}`}><img src={this.props.data.photoUrl} /></Link>
+            </div>
+          </div>
+          <div className='col-md-10'>
+            <Link to={`/profiles/${this.props.data.id}`}>
+              <span className='feedback-name'>
+                {this.props.data.firstName} {this.props.data.lastName} 
+              </span>
+            </Link>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-8'>
+            <p><input className='form-control' name='subject' placeholder='Subject'
+              onChange={this.handleChange} value={subject} />
+            </p>
+          </div>
+        </div>
+        <div className='row'>
+          <textarea className='form-control' name='message' placeholder='Message'
+            onChange={this.handleChange} value={message} />
+        </div>
+
+          <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
+            Send
+          </button>
+          <ErrorMessage reducer='auth' />
       </div>
     )
   }
@@ -61,6 +90,9 @@ class Contact extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchProfileById: (id, cb) => {
+      dispatch(getProfileById(id, cb))
+    },
     sendMessage: (messageData) => {
       return dispatch(sendMessage(messageData))
     }
@@ -69,8 +101,9 @@ const mapDispatchToProps = (dispatch) => {
 
 function mapStateToProps (state) {
   return {
-    userId: state.auth.userid.sub,
-    senderId: state.senderId
+    userId: state.auth.user.user_id,
+    senderId: state.senderId,
+    data: state.viewProfile
   }
 }
 
