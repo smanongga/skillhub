@@ -4,8 +4,9 @@ class Footer extends React.Component {
   render () {
     return (
       <footer>
-        <div className='container'>
-          © 2017 skillHub.com
+        <div className='footer'>
+          © 2017 skillHub.co.nz -
+          Created by students from <a href='https://www.devacademy.co.nz/'> EDA </a>
         </div>
       </footer>
     )

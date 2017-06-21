@@ -100,7 +100,15 @@ nav.not-loggedin {
   border-radius: 8px;
   text-decoration: none;
 }
+
 .category-thumbnail:hover {
+opacity: 0.8;
+color: black;
+font-size: 40px;
+text-decoration: none;
+}
+
+/*.category-thumbnail:hover {
   background: grey;
   text-align: center;
   font-size: 40px;
@@ -110,7 +118,7 @@ nav.not-loggedin {
   background-size: cover;
   border-radius: 8px;
   text-decoration: none;
-}
+}*/
 .music {
   background-image: url('/categories/music.jpg');
 }
@@ -278,4 +286,10 @@ footer {
 }
 .nav-link a {
   margin:10px;
+}
+
+.footer {
+  text-align: center;
+  background-color: #333333;
+  color: white;
 }
