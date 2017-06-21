@@ -65,7 +65,7 @@ const Sidebar = () => {
         <p className='btn compose'>My Sent Items</p>
       </div>
       <ul className='sidebar__inboxes'>
-        <li><Link to='/messages'>Inbox</Link></li>
+        <li><Link to='/messages'><span className='fa fa-inbox'></span>Inbox</Link></li>
       </ul>
     </div>
   )
