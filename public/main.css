@@ -99,6 +99,17 @@ nav.not-loggedin {
   border-radius: 8px;
   text-decoration: none;
 }
+.category-thumbnail:hover {
+  background: grey;
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  padding:50px;
+  margin-bottom: 20px;
+  background-size: cover;
+  border-radius: 8px;
+  text-decoration: none;
+}
 .music {
   background-image: url('/categories/music.jpg');
 }

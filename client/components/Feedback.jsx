@@ -33,8 +33,8 @@ class Feedback extends React.Component {
   render () {
     return (
       <div className='col-md-12'>
-        <FeedbackList feedback={this.props.feedback} pageId={this.props.pageId} userId={this.props.userId} />
         {!this.props.userId && <PostFeedback pageId={this.props.pageId} />}
+        <FeedbackList feedback={this.props.feedback} pageId={this.props.pageId} userId={this.props.userId} />
       </div>
     )
   }
@@ -44,7 +44,6 @@ const FeedbackList = ({ feedback, userId }) => {
   if (feedback.length === 0)
     return (
       <div>
-        <h2 className='title'>Feedback</h2>
         <div className='message-list empty'>
           Feedback from other users will show here
         </div>
@@ -54,7 +53,6 @@ const FeedbackList = ({ feedback, userId }) => {
 
   return (
     <div>
-      <h2 className='title'>Feedback</h2>
       <div>
         {feedback.map((feedbackDetails, key) => {
           return (

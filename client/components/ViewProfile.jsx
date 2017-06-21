@@ -77,6 +77,7 @@ class ViewProfile extends Component {
         </div>
         <div className='row feedbacks spacing'>
           <div className='col-md-12'>
+            <h2 className='title'>Feedback</h2>
             <Feedback pageId={this.props.match.params.id} redirect={this.props.history.push} />
           </div>
         </div>
