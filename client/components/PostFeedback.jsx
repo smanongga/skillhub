@@ -40,14 +40,18 @@ class PostFeedback extends Component {
   render () {
     const {message} = this.state
     return (
-      <div>
+      <div className='post-feedback'>
         <h3>Post Feedback</h3>
-        <textarea className='form-control' name='message' placeholder='Feedback here'
-          onChange={this.handleChange} value={message} />
-        <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
-          + Add Feedback
-        </button>
-        <ErrorMessage reducer='auth' />
+        <div className='row'>
+          <div className='col-md-10'>
+            <textarea className='form-control' name='message' placeholder='Feedback here' onChange={this.handleChange} value={message} /></div>
+          <div className='col-md-2'>
+            <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
+              Add Feedback
+            </button></div>
+          <ErrorMessage reducer='auth' />
+        </div>
+
       </div>
     )
   }

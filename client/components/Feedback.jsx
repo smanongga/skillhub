@@ -50,7 +50,6 @@ const FeedbackList = ({ feedback, userId }) => {
       </div>
     )
 
-
   return (
     <div>
       <div>
@@ -71,14 +70,14 @@ const FeedbackItem = ({feedbackDetails}) => {
     <div className='row'>
       <div className='col-md-2'>
         <div className='feedback-profile'>
-        <Link to={`/profiles/${feedbackDetails.commenterId}`}><img src={feedbackDetails.photoUrl} /></Link>
-        <div className='feedback-date'>{getPrettyDate(feedbackDetails.time)}</div>
-      </div>
+          <Link to={`/profiles/${feedbackDetails.commenterId}`}><img src={feedbackDetails.photoUrl} /></Link>
+          <div className='feedback-date'>{getPrettyDate(feedbackDetails.time)}</div>
+        </div>
       </div>
       <div className='col-md-10'>
         <Link to={`/profiles/${feedbackDetails.commenterId}`}>
-        <span className='feedback-name'>
-        {feedbackDetails.firstName} {feedbackDetails.lastName} </span></Link> said:
+          <span className='feedback-name'>
+            {feedbackDetails.firstName} {feedbackDetails.lastName} </span></Link> said:
         <p>{feedbackDetails.message}</p>
       </div>
     </div>
