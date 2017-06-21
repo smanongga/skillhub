@@ -55,33 +55,26 @@ class Contact extends Component {
         <h1>Send Message</h1>
         <div className='row'>
           <div className='col-md-2'>
-            <div className='feedback-profile'>
-              <Link to={`/profiles/${this.props.data.id}`}><img src={this.props.data.photoUrl} /></Link>
+            <div className='message-receiver'>
+              <Link to={`/profiles/${this.props.data.id}`}><img src={this.props.data.photoUrl} />
+              </Link>
             </div>
           </div>
           <div className='col-md-10'>
-            <Link to={`/profiles/${this.props.data.id}`}>
-              <span className='feedback-name'>
+            <div className='message-form'>
+              To: <Link to={`/profiles/${this.props.data.id}`}><span className='feedback-name'>
                 {this.props.data.firstName} {this.props.data.lastName} 
-              </span>
-            </Link>
+              </span></Link>a
+              <input className='form-control' name='subject' placeholder='Subject'
+                onChange={this.handleChange} value={subject} />
+              <textarea className='form-control' name='message' placeholder='Message'
+                onChange={this.handleChange} value={message} />
+              <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
+                Send
+              </button>
+            </div>
           </div>
         </div>
-        <div className='row'>
-          <div className='col-md-8'>
-            <p><input className='form-control' name='subject' placeholder='Subject'
-              onChange={this.handleChange} value={subject} />
-            </p>
-          </div>
-        </div>
-        <div className='row'>
-          <textarea className='form-control' name='message' placeholder='Message'
-            onChange={this.handleChange} value={message} />
-        </div>
-
-          <button className='btn btn-primary' onClick={(e) => this.handleClick(e)}>
-            Send
-          </button>
           <ErrorMessage reducer='auth' />
       </div>
     )

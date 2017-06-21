@@ -287,3 +287,11 @@ footer {
 .about-title {
   color: black;
 }
+
+.message-receiver img {
+  width: 100%;
+}
+
+.message-form input, .message-form textarea, .message-form button {
+  margin-bottom: 10px;
+}
