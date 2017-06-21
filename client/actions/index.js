@@ -133,6 +133,24 @@ export function addProfileToDb (profile) {
    })
   }
 }
+// Will come back and finish this (Sam h)
+// export function deleteSkillsOffered (id) {
+//   return dispatch => {
+//     dispatch(waitingIndicator())
+//     return request('post', '/profile/skills-offered', skills)
+//    .then((response) => {
+//      dispatch(notWaiting())
+//      if (!response.ok) {
+//        return response.body.message
+//      } else {
+//        return response.req
+//      }
+//    })
+//    .catch((err) => {
+//      return dispatch(error(err.message))
+//    })
+//   }
+// }
 
 export function addProfileSkillsOffered (skills) {
   return dispatch => {

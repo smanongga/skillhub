@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
-import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted} from '../actions'
+import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
@@ -23,7 +23,7 @@ class EditProfile extends React.Component {
       locationCity: this.props.profile.locationCity,
       profilePic: this.props.profile.profilePic,
       bio: this.props.profile.bio,
-      skillsOffered: [],
+      skillsOffered: this.props.profile.teach,
       skillsWanted: [],
       displayUpload: true,
       imageUploading: false,
@@ -54,7 +54,7 @@ class EditProfile extends React.Component {
 
   handleOfferedInput (e) {
     this.setState({
-      skillsOffered: e
+      skillsOffered: e || this.props.profile.teach.map((skills) => { return skills })
     })
   }
 
@@ -90,7 +90,7 @@ class EditProfile extends React.Component {
     })
   }
 
-  render () {    
+  render () {
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
@@ -143,6 +143,7 @@ class EditProfile extends React.Component {
                         labelKey='name'
                         multiple
                         maxHeight={100}
+                        defaultSelected={this.props.profile.learn.map((skills) => { return skills })}
                         onChange={this.handleOfferedInput}
                         options={this.props.skills.map((data) => {
                           return data
@@ -159,6 +160,7 @@ class EditProfile extends React.Component {
                         maxHeight={100}
                         multiple
                         onChange={this.handleWantedInput}
+                        defaultSelected={this.props.profile.teach.map((skills) => { return skills })}
                         options={this.props.skills.map((data) => {
                           return data
                         })}
@@ -216,6 +218,9 @@ function mapDispatchToProps (dispatch) {
     },
     updateSkillsWanted: (skills) => {
       dispatch(addProfileSkillsWanted(skills))
+    },
+    deleteSkillsOffered: () => {
+      dispatch(deleteSkillsOffered())
     }
   }
 }
