@@ -105,7 +105,7 @@ const getPrettyDate = (date) => {
 
 function mapStateToProps (state) {
   return {
-    feedback: state.feedback.feedback
+    feedback: state.feedback
   }
 }
 

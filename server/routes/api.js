@@ -128,13 +128,21 @@ router.get('/messages', (req, res) => {
   .then((data) => {
     res.json({result: data})
   })
+    .catch((err) => {
+      console.log('/messages', err)
+      res.send(err.message).status(500)
+    })
 })
 
 router.get('/feedback', (req, res) => {
   const connection = req.app.get('db')
-  db.getFeedback(Object.keys(req.query)[0], connection)
+  db.getFeedback(Number(Object.keys(req.query)[0]), connection)
   .then((data) => {
     res.json({result: data})
+  })
+  .catch((err) => {
+    console.log('/feedback', err)
+    res.send(err.message).status(500)
   })
 })
 
@@ -143,24 +151,32 @@ router.get('/sent', (req, res) => {
   db.getSentMessages(req.user.sub, connection)
   .then((data) => {
     res.json({result: data})
-  }).catch(err => {
-      dispatch(messageSentError(err.response.body.message))
-    })
+  })
+  .catch((err) => {
+    console.log('/sent', err)
+    res.send(err.message).status(500)
+  })
 })
 
 router.post('/contact', (req, res) => {
   db.addMessage(req.body, conn)
   .then((result) => {
     res.send(result)
-  }).catch(err => {
-      dispatch(messageError(err.response.body.message))
-    })
+  })
+  .catch((err) => {
+    console.log('/contact', err)
+    res.send(err.message).status(500)
+  })
 })
 
 router.post('/feedback', (req, res) => {
   db.addFeedback(req.body, conn)
-  .then((result) => {
-    res.send(result)
+  .then((data) => {
+    res.json({result: data})
+  })
+  .catch((err) => {
+    console.log('/feedback', err)
+    res.send(err.message).status(500)
   })
 })
 
@@ -168,6 +184,10 @@ router.get('/profile/edit/skills', (req, res) => {
   db.getSkills(conn)
   .then((data) => {
     res.json({result: data})
+  })
+  .catch((err) => {
+    console.log('/profile/edit/skills', err)
+    res.send(err.message).status(500)
   })
 })
 
@@ -177,12 +197,20 @@ router.get('/profile/edit', (req, res) => {
   .then((data) => {
     res.json({result: data})
   })
+  .catch((err) => {
+    console.log('/profile/edit', err)
+    res.send(err.message).status(500)
+  })
 })
 
 router.put('/profile/edit', (req, res) => {
   db.updateProfile(conn, req.body, req.user.sub)
-  .then((result) => {
-    res.status('200')
+  .then((data) => {
+    res.json({result: data})
+  })
+  .catch((err) => {
+    console.log('/profile/edit', err)
+    res.send(err.message).status(500)
   })
 })
 
@@ -191,12 +219,20 @@ router.post('/profile/skills-offered', (req, res) => {
    .then((data) => {
      res.json({result: data})
    })
+   .catch((err) => {
+     console.log('/profile/skills-offered', err)
+     res.send(err.message).status(500)
+   })
 })
 
 router.post('/profile/skills-learn', (req, res) => {
   db.insertSkillsToLearn(conn, req.body, req.user.sub)
    .then((data) => {
      res.json({result: data})
+   })
+   .catch((err) => {
+     console.log('/profile/skills-learn', err)
+     res.send(err.message).status(500)
    })
 })
 
@@ -206,6 +242,10 @@ router.get('/profile', (req, res) => {
   .then((data) => {
     res.json({result: data})
   })
+  .catch((err) => {
+    console.log('/profile', err)
+    res.send(err.message).status(500)
+  })
 })
 
 router.get('/profiles/:id', (req, res) => {
@@ -213,6 +253,10 @@ router.get('/profiles/:id', (req, res) => {
   db.getOtherProfileById(Number(req.params.id), connection)
   .then((data) => {
     res.json({result: data})
+  })
+  .catch((err) => {
+    console.log('/profiles/:id', err)
+    res.send(err.message).status(500)
   })
 })
 

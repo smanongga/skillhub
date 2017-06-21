@@ -69,8 +69,13 @@ class EditProfile extends React.Component {
     this.props.history.push('/profile')
     this.props.updateProfileInStore(this.state)
     this.props.addProfileToDb(this.state)
-    this.props.updateSkillsOffered(this.state.skillsOffered)
-    this.props.updateSkillsWanted(this.state.skillsWanted)
+
+    if (this.state.skillsOffered.length > 0) {
+      this.props.updateSkillsOffered(this.state.skillsOffered)
+    }
+    if (this.state.skillsWanted.length > 0) {
+      this.props.updateSkillsWanted(this.state.skillsWanted)
+    }
   }
 
   handleImageDrop (files) {
@@ -85,7 +90,7 @@ class EditProfile extends React.Component {
     })
   }
 
-  render () {
+  render () {    
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
@@ -116,16 +121,16 @@ class EditProfile extends React.Component {
                   <div className='row'>
                     <div className='col-md-3'><p>Bio</p></div>
                     <div className='col-md-9'>
-                      <p><textarea name='bio' className='form-control' onChange={this.handleChange} placeholder='Tell us more about yourself' value={this.state.bio} required ></textarea></p>
+                      <p><textarea name='bio' className='form-control' onChange={this.handleChange} placeholder='Tell us more about yourself' value={this.state.bio} required /></p>
                     </div>
                   </div>
                   <div className='row'>
                     <div className='col-md-3'><p>Location</p></div>
                     <div className='col-md-9'>
                       <p><select name='locationCity' className='form-control' onChange={this.handleChange}>
-                        {this.props.location.map((data) => {
+                        {this.props.location.map((data, i) => {
                           return (
-                            <option value={data.location}> {data.location}</option>
+                            <option value={data.location} key={i}> {data.location}</option>
                           )
                         })}
                       </select></p>
@@ -177,9 +182,9 @@ class EditProfile extends React.Component {
                 </div>
               </div><br />
               <div className='row text-center'>
-                <div className='col-md-2'></div>
+                <div className='col-md-2' />
                 <div className='col-md-7'><button className='btn btn-primary btn-lg '>Save</button></div>
-                <div className='col-md-3'></div>
+                <div className='col-md-3' />
               </div><br />
             </div>
           }
