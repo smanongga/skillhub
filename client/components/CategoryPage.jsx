@@ -52,16 +52,16 @@ class CategoryPage extends Component {
               <div className='profile-thumbnail'>
                 <Link to={`/profiles/${user.id}`} key={i}>
                   <div>
-                    <div className='photo'><img src={user.photoUrl} /></div>
                     <div className='user-details'>
-                      <ul className='bootstrap-tokenizer'>
-                        <li>{user.firstName}</li>
+                      {user.firstName} {user.lastName}
+                    </div>
+                    <div className='photo'><img src={user.photoUrl} /></div>
+                    <div className='bootstrap-tokenizer'>
                         {user.categories[0].skills.map(skill => {
                           return (
-                            <li className='token'>{skill}</li>
+                            <span className='token'>{skill}</span>
                           )
                         })}
-                      </ul>
                     </div>
                   </div>
                 </Link>
@@ -76,16 +76,16 @@ class CategoryPage extends Component {
             <div className='profile-thumbnail'>
               <Link to={`/profiles/${user.id}`} key={i}>
                 <div>
-                  <div className='photo'><img src={user.photoUrl} /></div>
                   <div className='user-details'>
-                    <ul className='bootstrap-tokenizer'>
-                      <li>{user.firstName}</li>
+                    {user.firstName} {user.lastName}
+                  </div>
+                  <div className='photo'><img src={user.photoUrl} /></div>
+                  <div className='bootstrap-tokenizer'>
                       {user.categories[0].skills.map(skill => {
                         return (
-                          <li className='token'>{skill}</li>
+                          <span className='token'>{skill}</span>
                         )
                       })}
-                    </ul>
                   </div>
                 </div>
               </Link>
