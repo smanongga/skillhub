@@ -290,3 +290,11 @@ footer {
   font-size: 2rem;
   color: #353535;
 }
+
+.message-receiver img {
+  width: 100%;
+}
+
+.message-form input, .message-form textarea, .message-form button {
+  margin-bottom: 10px;
+}
