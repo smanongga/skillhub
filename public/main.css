@@ -5,6 +5,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.dev-profile {
+  border-radius: 30px;
+  height: 140px;
+  width: 140px;
+}
+
+.social-media-links a {
+  margin-right: 5px; 
+}
+
 .frontpage {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
