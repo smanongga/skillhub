@@ -8,9 +8,10 @@ body {
   font-family:'proxima-nova',sans-serif;
   font-size:16px;
 }
-.category-page h1.title {
+.page h1.title {
   font-size:48px;
   font-weight:bold;
+  text-align: center;
 }
 .dev-profile-image {
   border-radius: 10px;
@@ -68,7 +69,7 @@ nav.not-loggedin {
   font-size:20px;
 }
 #navbar ul {
-  margin-top:10px;
+  margin-top:20px;
 }
 .you-can-learn {
   background:#E96241;
@@ -92,6 +93,17 @@ nav.not-loggedin {
   background: grey;
   text-align: center;
   font-size: 30px;
+  color: white;
+  padding:50px;
+  margin-bottom: 20px;
+  background-size: cover;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.category-thumbnail:hover {
+  background: grey;
+  text-align: center;
+  font-size: 40px;
   color: white;
   padding:50px;
   margin-bottom: 20px;
@@ -260,4 +272,10 @@ footer {
 .user-profile .skills li.Arts {
   background:#FD7B00;
   color:#fff;
+}
+.post-feedback {
+  margin-bottom:40px;
+}
+.nav-link a {
+  margin:10px;
 }
