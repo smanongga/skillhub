@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from './Login'
+import SignUp from './SignUp'
 import CategoriesList from './CategoriesList'
 
 class Frontpage extends React.Component {
@@ -10,7 +10,7 @@ class Frontpage extends React.Component {
           <div className='jumbotron'>
             <div className='container'>
               <h2 className='slogan'><span className='first'>Teach</span>. Learn. <span className='second'>Connect</span>.<br />
-                <a className='btn btn-success sign-up' href='#'>Sign up</a>
+                <SignUp />
               </h2>
             </div>
           </div>
