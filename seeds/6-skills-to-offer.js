@@ -29,7 +29,34 @@ exports.seed = function (knex, Promise) {
         {id: 23, profile_id: 13, skills_id: 1},
         {id: 24, profile_id: 13, skills_id: 3},
         {id: 25, profile_id: 14, skills_id: 9},
-        {id: 26, profile_id: 14, skills_id: 3}
+        {id: 26, profile_id: 14, skills_id: 3},
+        {id: 27, profile_id: 15, skills_id: 1},
+        {id: 28, profile_id: 15, skills_id: 8},
+        {id: 29, profile_id: 16, skills_id: 22},
+        {id: 30, profile_id: 16, skills_id: 20},
+        {id: 31, profile_id: 16, skills_id: 21},
+        {id: 32, profile_id: 17, skills_id: 1},
+        {id: 33, profile_id: 17, skills_id: 6},
+        {id: 34, profile_id: 18, skills_id: 3},
+        {id: 35, profile_id: 18, skills_id: 4},
+        {id: 36, profile_id: 19, skills_id: 8},
+        {id: 37, profile_id: 19, skills_id: 9},
+        {id: 38, profile_id: 20, skills_id: 14},
+        {id: 39, profile_id: 21, skills_id: 10},
+        {id: 40, profile_id: 22, skills_id: 6},
+        {id: 41, profile_id: 22, skills_id: 17},
+        {id: 42, profile_id: 23, skills_id: 5},
+        {id: 43, profile_id: 24, skills_id: 25},
+        {id: 44, profile_id: 25, skills_id: 10},
+        {id: 45, profile_id: 26, skills_id: 1},
+        {id: 46, profile_id: 27, skills_id: 12},
+        {id: 47, profile_id: 27, skills_id: 14},
+        {id: 48, profile_id: 28, skills_id: 10},
+        {id: 49, profile_id: 29, skills_id: 9},
+        {id: 50, profile_id: 29, skills_id: 8},
+        {id: 51, profile_id: 29, skills_id: 17},
+
+
       ])
     })
 }
