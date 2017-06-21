@@ -16,7 +16,7 @@ body {
 }
 
 .social-media-links a {
-  margin-right: 5px; 
+  margin-right: 5px;
 }
 
 .frontpage {
@@ -201,10 +201,14 @@ footer {
 .feedback-name {
   color:#D80000;
 }
+.user-profile {
+  margin-top:30px;
+}
 .user-profile .spacing {
   margin-bottom:40px;
   background:#fff;
   padding:20px;
+  overflow:hidden;
 }
 .user-profile .profile-photo {
  width:100%;
@@ -223,4 +227,10 @@ footer {
 }
 .user-profile .bio {
   line-height:165%;
+}
+.user-profile .content-right {
+ border-right:1px solid #eee;
+}
+.user-profile .content-right ul {
+  padding-bottom:30px;
 }
