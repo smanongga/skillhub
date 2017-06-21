@@ -7,6 +7,7 @@ const initialState = {
   isAuthenticated: AuthService.loggedIn(),
   user: AuthService.getToken(),
   errorMessage: '',
+  firstLogin: false,
   userid: AuthService.getUser()
 }
 
@@ -24,6 +25,7 @@ export default function auth (state = initialState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: true,
+        firstLogin: action.firstLogin,
         user: action.user
       }
     case LOGIN_FAILURE:
@@ -38,7 +40,8 @@ export default function auth (state = initialState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        user: null
+        user: null,
+        firstLogin: false
       }
     default:
       return state

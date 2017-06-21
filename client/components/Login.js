@@ -1,25 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {login, requestLogin} from '../actions/loginauth0'
+import {requestLogin} from '../actions/loginauth0'
 
 class Login extends React.Component {
   constructor (props) {
     super(props)
     this.handleLogin = this.handleLogin.bind(this)
-  }
-
-  componentDidMount () {
-    this.props.loginCreds((err, firstTimeLogin, history) => {
-      if (err) {
-        return err
-      }
-      if (firstTimeLogin) {
-        this.props.history.push('/profile/edit')
-      } else {
-        this.props.history.push('/')
-      }
-    })
   }
 
   handleLogin () {
@@ -37,9 +24,6 @@ class Login extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    loginCreds: (cb) => {
-      return dispatch(login(cb))
-    },
     createLogin: () => {
       return dispatch(requestLogin())
     }

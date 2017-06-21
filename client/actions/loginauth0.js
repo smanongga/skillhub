@@ -6,7 +6,7 @@
  export const LOGIN_ERROR = 'LOGIN_ERROR'
  export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
- export function requestLogin (history) {
+ export function requestLogin () {
    const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
   'meal-mate.au.auth0.com')
    authService.login()
@@ -16,10 +16,11 @@
    }
  }
 
- export function receiveLogin (user) {
+ export function receiveLogin (user, firstLogin) {
    return {
      type: LOGIN_SUCCESS,
      isAuthenticated: true,
+     firstLogin,
      user
    }
  }
@@ -33,7 +34,7 @@
    }
  }
 
- export function login (cb) {
+ export function login () {
    const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
     'meal-mate.au.auth0.com')
    return dispatch => {
@@ -45,13 +46,13 @@
          }
          AuthService.setUser(user)
          AuthService.setToken(authResult.idToken)
-         return dispatch(initProfile({authToken: AuthService.getToken(), user: user.username, email: user.email}, user, cb))
+         return dispatch(initProfile({authToken: AuthService.getToken(), user: user.username, email: user.email}, user))
        })
      })
    }
  }
 
- export function initProfile (token, user, cb) {
+ export function initProfile (token, user) {
    return dispatch => {
      return request('post', '/auth', token, user.username, user.email)
     .then((response) => {
@@ -59,9 +60,7 @@
         dispatch(loginError(response.body.message))
         return Promise.reject(response.body.message)
       } else {
-        dispatch(receiveLogin(user))
-        const firstLogin = response.body.firstLogin
-        cb(null, firstLogin)
+        dispatch(receiveLogin(user, response.body.firstLogin))
       }
     })
    }
