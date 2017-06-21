@@ -22,6 +22,14 @@ exports.seed = function (knex, Promise) {
         {id: 16, profile_id: 8, skills_id: 22},
         {id: 17, profile_id: 9, skills_id: 2},
         {id: 18, profile_id: 10, skills_id: 10},
+        {id: 19, profile_id: 11, skills_id: 2},
+        {id: 20, profile_id: 11, skills_id: 3},
+        {id: 21, profile_id: 12, skills_id: 17},
+        {id: 22, profile_id: 12, skills_id: 18},
+        {id: 23, profile_id: 13, skills_id: 1},
+        {id: 24, profile_id: 13, skills_id: 3},
+        {id: 25, profile_id: 14, skills_id: 9},
+        {id: 26, profile_id: 14, skills_id: 3}
       ])
     })
 }
