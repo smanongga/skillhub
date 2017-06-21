@@ -284,6 +284,39 @@ footer {
   background:#FD7B00;
   color:#fff;
 }
+.user-profile .skills li.Sports {
+  background:#FF0000;
+  color:#fff;
+}
+.user-profile .skills li.Career {
+  background:#FFC926;
+  color:#333;
+}
+.user-profile .skills li.Craft {
+  background:#333;
+  color:#fff;
+}
+.user-profile .skills li.Culinary {
+  background:#666666;
+  color:#fff;
+}
+.user-profile .skills li.Writing {
+  background:#8C4600;
+  color:#fff;
+}
+.user-profile .skills li.Business {
+  background:#0000B2;
+  color:#fff;
+}
+.user-profile .skills li.Science {
+  background:#004010;
+  color:#fff;
+}
+.user-profile .skills li.Arts {
+  background:#C926FF;
+  color:#fff;
+}
+
 .post-feedback {
   margin-bottom:40px;
 }
