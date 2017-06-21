@@ -33,7 +33,7 @@ export function updateProfile (text) {
       firstName: text.firstName,
       lastName: text.lastName,
       email: text.email,
-      
+
       photoUrl: text.profilePic,
       locationCity: text.locationCity,
       bio: text.bio,
@@ -133,24 +133,6 @@ export function addProfileToDb (profile) {
    })
   }
 }
-// Will come back and finish this (Sam h)
-// export function deleteSkillsOffered (id) {
-//   return dispatch => {
-//     dispatch(waitingIndicator())
-//     return request('post', '/profile/skills-offered', skills)
-//    .then((response) => {
-//      dispatch(notWaiting())
-//      if (!response.ok) {
-//        return response.body.message
-//      } else {
-//        return response.req
-//      }
-//    })
-//    .catch((err) => {
-//      return dispatch(error(err.message))
-//    })
-//   }
-// }
 
 export function addProfileSkillsOffered (skills) {
   return dispatch => {
@@ -175,8 +157,8 @@ export function addProfileSkillsWanted (skills) {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-learn', skills)
    .then((response) => {
+     dispatch(notWaiting())
      if (!response.ok) {
-       dispatch(notWaiting())
        return response.body.message
      } else {
        return response.req
