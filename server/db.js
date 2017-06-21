@@ -202,7 +202,7 @@ function getFeedback (id, connection) {
   .where('profiles.id', '=', id)
   .join('feedbacks', 'feedbacks.profile_id', '=', 'profiles.id')
   .join('profiles as commenter', 'feedbacks.commenter_id', '=', 'commenter.id')
-  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId', 'feedbacks.time')
+  .select('commenter.first_name as firstName', 'commenter.last_name as lastName', 'commenter.photo_url as photoUrl', 'feedbacks.message', 'feedbacks.id', 'commenter.id as commenterId', 'feedbacks.profile_id as receiverId', 'feedbacks.time')
 }
 
 function getSentMessages (id, connection) {
