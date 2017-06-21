@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
 function mapStateToProps (state) {
   return {
     userId: state.auth.userid.sub,
-    senderId: state.senderId.senderId
+    senderId: state.senderId
   }
 }
 

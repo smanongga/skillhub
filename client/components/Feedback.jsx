@@ -5,6 +5,8 @@ import {mapSenderId} from '../actions/index'
 
 import {fetchFeedback} from '../actions/feedback'
 
+import PostFeedback from './PostFeedback'
+
 const months = ['null', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 class Feedback extends React.Component {
@@ -12,12 +14,12 @@ class Feedback extends React.Component {
     super(props)
     this.state = {
     }
-    this.handleFeedbackClick = this.handleFeedbackClick.bind(this)
   }
 
   componentWillMount () {
     const profileId = this.props.pageId
     this.props.fetchFeedback(profileId)
+    // this.props.mapSenderId(profileId)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -28,40 +30,31 @@ class Feedback extends React.Component {
     }
   }
 
-  handleFeedbackClick () {
-    const senderId = this.props.pageId
-    this.props.mapSenderId(senderId)
-    this.props.redirect('/postfeedback')
-  }
-
   render () {
     return (
       <div className='col-md-12'>
-        <FeedbackList feedback={this.props.feedback} feedbackClick={this.handleFeedbackClick} pageId={this.props.pageId} userId={this.props.userId} />
+        <FeedbackList feedback={this.props.feedback} pageId={this.props.pageId} userId={this.props.userId} />
+        {!this.props.userId && <PostFeedback pageId={this.props.pageId} />}
       </div>
     )
   }
 }
 
-const FeedbackList = ({ feedback, feedbackClick, userId }) => {
+const FeedbackList = ({ feedback, userId }) => {
   if (feedback.length === 0)
     return (
       <div>
         <h2 className='title'>Feedback</h2>
-      {!userId &&
-        <button className='btn btn-primary btn-sm' onClick={() => feedbackClick()}>Post Feedback</button>}
         <div className='message-list empty'>
           Feedback from other users will show here
         </div>
-
       </div>
     )
 
 
   return (
     <div>
-      <h2 className='title'>Feedback</h2> {!userId &&
-        <a onClick={() => feedbackClick()}>+ Add Feedback</a>}
+      <h2 className='title'>Feedback</h2>
       <div>
         {feedback.map((feedbackDetails, key) => {
           return (
@@ -111,8 +104,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchFeedback: (id) => dispatch(fetchFeedback(id)),
-    mapSenderId: (senderId) => dispatch(mapSenderId(senderId))
+    fetchFeedback: (id) => dispatch(fetchFeedback(id))
   }
 }
 
