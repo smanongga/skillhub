@@ -11,7 +11,7 @@ class Frontpage extends React.Component {
           <div className='jumbotron'>
             <div className='container'>
               <h2 className='slogan'><span className='first'>Teach</span>. Learn. <span className='second'>Connect</span>.<br />
-                <Route path = '/' component={SignUp} />
+                <Route path='/' component={SignUp} />
               </h2>
             </div>
           </div>

@@ -134,8 +134,8 @@ function getOwnProfile (id, connection) {
       bio: result1[0].bio,
       locationCity: result1[0].locationCity,
       photoUrl: result1[0].photoUrl,
-      teach: result2,
-      learn: result3
+      teach: result3,
+      learn: result2
     }
     return data
   })
