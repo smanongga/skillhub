@@ -19,8 +19,8 @@ module.exports = {
   insertSkillsToOffer,
   insertSkillsToLearn,
   getFeedback,
-  addFeedback
-  // deleteSkillsToOffer
+  addFeedback,
+   deleteSkillsToOffer
 }
 
 const _ = require('lodash')
@@ -53,27 +53,42 @@ function updateProfile (conn, profile, id) {
   })
 }
 
-// function deleteSkillsToOffer (conn, authId) {
-//   return getProfileIdByAuthId(conn, authId)
-//   .then((result) => {
-//     const profileId = result[0].id
-//     return conn('skills_to_offer')
-//       .del().where('profile_id', profileId)
-//   })
-// }
+function deleteSkillsToOffer (conn, authId) {
+  return getProfileIdByAuthId(conn, authId)
+   .then((result) => {
+     const profileId = result[0].id
+     return conn('skills_to_offer')
+       .del().where('profile_id', profileId)
+   })
+}
 
 function insertSkillsToOffer (conn, skills, authId) {
   return getProfileIdByAuthId(conn, authId)
   .then((result) => {
     const profileId = result[0].id
-    const skillsWithProfileId = skills.map((skill) => {
+    return skills.map((skill) => {
       return {
         profile_id: profileId,
         skills_id: skill.id
       }
     })
-    return conn('skills_to_offer')
-      .insert(skillsWithProfileId)
+  })
+  .then((skillsWithProfileId) => {
+    console.log('deleted')
+    const profileId = skillsWithProfileId[0].profile_id
+    return conn('skills_to_offer').del().where('profile_id', profileId)
+    .then(() => {
+      return skillsWithProfileId
+    })
+  })
+  .then((skillsWithProfileId) => {
+    console.log('inserting', skillsWithProfileId)
+    if (skillsWithProfileId.length > 0) {
+      return conn('skills_to_offer').insert(skillsWithProfileId)
+    }
+  })
+  .catch((err) => {
+    console.log('offer', err)
   })
 }
 
@@ -163,7 +178,7 @@ function getSkillsToOfferByAuthId (id, connection) {
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
   .join('categories', 'skills.category_id', '=', 'categories.id')
-  .select('skills.name', 'categories.name as categoryName')
+  .select('skills.id', 'skills.name', 'categories.name as categoryName')
 }
 function getProfile (id, connection) {
   return connection('profiles')

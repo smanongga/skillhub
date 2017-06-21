@@ -5,9 +5,10 @@ import AuthService from '../utils/auth0'
 const initialState = {
   isFetching: false,
   isAuthenticated: AuthService.loggedIn(),
-  user: AuthService.getToken(),
+  token: null,
   errorMessage: '',
-  userid: AuthService.getUser()
+  firstLogin: false,
+  user: AuthService.getUser()
 }
 
 export default function auth (state = initialState, action) {
@@ -22,8 +23,10 @@ export default function auth (state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        token: AuthService.getToken(),
         isFetching: false,
         isAuthenticated: true,
+        firstLogin: action.firstLogin,
         user: action.user
       }
     case LOGIN_FAILURE:
@@ -38,7 +41,8 @@ export default function auth (state = initialState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        user: null
+        user: null,
+        firstLogin: false
       }
     default:
       return state
