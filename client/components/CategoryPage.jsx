@@ -49,17 +49,13 @@ class CategoryPage extends Component {
           <h2>To Learn</h2>
           <div className='flex-container'>{filterLearnByLocation.map((user, i) => {
             return (
-
+              <div className='profile-thumbnail'>
                 <Link to={`/profiles/${user.id}`} key={i}>
-                  <div className='profile-thumbnail'>
-                  <div className='user-details'>
-                    {user.firstName}{user.lastName}
-                  </div>
-                    <div className='photo'>
-                      <img src={user.photoUrl} />
-                    </div>
-                    <div className='user-skills'>
+                  <div>
+                    <div className='photo'><img src={user.photoUrl} /></div>
+                    <div className='user-details'>
                       <ul className='bootstrap-tokenizer'>
+                        <li>{user.firstName}</li>
                         {user.categories[0].skills.map(skill => {
                           return (
                             <li className='token'>{skill}</li>
@@ -69,8 +65,9 @@ class CategoryPage extends Component {
                     </div>
                   </div>
                 </Link>
-               )
-             })}
+              </div>
+            )
+          })}
           </div>
         </div>
         <div className='clear-box'><h2>To Offer</h2></div>
