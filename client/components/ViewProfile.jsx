@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
+import {Route} from 'react-router'
 import {getProfileById, mapSenderId} from '../actions/index'
 import WaitingIndicator from './WaitingIndicator'
-
+import SignUp from './SignUp'
 import Feedback from './Feedback'
 
 class ViewProfile extends Component {
@@ -27,8 +27,9 @@ class ViewProfile extends Component {
 
   render () {
     return (
+      <div>
+      { this.props.isAuthenticated &&
       <div className='container user-profile'>
-        {this.props.waiting && <WaitingIndicator />}
         <div className='row spacing'>
           <div className='col-md-4'>
             <div className='profile-photo'><img src={this.props.data.photoUrl} />
@@ -80,6 +81,16 @@ class ViewProfile extends Component {
           </div>
         </div>
       </div>
+    }
+        {!this.props.isAuthenticated &&
+        <div className='container login'>
+          <center>
+        Please sign up
+      <Route path='/' component={SignUp} />
+          </center>
+        </div>
+    }
+      </div>
     )
   }
   }
@@ -87,7 +98,8 @@ class ViewProfile extends Component {
 function mapStateToProps (state) {
   return {
     data: state.viewProfile,
-    waiting: state.waiting
+    waiting: state.waiting,
+    isAuthenticated: state.auth.isAuthenticated
 
   }
 }

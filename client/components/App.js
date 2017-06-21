@@ -43,6 +43,8 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={Frontpage} />
               <Route path='/skills/:id' component={CategoryPageTest} />
+              <Route exact path='/profiles/:id' component={ViewProfile} />
+              <Route path='/about' component={About} />
             </Switch>
             }
           {this.props.isAuthenticated &&
@@ -57,7 +59,6 @@ class App extends React.Component {
             <Route path='/categories' component={CategoriesList} />
             <Route path='/contact' component={Contact} />
             <Route path='/postfeedback' component={PostFeedback} />
-            <Route path='/about' component={About} />
           </Switch>
         }
           <Footer />
