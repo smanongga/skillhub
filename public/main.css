@@ -100,7 +100,6 @@ nav.not-loggedin {
   border-radius: 8px;
   text-decoration: none;
 }
-
 .category-thumbnail:hover {
   background: grey;
   text-align: center;
@@ -112,7 +111,6 @@ nav.not-loggedin {
   border-radius: 8px;
   text-decoration: none;
 }
-
 .music {
   background-image: url('/categories/music.jpg');
 }

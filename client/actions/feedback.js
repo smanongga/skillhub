@@ -27,8 +27,8 @@ export function postFeedback (feedbackData) {
     // We dispatch sendMessage to kickoff the call to the API
     dispatch(waitingIndicator())
     return request('post', '/feedback', feedbackData)
-      .then(
-        dispatch(notWaiting())
-      )
+      .then(() => {
+        dispatch(fetchFeedback(feedbackData.profile_id))
+      })
   }
 }
