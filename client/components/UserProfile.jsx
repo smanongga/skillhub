@@ -31,7 +31,6 @@ class UserProfile extends Component {
                 <div className='bio'>
                   {this.props.data.bio}
                 </div>
-                <button className='btn btn-primary btn-sm' onClick={(e) => this.handleContactClick(e)}>Contact me</button>
                   <Link to='/profile/edit'><button>Edit Profile</button></Link>
               </div>
             </div>
