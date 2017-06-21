@@ -32,8 +32,8 @@ class CategoryPage extends Component {
       return user.locationCity === this.state.location
     })
     return (
-      <div className='container'>
-        <h1>{this.props.match.params.id}</h1>
+      <div className='container category-page'>
+        <h1 className='title'>{this.props.match.params.id}</h1>
         <form>
           {this.props.location &&
             <p><select name='location' className='form-control' onChange={this.handleChange}>
@@ -45,15 +45,20 @@ class CategoryPage extends Component {
             </select></p>
           }
         </form>
-        <div><h2>To Learn</h2>
+        <div>
+          <h2>To Learn</h2>
           <div className='flex-container'>{filterLearnByLocation.map((user, i) => {
             return (
-              <div className='profile-thumbnail'>
+
                 <Link to={`/profiles/${user.id}`} key={i}>
-                  <div>
-                    <div className='photo'><img src={user.photoUrl} /></div>
-                    <div className='user-details'>
-                      {user.firstName} in {user.locationCity}
+                  <div className='profile-thumbnail'>
+                  <div className='user-details'>
+                    {user.firstName}{user.lastName}
+                  </div>
+                    <div className='photo'>
+                      <img src={user.photoUrl} />
+                    </div>
+                    <div className='user-skills'>
                       <ul className='bootstrap-tokenizer'>
                         {user.categories[0].skills.map(skill => {
                           return (
@@ -64,9 +69,8 @@ class CategoryPage extends Component {
                     </div>
                   </div>
                 </Link>
-              </div>
-            )
-          })}
+               )
+             })}
           </div>
         </div>
         <div className='clear-box'><h2>To Offer</h2></div>
