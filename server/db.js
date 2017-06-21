@@ -143,14 +143,16 @@ function getSkillsToLearnByAuthId (id, connection) {
   .where('auth_id', id)
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 function getSkillsToOfferByAuthId (id, connection) {
   return connection('profiles')
   .where('auth_id', id)
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 function getProfile (id, connection) {
   return connection('profiles')
@@ -163,7 +165,8 @@ function getSkillsToLearn (id, connection) {
   .where('profiles.id', '=', id)
   .join('skills_to_learn', 'skills_to_learn.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_learn.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 
 function getSkillsToOffer (id, connection) {
@@ -171,7 +174,8 @@ function getSkillsToOffer (id, connection) {
   .where('profiles.id', '=', id)
   .join('skills_to_offer', 'skills_to_offer.profile_id', '=', 'profiles.id')
   .join('skills', 'skills_to_offer.skills_id', '=', 'skills.id')
-  .select('skills.name')
+  .join('categories', 'skills.category_id', '=', 'categories.id')
+  .select('skills.name', 'categories.name as categoryName')
 }
 
 function getMessages (id, connection) {
