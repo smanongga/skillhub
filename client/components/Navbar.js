@@ -4,6 +4,7 @@ import { Route, withRouter, Link } from 'react-router-dom'
 
 import Logout from './Logout'
 import Login from './Login'
+import About from './About'
 
 const Navbar = ({ isAuthenticated }) => {
   return (
@@ -48,6 +49,7 @@ const Navbar = ({ isAuthenticated }) => {
             </div>
             <div id='navbar' className='navbar-collapse collapse'>
               <ul className='nav navbar-nav navbar-right'>
+                <li><Route path='/about' component={About} /></li>
                 <li><Route path='/' component={Login} /></li>
               </ul>
             </div>
