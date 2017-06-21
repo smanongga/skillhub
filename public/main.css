@@ -12,6 +12,10 @@ body {
   width: 140px;
 }
 
+.social-media-links a {
+  margin-right: 5px; 
+}
+
 .frontpage {
   background-image: url('/frontpage-teaser.jpg');
   background-size:cover;
