@@ -11,6 +11,7 @@ body {
 .category-page h1.title {
   font-size:48px;
   font-weight:bold;
+  text-align: center;
 }
 .dev-profile-image {
   border-radius: 10px;
