@@ -211,6 +211,7 @@ export function getProfileById (id, callback) {
      dispatch(saveProfileById(res.body.result))
    })
    .catch((err) => {
+     dispatch(notWaiting())
      return dispatch(error(err.message))
    })
   }
