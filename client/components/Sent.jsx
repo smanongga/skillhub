@@ -32,7 +32,7 @@ class Sent extends React.Component {
       messages
     })
   }
-
+  
   render () {
     const currentMessage = this.props.messages.find(x => x.id === this.state.selectedMessageId)
     return (
@@ -152,7 +152,7 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
   return {
-    messages: state.messages.messages
+    messages: state.messages
   }
 }
 

@@ -32,9 +32,6 @@ function addUserToProfile (conn, id, username, email) {
     user_name: username,
     email: email
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 function profileExists (conn, id) {
@@ -53,15 +50,12 @@ function updateProfile (conn, profile, id) {
     photo_url: profile.profilePic,
     location_city: profile.locationCity
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 function insertSkillsToOffer (conn, skills, authId) {
   return getProfileIdByAuthId(conn, authId)
   .then((result) => {
-    const profileId = result.id
+    const profileId = result[0].id
     const skillsWithProfileId = skills.map((skill) => {
       return {
         profile_id: profileId,
@@ -70,9 +64,6 @@ function insertSkillsToOffer (conn, skills, authId) {
     })
     return conn('skills_to_offer')
       .insert(skillsWithProfileId)
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
@@ -88,9 +79,6 @@ function insertSkillsToLearn (conn, skills, authId) {
     })
     return conn('skills_to_learn')
       .insert(skillsWithProfileId)
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
@@ -118,9 +106,6 @@ function getOtherProfileById (id, connection) {
   }
   return data
 })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 function getOwnProfile (id, connection) {
@@ -253,9 +238,6 @@ function readMessage (conn, readId) {
   .where('id', readId.id)
   .update({
     read: 'true'
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 

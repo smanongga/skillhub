@@ -27,7 +27,7 @@ const Navbar = ({ isAuthenticated }) => {
                 <li><Link to='/categories'>Teach & Learn</Link></li>
                 <li><Link to='/about'>About</Link></li>
                 <li>
-                 <Route path='/' component={Logout} />
+                  <Route path='/' component={Logout} />
                 </li>
               </ul>
             </div>
