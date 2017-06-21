@@ -1,18 +1,12 @@
 import {PUSHED_SENDER_ID} from '../actions'
 
-const initialState = {
-  errorMessage: '',
-  senderId: []
-}
+const initialState = []
 
 export default function senderId (state = initialState, action) {
   switch (action.type) {
     case PUSHED_SENDER_ID:
-      return {
-        errorMessage: '',
-        senderId: action.senderId
-      }
+      return action.senderId
     default:
-      return state
+      return initialState
   }
 }
