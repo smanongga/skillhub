@@ -20,6 +20,7 @@ module.exports = {
   insertSkillsToLearn,
   getFeedback,
   addFeedback
+  // deleteSkillsToOffer
 }
 
 const _ = require('lodash')
@@ -51,6 +52,15 @@ function updateProfile (conn, profile, id) {
     location_city: profile.locationCity
   })
 }
+
+// function deleteSkillsToOffer (conn, authId) {
+//   return getProfileIdByAuthId(conn, authId)
+//   .then((result) => {
+//     const profileId = result[0].id
+//     return conn('skills_to_offer')
+//       .del().where('profile_id', profileId)
+//   })
+// }
 
 function insertSkillsToOffer (conn, skills, authId) {
   return getProfileIdByAuthId(conn, authId)
