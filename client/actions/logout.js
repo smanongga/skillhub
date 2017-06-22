@@ -1,31 +1,22 @@
-import { removeUser } from '../utils/auth'
+import AuthService from '../utils/auth0'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
-function requestLogout () {
+export function logoutSuccess (history) {
   return {
-    type: LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
+    type: LOGOUT_SUCCESS
   }
 }
 
-function receiveLogout () {
-  return {
-    type: LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false
-  }
-}
+export function logout (history) {
+  const authService = new AuthService('elBcVpwtrkufH2NWvkGQAzW1XRigLLbK',
+  'meal-mate.au.auth0.com')
 
-// Logs the user out
-export function logoutUser () {
   return dispatch => {
-    dispatch(requestLogout())
-    removeUser()
-    dispatch(receiveLogout())
+    authService.logout()
+    history.push('/')
+    return dispatch(logoutSuccess(history))
   }
 }
-
