@@ -101,7 +101,7 @@ const MessageDetails = ({ message, onDelete }) => {
       <div className='message-content__header'>
         <h3 className='message-content__subject'>{message.subject}</h3>
         <div className='message-content__time'>{date}</div>
-        <div className='message-content__from'>{message.firstName} {message.lastName}</div>
+        <div className='message-content__from'><Link to={`/profiles/${message.profile_id}`} >{message.firstName} {message.lastName}</Link></div>
       </div>
       <div className='message-content__message'>{message.message}</div>
     </div>
@@ -152,7 +152,8 @@ const getPrettyTime = (date) => {
 
 function mapStateToProps (state) {
   return {
-    messages: state.messages
+    messages: state.messages,
+    profileid: state.viewProfile.id
   }
 }
 

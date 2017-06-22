@@ -5,7 +5,7 @@ exports.seed = function (knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('feedbacks').insert([
-        {id: 1, profile_id: 1, commenter_id: 3, message: 'Feedback to Bobby from Michael', time: '2002-12-12 19:02:54',},
+        {id: 1, profile_id: 1, commenter_id: 3, message: 'Bobby is a great guy learned a lot from him!', time: '2002-12-12 19:02:54',},
         {id: 2, profile_id: 2, commenter_id: 4, message: 'Feedback to Anton from Laura', time: '2002-12-12 19:02:54',},
         {id: 3, profile_id: 3, commenter_id: 1, message: 'Feedback to Michael from Bobby', time: '2002-12-12 19:02:54',},
         {id: 4, profile_id: 4, commenter_id: 3, message: 'Feedback to Laura from Michael', time: '2002-12-12 19:02:54',},
