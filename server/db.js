@@ -220,7 +220,7 @@ function getSentMessages (id, connection) {
   .where('profiles.auth_id', '=', id)
   .join('messages', 'messages.sender_id', '=', 'profiles.id')
   .join('profiles as receiver', 'messages.profile_id', '=', 'receiver.id')
-  .select('receiver.first_name as firstName', 'receiver.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.id')
+  .select('receiver.first_name as firstName', 'receiver.last_name as lastName', 'messages.message', 'messages.time', 'messages.subject', 'messages.profile_id')
 }
 
 function addMessage (messageData, conn) {

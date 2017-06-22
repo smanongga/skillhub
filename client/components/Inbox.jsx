@@ -119,7 +119,7 @@ const MessageDetails = ({ message }) => {
         <h3 className='message-content__subject'>{message.subject}</h3>
         <Link to='/contact'><div className='message-content__time'>Reply</div></Link>
         <div className='message-content__time'>{date}</div>
-        <div className='message-content__from'>{message.firstName} {message.lastName}</div>
+        <div className='message-content__from'><Link to={`/profiles/${message.senderId}`} >{message.firstName} {message.lastName}</Link></div>
       </div>
       <div className='message-content__message'>{message.message}</div>
     </div>

@@ -6,7 +6,7 @@ exports.seed = function (knex, Promise) {
       return knex('skills_to_learn').insert([
         {id: 1, profile_id: 1, skills_id: 9},
         {id: 2, profile_id: 1, skills_id: 18},
-        {id: 3, profile_id: 1, skills_id: 6},
+        {id: 3, profile_id: 1, skills_id: 2},
         {id: 4, profile_id: 2, skills_id: 20},
         {id: 5, profile_id: 2, skills_id: 21},
         {id: 6, profile_id: 3, skills_id: 5},
