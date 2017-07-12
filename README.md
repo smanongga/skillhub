@@ -1,9 +1,21 @@
-# skillHub
+# SkillHub
 
-## A peer to peer skill sharing app
+Created in Auckland, New Zealand, SkillHub is a community for people to share, discover and develop skills together. SkillHub was built by EDA students in June 2017:
 
-An app to connect people looking to learn skills and teach skills.
+## Getting Started
+These instructions help you get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-## Created by EDA Students in June 2017
+Pull down the repo:
+```
+cd skillhub
+npm i
+npm run knex migrate:latest
+npm run knex seed:run
+npm run dev
+```
 
-skillHub
+## Testing
+To run Unit Tests:
+```
+npm run test
+```
